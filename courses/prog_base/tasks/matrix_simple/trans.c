@@ -13,30 +13,30 @@ void fillRand (int mat[4][4])
             mat[i][j] = (rand () % 1999) - 999;
 }
 
-void swap (int& a, int& b)
+void swap (int* a, int* b)
 {
-    int c = a;
-    a = b;
-    b = c;
+    int c = *a;
+    *a = *b;
+    *b = c;
 }
 
 void rotateCCW180 (int mat[4][4])
 {
     for (int i = 0; i < matX/2; i++)
         for (int j = 0; j < matY; j++)
-            swap (mat[i][j], mat[matX-i-1][matY-j-1]);
+            swap (&mat[i][j], &mat[matX-i-1][matY-j-1]);
 }
 
 void flipV (int mat[4][4])
 {
     for (int i = 0; i < matX/2; i++)
         for (int j = 0; j < matY; j++)
-            swap (mat[i][j], mat[matX-i-1][j]);
+            swap (&mat[i][j], &mat[matX-i-1][j]);
 }
 
 void transposMain (int mat[4][4])
 {
     for (int i = 0; i < matX - 1; i++)
         for (int j = i + 1; j < matY; j++)
-			swap (mat[i][j], mat[j][i]);
+            swap (&mat[i][j], &mat[j][i]);
 }
