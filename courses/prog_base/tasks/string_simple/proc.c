@@ -27,20 +27,26 @@ int calcNum (char* str, char* resStr)
     return res;
 }
 
-char process (char* resultStr, const char* textLines[], int linesNum, const char* extraStr)
+char* process (char* resultStr, const char* textLines[], int linesNum, const char* extraStr)
 {
-    int ind = -1;
-    char temp[100];
-    char resStr[100];
+    int resInd = 0;
+    char curNums[100];
+    char resNums[100];
     int i;
-    strcpy (resStr, "\0");
+    strcpy (curNums, "\0");
+    strcpy (resNums, "NULL");
     for (i = 0; i < linesNum; i++)
     {
-        if (calcNum (textLines[i], temp) == 0)
+        if (calcNum (textLines[i], curNums) == 0)
         {
-            ind = i;
-            strcpy (resStr, temp);
+            resInd = i+1;
+            strcpy (resNums, curNums);
         }
     }
-    sprintf (resultStr, "%d %s", ind, resStr);
+    if (resInd == 0)
+        sprintf (resultStr, "%d %s %s", resInd, resNums, extraStr);
+    else
+        sprintf (resultStr, "%d %s", resInd, resNums);
+
+    return resultStr;
 }
