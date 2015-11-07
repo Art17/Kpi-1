@@ -112,7 +112,7 @@ int main ()
 {
     srand (time (NULL));
 
-    const int size = 2;
+    const int size = 20;
     int arr1[size];
     int arr2[size];
     int res[size];

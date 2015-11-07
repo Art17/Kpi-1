@@ -122,7 +122,7 @@ int run (int moves[], int movesLen, int res[], int resLen)
 
 int main()
 {
-    int moves[] = {6, 204, 24, 6, 24, 24, 6};
+    int moves[] = {14};
     int movesLen = sizeof (moves) / sizeof (moves[0]);
 
     int resLen = 10;

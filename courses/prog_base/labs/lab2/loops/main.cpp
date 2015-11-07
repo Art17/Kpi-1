@@ -15,7 +15,7 @@ double calc (int n, int m)
 
 int main ()
 {
-    int n = 5, m = 10;
+    int n = 1, m = 1;
 
     printf ("%llf", calc (n, m));
 
