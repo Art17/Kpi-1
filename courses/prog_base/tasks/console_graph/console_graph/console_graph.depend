@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1447420342 source:c:\study\op\programs\console_graph\console_graph\main.c
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
