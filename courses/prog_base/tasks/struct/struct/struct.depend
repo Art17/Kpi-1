@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1449334723 source:c:\study\op\courses\courses\prog_base\tasks\files\struct\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<string.h>
+
