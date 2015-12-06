@@ -1,6 +1,14 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// [0;9] - [48;57]
+// [A;Z] - [65;90]
+// .     - 46
+
+const int lMax = 64;
+
 char* ns_convert (char* number, unsigned int sourceBase, unsigned int destBase)
 {
-    const int lMax = 64;
     const int precision = 12;
     const double eps = 10e-6;
 
@@ -80,7 +88,7 @@ char* ns_convert (char* number, unsigned int sourceBase, unsigned int destBase)
 
     length = left + right;
     int size = (length) + (right > 0 ? 1 : 0) + 1;
-    char* destNumber = new char[size];
+    char* destNumber = malloc(size);
     p = 0;
 
     for (int i = left - 1; i >= 0; i--)
@@ -96,6 +104,3 @@ char* ns_convert (char* number, unsigned int sourceBase, unsigned int destBase)
 
     return destNumber;
 }
-// [0;9] - [48;57]
-// [A;Z] - [65;90]
-// .     - 46
