@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1449925879 source:c:\study\op\programs\kr-2\kr1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
