@@ -1,3 +1,4 @@
+/* New */
 #include <string.h>
 
 int isVowel (char ch)
