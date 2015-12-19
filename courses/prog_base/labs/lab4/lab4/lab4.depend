@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1450515406 source:c:\study\op\courses\courses\prog_base\labs\lab4\lab4\main.c
+	<stdio.h>
+	<stdlib.h>
+
