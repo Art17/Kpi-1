@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1458499052 source:c:\study\op\programs\callbacks\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"stack.h"
+	<windows.h>
+
+1458498700 c:\study\op\programs\callbacks\stack.h
+
+1458497829 source:c:\study\op\programs\callbacks\stack.c
+	<stdio.h>
+	"stack.h"
+

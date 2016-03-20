@@ -184,7 +184,7 @@ void help ()
         printf ("   %s %s - %s\n", comms[i], params[i], descs[i]);
 }
 
-int funcs[] =
+    int funcs[] =
 {
 null,
 change,
@@ -202,6 +202,7 @@ exit1
 
 int main()
 {
+
     srand (time (NULL));
 
     const int nMax = 10;
@@ -254,6 +255,7 @@ int main()
         if ( strcmp (str, "help") == 0 )
         {
             help ();
+            system ("pause");
         }
 
         int c = -1;

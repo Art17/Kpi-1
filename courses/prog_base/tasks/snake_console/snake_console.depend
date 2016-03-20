@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1449426109 source:c:\study\op\courses\courses\prog_base\tasks\snake_console\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1449426075 source:c:\study\op\courses\courses\prog_base\tasks\snake_console\console.c
+	"console.h"
+
+1449426469 c:\study\op\courses\courses\prog_base\tasks\snake_console\console.h
+	<windows.h>
+
+1449421581 c:\study\op\courses\courses\prog_base\tasks\snake_console\rect.h
+
+1449426407 source:c:\study\op\courses\courses\prog_base\tasks\snake_console\rect.c
+	"rect.h"
+	"console.h"
+
+1449425670 source:c:\study\op\courses\courses\prog_base\tasks\snake_console\game.c
+	"rect.h"
+	"console.h"
+	"game.h"
+
+1449425477 c:\study\op\courses\courses\prog_base\tasks\snake_console\game.h
+
