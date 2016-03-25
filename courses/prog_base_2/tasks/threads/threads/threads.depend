@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1458932702 source:c:\study\op\courses\courses\prog_base_2\tasks\threads\threads\main.c
+	<stdio.h>
+	<stdlib.h>
+	"randomizer.h"
+	"negativewriter.h"
+	<windows.h>
+
+1458932436 source:c:\study\op\courses\courses\prog_base_2\tasks\threads\threads\randomizer.c
+	"randomizer.h"
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+
+1458932702 c:\study\op\courses\courses\prog_base_2\tasks\threads\threads\randomizer.h
+	<windows.h>
+
+1458932436 c:\study\op\courses\courses\prog_base_2\tasks\threads\threads\negativewriter.h
+	<windows.h>
+
+1458932436 source:c:\study\op\courses\courses\prog_base_2\tasks\threads\threads\negativewriter.c
+	"negativewriter.h"
+	<stdlib.h>
+	<time.h>
+	<windows.h>
+
