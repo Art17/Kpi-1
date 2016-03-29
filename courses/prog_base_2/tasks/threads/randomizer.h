@@ -3,19 +3,18 @@
 
 #include <windows.h>
 
-typedef DWORD (WINAPI *RProc)(LPVOID);
+typedef struct tagRandomizerPrivate RandomizerPrivate;
 
 typedef struct
 {
-    int* a;
-    HANDLE hThread;
-    DWORD dwThreadId;
+    RandomizerPrivate* rp;
 } Randomizer;
 
 int RandomizerInitialize (Randomizer*, int* );
 int RandomizerDeinitialize (Randomizer*);
-DWORD RandomizerRun (Randomizer* , RProc);
+DWORD RandomizerRun (Randomizer*);
+int RandomizerSetMutex (Randomizer*, HANDLE);
 
-//static DWORD WINAPI RandomizerUpdate (LPVOID);
+static DWORD WINAPI RandomizerUpdate(LPVOID);
 
 #endif // RANDOMIZER_H_INCLUDED

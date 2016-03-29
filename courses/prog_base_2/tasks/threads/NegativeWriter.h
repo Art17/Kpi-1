@@ -3,20 +3,19 @@
 
 #include <windows.h>
 
-typedef DWORD (WINAPI *WProc)(LPVOID);
+typedef struct tagNegativeWriterPrivate NegativeWriterPrivate;
 
 typedef struct
 {
-    int* a;
-    HANDLE hThread;
-    DWORD dwThreadId;
+    NegativeWriterPrivate* nwp;
 } NegativeWriter;
 
 int NegativeWriterInitialize (NegativeWriter* , int* );
 int NegativeWriterDeinitialize (NegativeWriter* );
 
-int NegativeWriterRun (NegativeWriter* , WProc);
+int NegativeWriterRun (NegativeWriter*);
+int NegativeWriterSetMutex (NegativeWriter*, HANDLE);
 
-//static WINAPI NegativeWriterWrite (LPVOID);
+static WINAPI NegativeWriterWrite (LPVOID);
 
 #endif // NEGATIVEWRITER_H_INCLUDED

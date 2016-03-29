@@ -4,41 +4,20 @@
 #include "negativewriter.h"
 #include <windows.h>
 
-HANDLE hMutex;
-
-DWORD WINAPI MyRandomizerProc (LPVOID lpvVar)
+void main_loop ()
 {
     while (1)
     {
-        WaitForSingleObject(hMutex, INFINITE);
-        int a = (rand () % (255*2 + 1)) - 255;
-        *((int*)lpvVar) = a;
-        ReleaseMutex (hMutex);
+
     }
-
-    return 0;
-}
-
-DWORD WINAPI MyWriterProc (LPVOID lpvVar)
-{
-    while (1)
-    {
-        WaitForSingleObject(hMutex, INFINITE);
-        int a = *((int*)lpvVar);
-        if (a < 0)
-            printf ("%d\n", a);
-        ReleaseMutex (hMutex);
-    }
-
-    return 0;
 }
 
 int main()
 {
-    hMutex = CreateMutex (
-                          NULL,
-                          FALSE,
-                          NULL);
+    HANDLE hMutex = CreateMutex (
+                                  NULL,
+                                  FALSE,
+                                  NULL);
 
     int a = 0;
     Randomizer r1, r2;
@@ -47,18 +26,22 @@ int main()
     RandomizerInitialize (&r1, &a);
     RandomizerInitialize (&r2, &a);
 
+    RandomizerSetMutex (&r1, hMutex);
+    RandomizerSetMutex (&r2, hMutex);
+
     NegativeWriterInitialize (&nw1, &a);
     NegativeWriterInitialize (&nw2, &a);
 
-    RandomizerRun (&r1, MyRandomizerProc);
-    RandomizerRun (&r2, MyRandomizerProc);
+    NegativeWriterSetMutex(&nw1, hMutex);
+    NegativeWriterSetMutex(&nw2, hMutex);
 
-    NegativeWriterRun (&nw1, MyWriterProc);
-    NegativeWriterRun (&nw2, MyWriterProc);
+    RandomizerRun (&r1);
+    RandomizerRun (&r2);
 
-    while (1)
-    {
-    }
+    NegativeWriterRun (&nw1);
+    NegativeWriterRun (&nw2);
+
+    main_loop ();
 
     RandomizerDeinitialize (&r1);
     RandomizerDeinitialize (&r2);
