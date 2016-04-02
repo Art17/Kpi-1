@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1449392199 source:c:\study\op\courses\courses\prog_base\tasks\bmp_console\bmp_console\main.c
+1449399282 source:c:\study\op\courses\courses\prog_base\tasks\bmp_console\bmp_console\main.c
 	<windows.h>
 	<stdio.h>
 	<stdlib.h>

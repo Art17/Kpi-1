@@ -1,0 +1,71 @@
+# depslib dependency file v1.0
+1459594538 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"errormodule.h"
+	"cinemahall.h"
+	"console.h"
+	"client.h"
+
+1459527961 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\errormodule.c
+	"errormodule.h"
+
+1459527924 c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\errormodule.h
+
+1459547114 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\cinemahall.c
+	"cinemahall.h"
+	"errormodule.h"
+	<stdlib.h>
+
+1459543064 c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\cinemahall.h
+
+1459547885 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\client.c
+	"client.h"
+	"cinemahall.h"
+	<stdlib.h>
+
+1459597316 c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\client.h
+
+1459585635 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\console.c
+	"console.h"
+	"errormodule.h"
+	<windows.h>
+
+1459584856 c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\console.h
+	"cinemahall.h"
+	<windows.h>
+
+1459583858 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\tests\totaltests.c
+	"tests.h"
+
+1459583858 c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\tests\tests.h
+
+1459547607 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\tests\cinemahall_tests.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"tests.h"
+	"../cinemahall.h"
+
+1426175038 c:\program files\cmocka\include\cmocka.h
+
+1459548170 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\tests\client_tests.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"tests.h"
+	"../client.h"
+
+1459546723 source:c:\study\op\courses\courses\prog_base_2\labs\lab1\lab1\tests\console_tests.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	<cmocka.h>
+	"tests.h"
+	"../console.h"
+
