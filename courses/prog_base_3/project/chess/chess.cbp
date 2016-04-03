@@ -46,7 +46,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="chessboard.cpp" />
+		<Unit filename="chessboard.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="resources.h" />
 		<Unit filename="settings.h" />
 		<Extensions>
 			<code_completion />

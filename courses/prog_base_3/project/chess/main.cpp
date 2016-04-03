@@ -5,6 +5,8 @@
 #include "settings.h"
 #include "resources.h"
 
+#include "chessboard.h"
+
 using namespace sf;
 
 int main()
@@ -14,35 +16,29 @@ int main()
                         szAppName,
                         (fullscreenMode == true) ? Style::Fullscreen : Style::Default);
     /*                  */
+    /*  Initializing chess board class  */
+    ChessBoard chessBoard (&mainWindow);
+    chessBoard.setPosition(Vector2f (
+                                     screenWidth/2 - chessBoard.getLocalBounds().width/2,
+                                     screenHeight/2 - chessBoard.getLocalBounds().height/2));
+    /*                                  */
 
     /*  Loading and creating textures   */
-    Texture t_Field;
-    t_Field.loadFromFile (szField);
-
     Texture t_Background;
     t_Background.loadFromFile(szBackground);
     /*                  */
 
     /*  Loading and creating sprites    */
-    Sprite s_Field;
-    s_Field.setTexture (t_Field);
-
     Sprite s_Background;
     s_Background.setTexture(t_Background);
     /*                  */
 
     /*  sprites data(width, height etc)  */
-    int boardWidth = s_Field.getLocalBounds().width;
-    int boardHeight = s_Field.getLocalBounds().height;
-
     int backgroundWidth = s_Background.getLocalBounds().width;
     int backgroundHeight = s_Background.getLocalBounds().height;
     /*                                   */
 
     /*  positioning, scaling sprites    */
-    s_Field.setPosition(Vector2f(screenWidth/2 - boardWidth/2,
-                                 screenHeight/2 - boardHeight/2));
-
     s_Background.setScale (Vector2f (
                                      (float)screenWidth / backgroundWidth,
                                      (float)screenHeight / backgroundHeight));     //  make background fullscreen
@@ -60,7 +56,7 @@ int main()
 
         mainWindow.clear();
         mainWindow.draw (s_Background);
-        mainWindow.draw (s_Field);
+        chessBoard.show ();
         mainWindow.display();
     }
 
