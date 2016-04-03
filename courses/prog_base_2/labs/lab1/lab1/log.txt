@@ -1,600 +1,600 @@
-Client 0 has bought seat number: 125
-Client 1 has bought seat number: 109
-Client 2 has booked seat number: 442
-Client 3 has bought seat number: 525
-Client 4 has bought seat number: 49
-Client 5 has bought seat number: 1623
-Client 6 has booked seat number: 403
-Client 7 has bought seat number: 1091
-Client 8 has bought seat number: 1692
-Client 9 has bought seat number: 819
-Client 10 has booked seat number: 2072
-Client 11 has booked seat number: 665
-Client 12 has booked seat number: 1127
-Client 13 has bought seat number: 650
-Client 14 has bought seat number: 1724
-Client 15 has bought seat number: 1933
-Client 16 has booked seat number: 1304
-Client 17 has bought seat number: 972
-Client 18 has bought seat number: 1897
-Client 19 has bought seat number: 1006
-Client 20 has booked seat number: 1767
-Client 21 has bought seat number: 1616
-Client 22 has bought seat number: 383
-Client 23 has bought seat number: 302
-Client 24 has bought seat number: 79
-Client 25 has bought seat number: 2029
-Client 26 has bought seat number: 1627
-Client 27 has bought seat number: 6
-Client 28 has bought seat number: 1958
-Client 29 has bought seat number: 1390
-Client 30 has bought seat number: 968
-Client 31 has bought seat number: 1566
-Client 32 has bought seat number: 869
-Client 33 has bought seat number: 640
-Client 34 has bought seat number: 267
-Client 35 has bought seat number: 197
-Client 36 has bought seat number: 599
-Client 37 has bought seat number: 1587
-Client 38 has bought seat number: 850
-Client 39 has bought seat number: 552
-Client 40 has bought seat number: 939
-Client 41 has booked seat number: 1760
-Client 42 has bought seat number: 434
-Client 43 has bought seat number: 192
-Client 44 has bought seat number: 953
-Client 45 has bought seat number: 1720
-Client 46 has bought seat number: 1295
-Client 47 has bought seat number: 1076
-Client 48 has booked seat number: 490
-Client 49 has booked seat number: 1383
-Client 50 has bought seat number: 1246
-Client 51 has booked seat number: 144
-Client 52 has bought seat number: 537
-Client 53 has bought seat number: 1561
-Client 54 has bought seat number: 291
-Client 55 has bought seat number: 1836
-Client 56 has bought seat number: 1292
-Client 57 has bought seat number: 338
-Client 58 has booked seat number: 1756
-Client 59 has booked seat number: 1043
-Client 60 access to seat number 442 denied
-Client 61 has bought seat number: 830
-Client 62 has bought seat number: 820
-Client 63 has bought seat number: 1543
-Client 64 has bought seat number: 744
-Client 65 has bought seat number: 343
-Client 66 access to seat number 338 denied
-Client 67 has bought seat number: 1303
-Client 68 has bought seat number: 410
-Client 69 has bought seat number: 1902
-Client 70 has booked seat number: 290
-Client 71 has bought seat number: 1864
-Client 72 has bought seat number: 439
-Client 73 has booked seat number: 1636
-Client 74 has booked seat number: 1066
-Client 75 has bought seat number: 307
-Client 76 has bought seat number: 1218
-Client 77 has bought seat number: 105
-Client 78 has booked seat number: 680
-Client 79 has bought seat number: 406
-Client 80 has bought seat number: 750
-Client 81 has bought seat number: 350
-Client 82 has bought seat number: 1370
-Client 83 has bought seat number: 1996
-Client 84 has booked seat number: 1970
-Client 85 has booked seat number: 516
-Client 86 has bought seat number: 1542
-Client 87 has booked seat number: 2011
-Client 88 has bought seat number: 317
-Client 89 has bought seat number: 175
-Client 90 has booked seat number: 53
-Client 91 has bought seat number: 1280
-Client 92 has bought seat number: 1310
-Client 93 has bought seat number: 78
-Client 94 has bought seat number: 1781
-Client 95 has bought seat number: 337
-Client 96 has bought seat number: 697
-Client 97 has booked seat number: 765
-Client 98 has bought seat number: 71
-Client 99 has bought seat number: 75
-Client 100 has bought seat number: 1440
-Client 101 has bought seat number: 503
-Client 102 has bought seat number: 19
-Client 103 access to seat number 383 denied
-Client 104 has bought seat number: 150
-Client 105 has bought seat number: 233
-Client 106 has bought seat number: 1845
-Client 107 has booked seat number: 1510
-Client 108 has bought seat number: 1331
-Client 109 has booked seat number: 930
-Client 110 has bought seat number: 1141
-Client 111 has booked seat number: 1872
-Client 112 has booked seat number: 1749
-Client 113 has bought seat number: 325
-Client 114 has bought seat number: 851
-Client 115 access to seat number 1510 denied
-Client 116 has booked seat number: 1676
-Client 117 has bought seat number: 1061
-Client 118 has booked seat number: 18
-Client 119 has bought seat number: 65
-Client 120 has bought seat number: 1074
-Client 121 has bought seat number: 726
-Client 122 has bought seat number: 1145
-Client 123 has booked seat number: 1712
-Client 124 has booked seat number: 215
-Client 125 has bought seat number: 877
-Client 126 access to seat number 640 denied
-Client 127 has booked seat number: 1207
-Client 128 has booked seat number: 2034
-Client 129 has bought seat number: 1475
-Client 130 access to seat number 1676 denied
-Client 131 has bought seat number: 1198
-Client 132 has bought seat number: 85
-Client 133 has bought seat number: 1857
-Client 134 has bought seat number: 2024
-Client 135 has bought seat number: 1191
-Client 136 has booked seat number: 270
-Client 137 has bought seat number: 1162
-Client 138 has bought seat number: 570
-Client 139 has bought seat number: 1604
-Client 140 has bought seat number: 82
-Client 141 has bought seat number: 979
-Client 142 has bought seat number: 1754
-Client 143 has booked seat number: 523
-Client 144 has booked seat number: 1885
-Client 145 has booked seat number: 494
-Client 146 has bought seat number: 1394
-Client 147 has booked seat number: 398
-Client 148 has bought seat number: 677
-Client 149 has bought seat number: 1471
-Client 150 has bought seat number: 184
-Client 151 has booked seat number: 1167
-Client 152 has bought seat number: 1541
-Client 153 has bought seat number: 183
-Client 154 has bought seat number: 682
-Client 155 has bought seat number: 1564
-Client 156 has booked seat number: 821
-Client 157 has bought seat number: 1524
-Client 158 access to seat number 850 denied
-Client 159 has booked seat number: 1366
-Client 160 has bought seat number: 1413
-Client 161 has bought seat number: 1915
-Client 162 has bought seat number: 913
-Client 163 has bought seat number: 1653
-Client 164 has bought seat number: 1101
-Client 165 has bought seat number: 950
-Client 166 has bought seat number: 781
-Client 167 has booked seat number: 569
-Client 168 has bought seat number: 1082
-Client 169 has bought seat number: 187
-Client 170 has bought seat number: 1669
-Client 171 has bought seat number: 298
-Client 172 has bought seat number: 957
-Client 173 has booked seat number: 283
-Client 174 has bought seat number: 1409
-Client 175 has bought seat number: 115
-Client 176 access to seat number 298 denied
-Client 177 has bought seat number: 289
-Client 178 has booked seat number: 1952
-Client 179 has bought seat number: 645
-Client 180 has bought seat number: 231
-Client 181 has bought seat number: 1364
-Client 182 has booked seat number: 1446
-Client 183 has bought seat number: 1990
-Client 184 has booked seat number: 1118
-Client 185 has bought seat number: 967
-Client 186 has bought seat number: 512
-Client 187 has booked seat number: 1301
-Client 188 has bought seat number: 802
-Client 189 has booked seat number: 1816
-Client 190 access to seat number 645 denied
-Client 191 has booked seat number: 1848
-Client 192 has bought seat number: 266
-Client 193 has bought seat number: 513
-Client 194 has bought seat number: 261
-Client 195 access to seat number 231 denied
-Client 196 has bought seat number: 1701
-Client 197 has booked seat number: 369
-Client 198 has bought seat number: 988
-Client 199 access to seat number 979 denied
-Client 200 has bought seat number: 2000
-Client 201 has booked seat number: 1277
-Client 202 has bought seat number: 1484
-Client 203 access to seat number 939 denied
-Client 204 has bought seat number: 1866
-Client 205 has bought seat number: 1893
-Client 206 has bought seat number: 1079
-Client 207 has bought seat number: 1186
-Client 208 has bought seat number: 2056
-Client 209 has bought seat number: 1739
-Client 210 has bought seat number: 1388
-Client 211 has bought seat number: 354
-Client 212 has booked seat number: 27
-Client 213 has bought seat number: 565
-Client 214 has booked seat number: 50
-Client 215 access to seat number 1280 denied
-Client 216 has booked seat number: 1470
-Client 217 has bought seat number: 1596
-Client 218 has booked seat number: 889
-Client 219 has bought seat number: 1971
-Client 220 has bought seat number: 725
-Client 221 has bought seat number: 340
-Client 222 has bought seat number: 1671
-Client 223 has bought seat number: 710
-Client 224 has bought seat number: 1109
-Client 225 has bought seat number: 1988
-Client 226 has bought seat number: 1000
-Client 227 has bought seat number: 1888
-Client 228 has bought seat number: 474
-Client 229 has bought seat number: 1077
-Client 230 has booked seat number: 103
-Client 231 has bought seat number: 1514
-Client 232 access to seat number 710 denied
-Client 233 has booked seat number: 1262
-Client 234 has bought seat number: 1224
-Client 235 has bought seat number: 522
-Client 236 has booked seat number: 1553
-Client 237 has booked seat number: 1677
-Client 238 access to seat number 1888 denied
-Client 239 has booked seat number: 1329
-Client 240 has bought seat number: 1830
-Client 241 has booked seat number: 397
-Client 242 has booked seat number: 2052
-Client 243 has bought seat number: 288
-Client 244 has bought seat number: 871
-Client 245 has bought seat number: 1729
-Client 246 has bought seat number: 273
-Client 247 has bought seat number: 1117
-Client 248 has bought seat number: 1777
-Client 249 has bought seat number: 1722
-Client 250 access to seat number 1990 denied
-Client 251 has bought seat number: 189
-Client 252 has bought seat number: 433
-Client 253 has bought seat number: 2069
-Client 254 has booked seat number: 767
-Client 255 has bought seat number: 709
-Client 256 access to seat number 1739 denied
-Client 257 has booked seat number: 1240
-Client 258 has bought seat number: 2032
-Client 259 has booked seat number: 169
-Client 260 has bought seat number: 1703
-Client 261 has booked seat number: 1289
-Client 262 has bought seat number: 993
-Client 263 has bought seat number: 1387
-Client 264 has booked seat number: 1960
-Client 265 has booked seat number: 1454
-Client 266 has bought seat number: 196
-Client 267 has bought seat number: 8
-Client 268 access to seat number 1329 denied
-Client 269 has bought seat number: 1586
-Client 270 has bought seat number: 356
-Client 271 has bought seat number: 1404
-Client 272 has booked seat number: 1367
-Client 273 has booked seat number: 430
-Client 274 has bought seat number: 1708
-Client 275 has bought seat number: 1094
-Client 276 has bought seat number: 1180
-Client 277 has bought seat number: 447
-Client 278 has bought seat number: 980
-Client 279 has bought seat number: 530
-Client 280 has booked seat number: 1095
-Client 281 has bought seat number: 586
-Client 282 has bought seat number: 577
-Client 283 access to seat number 950 denied
-Client 284 has booked seat number: 247
-Client 285 has bought seat number: 1245
-Client 286 has bought seat number: 1696
-Client 287 has bought seat number: 1324
-Client 288 has bought seat number: 431
-Client 289 has bought seat number: 1252
-Client 290 has bought seat number: 1468
-Client 291 access to seat number 1109 denied
-Client 292 has bought seat number: 153
-Client 293 has bought seat number: 1884
-Client 294 has bought seat number: 714
-Client 295 has bought seat number: 240
-Client 296 has bought seat number: 1615
-Client 297 access to seat number 317 denied
-Client 298 has bought seat number: 277
-Client 299 has bought seat number: 394
-Client 300 access to seat number 1324 denied
-Client 301 has bought seat number: 1062
-Client 302 has bought seat number: 297
-Client 303 has bought seat number: 35
-Client 304 has bought seat number: 932
-Client 305 has bought seat number: 370
-Client 306 has bought seat number: 934
-Client 307 has booked seat number: 989
-Client 308 has bought seat number: 1900
-Client 309 has bought seat number: 316
-Client 310 has bought seat number: 1182
-Client 311 has bought seat number: 1966
-Client 312 has bought seat number: 2022
-Client 313 has bought seat number: 1813
-Client 314 has bought seat number: 381
-Client 315 has bought seat number: 149
-Client 316 has booked seat number: 107
-Client 317 has booked seat number: 210
-Client 318 access to seat number 261 denied
-Client 319 has bought seat number: 1785
-Client 320 has booked seat number: 1941
-Client 321 has bought seat number: 1687
-Client 322 has bought seat number: 499
-Client 323 has bought seat number: 286
-Client 324 has booked seat number: 40
-Client 325 has bought seat number: 126
-Client 326 has booked seat number: 1917
-Client 327 has booked seat number: 329
-Client 328 has bought seat number: 2042
-Client 329 has bought seat number: 1686
-Client 330 has bought seat number: 521
-Client 331 has bought seat number: 991
-Client 332 has bought seat number: 190
-Client 333 has booked seat number: 443
-Client 334 access to seat number 1990 denied
-Client 335 has bought seat number: 775
-Client 336 has bought seat number: 1395
-Client 337 has bought seat number: 143
-Client 338 has booked seat number: 1622
-Client 339 has bought seat number: 333
-Client 340 access to seat number 1564 denied
-Client 341 has bought seat number: 311
-Client 342 has bought seat number: 1040
-Client 343 access to seat number 2022 denied
-Client 344 has booked seat number: 1951
-Client 345 has bought seat number: 651
-Client 346 has booked seat number: 1071
-Client 347 has bought seat number: 476
-Client 348 access to seat number 499 denied
-Client 349 has bought seat number: 1879
-Client 350 has bought seat number: 276
-Client 351 has booked seat number: 848
-Client 352 has booked seat number: 600
-Client 353 has bought seat number: 1808
-Client 354 has booked seat number: 364
-Client 355 has booked seat number: 1389
-Client 356 has bought seat number: 1898
-Client 357 has booked seat number: 2078
-Client 358 access to seat number 1289 denied
-Client 359 has bought seat number: 1307
-Client 360 has booked seat number: 1124
-Client 361 has bought seat number: 1323
-Client 362 has bought seat number: 562
-Client 363 has bought seat number: 21
-Client 364 has bought seat number: 279
-Client 365 has booked seat number: 545
-Client 366 has bought seat number: 1379
-Client 367 has bought seat number: 1661
-Client 368 has bought seat number: 1327
-Client 369 has booked seat number: 1672
-Client 370 access to seat number 530 denied
-Client 371 access to seat number 338 denied
-Client 372 has bought seat number: 1391
-Client 373 has bought seat number: 48
-Client 374 has bought seat number: 1607
-Client 375 has bought seat number: 137
-Client 376 has bought seat number: 1227
-Client 377 has bought seat number: 417
-Client 378 has bought seat number: 1311
-Client 379 has bought seat number: 842
-Client 380 access to seat number 1389 denied
-Client 381 has bought seat number: 990
-Client 382 has booked seat number: 1683
-Client 383 has booked seat number: 1350
-Client 384 has booked seat number: 74
-Client 385 has bought seat number: 868
-Client 386 access to seat number 1866 denied
-Client 387 has booked seat number: 753
-Client 388 has bought seat number: 1908
-Client 389 has bought seat number: 29
-Client 390 has bought seat number: 201
-Client 391 access to seat number 889 denied
-Client 392 has bought seat number: 1192
-Client 393 has bought seat number: 415
-Client 394 has booked seat number: 1945
-Client 395 has bought seat number: 280
-Client 396 has bought seat number: 724
-Client 397 has bought seat number: 666
-Client 398 has bought seat number: 1715
-Client 399 has booked seat number: 1266
-Client 400 has bought seat number: 2047
-Client 401 has bought seat number: 555
-Client 402 has bought seat number: 1491
-Client 403 has bought seat number: 1416
-Client 404 has booked seat number: 385
-Client 405 access to seat number 1303 denied
-Client 406 has bought seat number: 1046
-Client 407 access to seat number 53 denied
-Client 408 has bought seat number: 541
-Client 409 has bought seat number: 685
-Client 410 has bought seat number: 1020
-Client 411 has bought seat number: 914
-Client 412 has booked seat number: 127
-Client 413 access to seat number 356 denied
-Client 414 has bought seat number: 1709
-Client 415 has bought seat number: 668
-Client 416 has bought seat number: 717
-Client 417 has bought seat number: 2023
-Client 418 has bought seat number: 696
-Client 419 has bought seat number: 1333
-Client 420 has bought seat number: 1984
-Client 421 has bought seat number: 1863
-Client 422 has bought seat number: 1947
-Client 423 has bought seat number: 554
-Client 424 has bought seat number: 624
-Client 425 has booked seat number: 1584
-Client 426 has bought seat number: 748
-Client 427 has bought seat number: 305
-Client 428 has bought seat number: 432
-Client 429 has bought seat number: 1727
-Client 430 access to seat number 1885 denied
-Client 431 has bought seat number: 390
-Client 432 access to seat number 1082 denied
-Client 433 has bought seat number: 72
-Client 434 has bought seat number: 804
-Client 435 has bought seat number: 829
-Client 436 access to seat number 696 denied
-Client 437 has bought seat number: 100
-Client 438 has bought seat number: 1967
-Client 439 has bought seat number: 271
-Client 440 has bought seat number: 592
-Client 441 has bought seat number: 1341
-Client 442 has bought seat number: 2017
-Client 443 has bought seat number: 218
-Client 444 has booked seat number: 925
-Client 445 has booked seat number: 1580
-Client 446 has bought seat number: 1214
-Client 447 has bought seat number: 519
-Client 448 has booked seat number: 1465
-Client 449 has booked seat number: 165
-Client 450 has bought seat number: 1356
-Client 451 access to seat number 802 denied
-Client 452 access to seat number 430 denied
-Client 453 has bought seat number: 1802
-Client 454 has bought seat number: 926
-Client 455 has bought seat number: 1010
-Client 456 has bought seat number: 843
-Client 457 has bought seat number: 1595
-Client 458 has bought seat number: 916
-Client 459 has bought seat number: 723
-Client 460 has bought seat number: 903
-Client 461 has bought seat number: 986
-Client 462 has bought seat number: 313
-Client 463 has bought seat number: 1997
-Client 464 has bought seat number: 1274
-Client 465 has bought seat number: 450
-Client 466 access to seat number 325 denied
-Client 467 access to seat number 1167 denied
-Client 468 has booked seat number: 762
-Client 469 has bought seat number: 644
-Client 470 has bought seat number: 1856
-Client 471 has bought seat number: 1029
-Client 472 has bought seat number: 1226
-Client 473 has bought seat number: 506
-Client 474 access to seat number 519 denied
-Client 475 has bought seat number: 1203
-Client 476 has bought seat number: 1302
-Client 477 has bought seat number: 1681
-Client 478 has bought seat number: 404
-Client 479 access to seat number 1000 denied
-Client 480 has bought seat number: 616
-Client 481 has bought seat number: 55
-Client 482 has bought seat number: 1001
-Client 483 has bought seat number: 33
-Client 484 has bought seat number: 884
-Client 485 has booked seat number: 241
-Client 486 has bought seat number: 756
-Client 487 has booked seat number: 740
-Client 488 has bought seat number: 1842
-Client 489 has bought seat number: 801
-Client 490 has booked seat number: 888
-Client 491 has bought seat number: 1733
-Client 492 access to seat number 1180 denied
-Client 493 access to seat number 75 denied
-Client 494 has bought seat number: 353
-Client 495 has bought seat number: 834
-Client 496 has bought seat number: 1883
-Client 497 has booked seat number: 1557
-Client 498 has bought seat number: 1443
+Client 0 has booked seat number: 1242
+Client 1 has bought seat number: 1184
+Client 2 has bought seat number: 1964
+Client 3 has bought seat number: 1422
+Client 4 has bought seat number: 946
+Client 5 has bought seat number: 826
+Client 6 has booked seat number: 943
+Client 7 has bought seat number: 1466
+Client 8 has bought seat number: 408
+Client 9 has booked seat number: 2034
+Client 10 has bought seat number: 727
+Client 11 has booked seat number: 672
+Client 12 has bought seat number: 178
+Client 13 has bought seat number: 2036
+Client 14 has bought seat number: 1308
+Client 15 has bought seat number: 1675
+Client 16 has bought seat number: 1416
+Client 17 has bought seat number: 1080
+Client 18 has booked seat number: 1327
+Client 19 has bought seat number: 1057
+Client 20 has booked seat number: 251
+Client 21 has bought seat number: 501
+Client 22 has bought seat number: 1324
+Client 23 has bought seat number: 1581
+Client 24 has bought seat number: 554
+Client 25 has bought seat number: 213
+Client 26 has bought seat number: 719
+Client 27 has bought seat number: 39
+Client 28 has bought seat number: 1667
+Client 29 has bought seat number: 1902
+Client 30 has bought seat number: 1495
+Client 31 has booked seat number: 1637
+Client 32 has bought seat number: 1677
+Client 33 has bought seat number: 925
+Client 34 has booked seat number: 689
+Client 35 has bought seat number: 1966
+Client 36 has booked seat number: 529
+Client 37 has bought seat number: 1452
+Client 38 has booked seat number: 119
+Client 39 has bought seat number: 242
+Client 40 has bought seat number: 1558
+Client 41 has booked seat number: 511
+Client 42 has bought seat number: 319
+Client 43 has booked seat number: 2025
+Client 44 has bought seat number: 1642
+Client 45 has booked seat number: 474
+Client 46 has bought seat number: 34
+Client 47 has bought seat number: 571
+Client 48 has booked seat number: 1587
+Client 49 has bought seat number: 920
+Client 50 has bought seat number: 456
+Client 51 has bought seat number: 577
+Client 52 has bought seat number: 1626
+Client 53 has booked seat number: 346
+Client 54 has bought seat number: 536
+Client 55 has bought seat number: 1709
+Client 56 has bought seat number: 1423
+Client 57 has bought seat number: 756
+Client 58 has bought seat number: 937
+Client 59 has bought seat number: 140
+Client 60 has bought seat number: 998
+Client 61 has bought seat number: 962
+Client 62 has bought seat number: 1018
+Client 63 has bought seat number: 1264
+Client 64 has bought seat number: 981
+Client 65 has bought seat number: 1877
+Client 66 has booked seat number: 67
+Client 67 has bought seat number: 1285
+Client 68 has bought seat number: 1077
+Client 69 has booked seat number: 1120
+Client 70 has bought seat number: 1094
+Client 71 has bought seat number: 1974
+Client 72 has booked seat number: 1891
+Client 73 has bought seat number: 1813
+Client 74 has bought seat number: 512
+Client 75 has bought seat number: 1526
+Client 76 has bought seat number: 1046
+Client 77 has bought seat number: 1766
+Client 78 has bought seat number: 1738
+Client 79 has booked seat number: 1272
+Client 80 has bought seat number: 1178
+Client 81 has bought seat number: 939
+Client 82 has booked seat number: 1446
+Client 83 has bought seat number: 310
+Client 84 has bought seat number: 388
+Client 85 has bought seat number: 485
+Client 86 has bought seat number: 2056
+Client 87 has bought seat number: 1931
+Client 88 has bought seat number: 1900
+Client 89 has bought seat number: 856
+Client 90 has bought seat number: 2009
+Client 91 has booked seat number: 1346
+Client 92 has bought seat number: 460
+Client 93 has bought seat number: 660
+Client 94 has bought seat number: 1527
+Client 95 has booked seat number: 958
+Client 96 has booked seat number: 2004
+Client 97 has bought seat number: 1075
+Client 98 has bought seat number: 1986
+Client 99 has bought seat number: 1401
+Client 100 has bought seat number: 137
+Client 101 has bought seat number: 1368
+Client 102 has bought seat number: 973
+Client 103 has booked seat number: 479
+Client 104 has bought seat number: 1022
+Client 105 has bought seat number: 397
+Client 106 has booked seat number: 1740
+Client 107 has bought seat number: 208
+Client 108 has booked seat number: 984
+Client 109 has bought seat number: 1481
+Client 110 has bought seat number: 750
+Client 111 has bought seat number: 1513
+Client 112 has bought seat number: 335
+Client 113 has bought seat number: 1704
+Client 114 has bought seat number: 1365
+Client 115 has booked seat number: 900
+Client 116 has bought seat number: 97
+Client 117 has booked seat number: 516
+Client 118 has booked seat number: 249
+Client 119 has bought seat number: 77
+Client 120 has bought seat number: 1505
+Client 121 has bought seat number: 68
+Client 122 has bought seat number: 1839
+Client 123 has bought seat number: 616
+Client 124 has bought seat number: 753
+Client 125 has bought seat number: 1779
+Client 126 has booked seat number: 1079
+Client 127 has bought seat number: 648
+Client 128 has bought seat number: 752
+Client 129 access to seat number 1931 denied
+Client 130 has bought seat number: 495
+Client 131 has bought seat number: 325
+Client 132 has bought seat number: 1010
+Client 133 has bought seat number: 1600
+Client 134 has bought seat number: 130
+Client 135 has bought seat number: 2052
+Client 136 has bought seat number: 589
+Client 137 has booked seat number: 1991
+Client 138 has booked seat number: 1818
+Client 139 has bought seat number: 762
+Client 140 has bought seat number: 1509
+Client 141 has booked seat number: 96
+Client 142 has bought seat number: 1824
+Client 143 has booked seat number: 1598
+Client 144 has bought seat number: 776
+Client 145 has bought seat number: 960
+Client 146 has bought seat number: 1012
+Client 147 has bought seat number: 267
+Client 148 access to seat number 1527 denied
+Client 149 has bought seat number: 979
+Client 150 has bought seat number: 1997
+Client 151 has bought seat number: 280
+Client 152 has bought seat number: 2017
+Client 153 has bought seat number: 606
+Client 154 has bought seat number: 573
+Client 155 has bought seat number: 431
+Client 156 has booked seat number: 343
+Client 157 has bought seat number: 910
+Client 158 has bought seat number: 405
+Client 159 has booked seat number: 659
+Client 160 has bought seat number: 2023
+Client 161 has bought seat number: 228
+Client 162 has bought seat number: 1362
+Client 163 access to seat number 460 denied
+Client 164 has bought seat number: 1338
+Client 165 has bought seat number: 1503
+Client 166 has booked seat number: 1042
+Client 167 has bought seat number: 1778
+Client 168 access to seat number 1986 denied
+Client 169 has bought seat number: 741
+Client 170 has booked seat number: 555
+Client 171 has bought seat number: 697
+Client 172 has bought seat number: 1045
+Client 173 has booked seat number: 1512
+Client 174 has booked seat number: 533
+Client 175 has bought seat number: 234
+Client 176 has booked seat number: 690
+Client 177 has bought seat number: 889
+Client 178 access to seat number 1779 denied
+Client 179 access to seat number 1018 denied
+Client 180 has bought seat number: 612
+Client 181 has bought seat number: 779
+Client 182 has booked seat number: 1221
+Client 183 has bought seat number: 1829
+Client 184 has bought seat number: 1721
+Client 185 has bought seat number: 1754
+Client 186 has bought seat number: 1734
+Client 187 has booked seat number: 975
+Client 188 has bought seat number: 638
+Client 189 has booked seat number: 695
+Client 190 has booked seat number: 1856
+Client 191 has booked seat number: 1792
+Client 192 has booked seat number: 1369
+Client 193 has booked seat number: 1005
+Client 194 has bought seat number: 773
+Client 195 has bought seat number: 1073
+Client 196 has bought seat number: 1100
+Client 197 has booked seat number: 829
+Client 198 has bought seat number: 359
+Client 199 has bought seat number: 1869
+Client 200 has booked seat number: 1816
+Client 201 has bought seat number: 531
+Client 202 access to seat number 1120 denied
+Client 203 has bought seat number: 1864
+Client 204 has bought seat number: 1985
+Client 205 has bought seat number: 835
+Client 206 has booked seat number: 1977
+Client 207 has booked seat number: 190
+Client 208 has bought seat number: 843
+Client 209 has bought seat number: 530
+Client 210 has booked seat number: 1183
+Client 211 has bought seat number: 365
+Client 212 has bought seat number: 825
+Client 213 has bought seat number: 149
+Client 214 has bought seat number: 2011
+Client 215 has bought seat number: 1458
+Client 216 access to seat number 335 denied
+Client 217 has bought seat number: 841
+Client 218 has bought seat number: 1882
+Client 219 has booked seat number: 1793
+Client 220 access to seat number 397 denied
+Client 221 access to seat number 1986 denied
+Client 222 access to seat number 1677 denied
+Client 223 has bought seat number: 1431
+Client 224 has bought seat number: 863
+Client 225 has booked seat number: 157
+Client 226 has bought seat number: 1137
+Client 227 has bought seat number: 1144
+Client 228 has booked seat number: 1938
+Client 229 has booked seat number: 1049
+Client 230 has bought seat number: 1841
+Client 231 has bought seat number: 191
+Client 232 has booked seat number: 336
+Client 233 access to seat number 1018 denied
+Client 234 has bought seat number: 1225
+Client 235 has bought seat number: 705
+Client 236 has booked seat number: 658
+Client 237 has bought seat number: 2068
+Client 238 has bought seat number: 815
+Client 239 has bought seat number: 386
+Client 240 has booked seat number: 1528
+Client 241 has bought seat number: 1733
+Client 242 has bought seat number: 1862
+Client 243 has bought seat number: 377
+Client 244 has bought seat number: 1175
+Client 245 has bought seat number: 1142
+Client 246 has booked seat number: 883
+Client 247 access to seat number 249 denied
+Client 248 has booked seat number: 286
+Client 249 has bought seat number: 1576
+Client 250 has booked seat number: 680
+Client 251 has bought seat number: 808
+Client 252 has bought seat number: 591
+Client 253 has bought seat number: 306
+Client 254 has booked seat number: 1210
+Client 255 has bought seat number: 1660
+Client 256 has bought seat number: 87
+Client 257 has bought seat number: 677
+Client 258 has bought seat number: 1154
+Client 259 has bought seat number: 1585
+Client 260 has booked seat number: 618
+Client 261 has booked seat number: 2005
+Client 262 has bought seat number: 737
+Client 263 has bought seat number: 896
+Client 264 has bought seat number: 1860
+Client 265 has booked seat number: 1244
+Client 266 has booked seat number: 1685
+Client 267 has bought seat number: 518
+Client 268 has bought seat number: 71
+Client 269 access to seat number 1080 denied
+Client 270 has bought seat number: 1185
+Client 271 has bought seat number: 1560
+Client 272 has bought seat number: 1541
+Client 273 has bought seat number: 1990
+Client 274 access to seat number 939 denied
+Client 275 has bought seat number: 266
+Client 276 has bought seat number: 715
+Client 277 has booked seat number: 1915
+Client 278 access to seat number 1005 denied
+Client 279 has bought seat number: 787
+Client 280 access to seat number 973 denied
+Client 281 has bought seat number: 372
+Client 282 has bought seat number: 1748
+Client 283 has bought seat number: 237
+Client 284 has bought seat number: 1103
+Client 285 has bought seat number: 136
+Client 286 has bought seat number: 2014
+Client 287 has bought seat number: 2
+Client 288 has bought seat number: 1886
+Client 289 has bought seat number: 1507
+Client 290 has booked seat number: 2024
+Client 291 has bought seat number: 469
+Client 292 has bought seat number: 749
+Client 293 has bought seat number: 1896
+Client 294 has bought seat number: 173
+Client 295 has bought seat number: 1461
+Client 296 access to seat number 1560 denied
+Client 297 access to seat number 1896 denied
+Client 298 has bought seat number: 320
+Client 299 access to seat number 190 denied
+Client 300 has bought seat number: 1321
+Client 301 has booked seat number: 880
+Client 302 has bought seat number: 1959
+Client 303 has bought seat number: 1134
+Client 304 has bought seat number: 617
+Client 305 has bought seat number: 746
+Client 306 has bought seat number: 721
+Client 307 has bought seat number: 1564
+Client 308 has booked seat number: 535
+Client 309 has booked seat number: 852
+Client 310 has bought seat number: 502
+Client 311 has bought seat number: 1269
+Client 312 has bought seat number: 558
+Client 313 has booked seat number: 1849
+Client 314 has bought seat number: 1875
+Client 315 access to seat number 2023 denied
+Client 316 access to seat number 715 denied
+Client 317 has bought seat number: 424
+Client 318 has booked seat number: 371
+Client 319 has bought seat number: 877
+Client 320 has bought seat number: 477
+Client 321 has bought seat number: 1965
+Client 322 access to seat number 715 denied
+Client 323 has booked seat number: 1806
+Client 324 has bought seat number: 1418
+Client 325 has bought seat number: 192
+Client 326 has bought seat number: 1933
+Client 327 has booked seat number: 1069
+Client 328 has bought seat number: 1372
+Client 329 has bought seat number: 624
+Client 330 has booked seat number: 221
+Client 331 has bought seat number: 200
+Client 332 has bought seat number: 1772
+Client 333 has bought seat number: 669
+Client 334 has bought seat number: 1266
+Client 335 has bought seat number: 295
+Client 336 has bought seat number: 436
+Client 337 has bought seat number: 1329
+Client 338 has bought seat number: 1744
+Client 339 has bought seat number: 838
+Client 340 has bought seat number: 646
+Client 341 has booked seat number: 470
+Client 342 has bought seat number: 1287
+Client 343 has bought seat number: 36
+Client 344 has bought seat number: 733
+Client 345 has bought seat number: 994
+Client 346 has bought seat number: 1168
+Client 347 has bought seat number: 1912
+Client 348 has booked seat number: 25
+Client 349 access to seat number 752 denied
+Client 350 has bought seat number: 1758
+Client 351 has bought seat number: 1261
+Client 352 has bought seat number: 1125
+Client 353 has booked seat number: 224
+Client 354 has booked seat number: 1250
+Client 355 has booked seat number: 293
+Client 356 has booked seat number: 1454
+Client 357 has bought seat number: 1380
+Client 358 has bought seat number: 199
+Client 359 access to seat number 266 denied
+Client 360 has bought seat number: 193
+Client 361 access to seat number 1285 denied
+Client 362 has bought seat number: 1612
+Client 363 has bought seat number: 1153
+Client 364 has bought seat number: 692
+Client 365 has bought seat number: 639
+Client 366 has bought seat number: 322
+Client 367 has bought seat number: 27
+Client 368 has bought seat number: 1390
+Client 369 has bought seat number: 640
+Client 370 has bought seat number: 2071
+Client 371 has bought seat number: 1775
+Client 372 has booked seat number: 1435
+Client 373 access to seat number 1704 denied
+Client 374 has bought seat number: 1604
+Client 375 has bought seat number: 483
+Client 376 access to seat number 1183 denied
+Client 377 access to seat number 322 denied
+Client 378 has booked seat number: 1771
+Client 379 access to seat number 937 denied
+Client 380 access to seat number 1587 denied
+Client 381 has bought seat number: 230
+Client 382 has bought seat number: 1565
+Client 383 access to seat number 1793 denied
+Client 384 has booked seat number: 120
+Client 385 access to seat number 530 denied
+Client 386 has bought seat number: 1854
+Client 387 has bought seat number: 1204
+Client 388 has bought seat number: 928
+Client 389 access to seat number 880 denied
+Client 390 has booked seat number: 1092
+Client 391 has bought seat number: 1764
+Client 392 has bought seat number: 1206
+Client 393 has bought seat number: 676
+Client 394 has booked seat number: 1195
+Client 395 has bought seat number: 1263
+Client 396 access to seat number 137 denied
+Client 397 has bought seat number: 1254
+Client 398 has bought seat number: 952
+Client 399 access to seat number 1125 denied
+Client 400 has bought seat number: 652
+Client 401 access to seat number 1931 denied
+Client 402 has booked seat number: 527
+Client 403 has bought seat number: 804
+Client 404 has bought seat number: 1207
+Client 405 has bought seat number: 1713
+Client 406 has bought seat number: 289
+Client 407 has bought seat number: 382
+Client 408 has bought seat number: 986
+Client 409 has bought seat number: 1586
+Client 410 has bought seat number: 1199
+Client 411 has bought seat number: 16
+Client 412 has bought seat number: 519
+Client 413 has booked seat number: 1132
+Client 414 has bought seat number: 538
+Client 415 has bought seat number: 1
+Client 416 has bought seat number: 300
+Client 417 has booked seat number: 291
+Client 418 has bought seat number: 1124
+Client 419 has bought seat number: 2060
+Client 420 has booked seat number: 156
+Client 421 has bought seat number: 1703
+Client 422 has bought seat number: 366
+Client 423 has bought seat number: 2063
+Client 424 has booked seat number: 1614
+Client 425 has bought seat number: 1926
+Client 426 access to seat number 1010 denied
+Client 427 access to seat number 230 denied
+Client 428 has bought seat number: 264
+Client 429 has bought seat number: 1319
+Client 430 has bought seat number: 1747
+Client 431 access to seat number 1390 denied
+Client 432 has booked seat number: 869
+Client 433 has bought seat number: 1840
+Client 434 has bought seat number: 1988
+Client 435 access to seat number 1221 denied
+Client 436 has bought seat number: 1465
+Client 437 access to seat number 371 denied
+Client 438 has bought seat number: 1546
+Client 439 has bought seat number: 1123
+Client 440 has bought seat number: 1180
+Client 441 has bought seat number: 277
+Client 442 has booked seat number: 1946
+Client 443 has booked seat number: 814
+Client 444 has bought seat number: 2054
+Client 445 has bought seat number: 1473
+Client 446 has booked seat number: 885
+Client 447 has bought seat number: 1056
+Client 448 has bought seat number: 254
+Client 449 has bought seat number: 649
+Client 450 has bought seat number: 1984
+Client 451 access to seat number 533 denied
+Client 452 access to seat number 1667 denied
+Client 453 has booked seat number: 1910
+Client 454 has booked seat number: 57
+Client 455 has bought seat number: 1557
+Client 456 has bought seat number: 89
+Client 457 access to seat number 2056 denied
+Client 458 has bought seat number: 1047
+Client 459 has bought seat number: 628
+Client 460 has bought seat number: 707
+Client 461 access to seat number 1057 denied
+Client 462 has bought seat number: 774
+Client 463 has bought seat number: 1381
+Client 464 has bought seat number: 1797
+Client 465 has bought seat number: 1708
+Client 466 access to seat number 962 denied
+Client 467 has bought seat number: 380
+Client 468 access to seat number 928 denied
+Client 469 access to seat number 753 denied
+Client 470 has bought seat number: 1151
+Client 471 has bought seat number: 353
+Client 472 access to seat number 1435 denied
+Client 473 has bought seat number: 327
+Client 474 has bought seat number: 907
+Client 475 has bought seat number: 1583
+Client 476 access to seat number 1685 denied
+Client 477 has booked seat number: 406
+Client 478 has booked seat number: 1719
+Client 479 has bought seat number: 420
+Client 480 has booked seat number: 1112
+Client 481 access to seat number 1 denied
+Client 482 access to seat number 1324 denied
+Client 483 has bought seat number: 581
+Client 484 has booked seat number: 428
+Client 485 access to seat number 431 denied
+Client 486 has bought seat number: 1035
+Client 487 access to seat number 1069 denied
+Client 488 has booked seat number: 364
+Client 489 has bought seat number: 416
+Client 490 has booked seat number: 64
+Client 491 access to seat number 2034 denied
+Client 492 has bought seat number: 1190
+Client 493 has bought seat number: 5
+Client 494 has bought seat number: 747
+Client 495 has bought seat number: 1994
+Client 496 has bought seat number: 982
+Client 497 access to seat number 2024 denied
+Client 498 has booked seat number: 1889
 Client 499 has bought seat number: 1320
-Client 500 has bought seat number: 39
-Client 501 access to seat number 834 denied
-Client 502 has bought seat number: 894
-Client 503 has booked seat number: 1210
-Client 504 has bought seat number: 1314
-Client 505 has booked seat number: 1250
-Client 506 has bought seat number: 867
-Client 507 has bought seat number: 140
-Client 508 has booked seat number: 805
-Client 509 has bought seat number: 1837
-Client 510 access to seat number 317 denied
-Client 511 has bought seat number: 1654
-Client 512 access to seat number 1888 denied
-Client 513 access to seat number 867 denied
-Client 514 has bought seat number: 731
-Client 515 access to seat number 1967 denied
-Client 516 has booked seat number: 245
-Client 517 has booked seat number: 1746
-Client 518 has bought seat number: 1472
-Client 519 has bought seat number: 839
-Client 520 has booked seat number: 468
-Client 521 access to seat number 125 denied
-Client 522 has bought seat number: 157
-Client 523 access to seat number 1557 denied
-Client 524 has bought seat number: 1249
-Client 525 has bought seat number: 783
-Client 526 access to seat number 313 denied
-Client 527 has bought seat number: 1037
-Client 528 has bought seat number: 1212
-Client 529 has booked seat number: 597
-Client 530 has bought seat number: 124
-Client 531 has bought seat number: 1368
-Client 532 access to seat number 126 denied
-Client 533 has bought seat number: 1184
-Client 534 has booked seat number: 1268
-Client 535 has bought seat number: 293
-Client 536 access to seat number 1561 denied
-Client 537 has bought seat number: 1426
-Client 538 access to seat number 2072 denied
-Client 539 has booked seat number: 1537
-Client 540 access to seat number 726 denied
-Client 541 has bought seat number: 550
-Client 542 access to seat number 289 denied
-Client 543 access to seat number 79 denied
-Client 544 has bought seat number: 816
-Client 545 has bought seat number: 1473
-Client 546 has bought seat number: 1953
-Client 547 access to seat number 884 denied
-Client 548 has bought seat number: 1625
-Client 549 has booked seat number: 1407
-Client 550 access to seat number 417 denied
-Client 551 has bought seat number: 204
-Client 552 has bought seat number: 1130
-Client 553 has booked seat number: 1763
-Client 554 has bought seat number: 284
-Client 555 has bought seat number: 445
-Client 556 access to seat number 820 denied
-Client 557 access to seat number 1184 denied
-Client 558 has bought seat number: 1397
-Client 559 access to seat number 888 denied
-Client 560 access to seat number 445 denied
-Client 561 has bought seat number: 1780
-Client 562 has bought seat number: 1087
-Client 563 access to seat number 668 denied
-Client 564 has booked seat number: 874
-Client 565 has bought seat number: 43
-Client 566 has bought seat number: 1853
-Client 567 has bought seat number: 1442
-Client 568 has bought seat number: 1901
-Client 569 has bought seat number: 188
-Client 570 has booked seat number: 1019
-Client 571 has bought seat number: 921
-Client 572 has bought seat number: 1072
-Client 573 has bought seat number: 12
-Client 574 access to seat number 1625 denied
-Client 575 has booked seat number: 1360
-Client 576 access to seat number 432 denied
-Client 577 access to seat number 297 denied
-Client 578 has bought seat number: 1233
-Client 579 has bought seat number: 1237
-Client 580 has bought seat number: 2021
-Client 581 access to seat number 107 denied
-Client 582 has bought seat number: 1964
-Client 583 access to seat number 18 denied
-Client 584 has booked seat number: 376
-Client 585 has bought seat number: 2030
-Client 586 access to seat number 127 denied
-Client 587 access to seat number 1397 denied
-Client 588 access to seat number 1542 denied
-Client 589 has bought seat number: 1745
-Client 590 has booked seat number: 1963
-Client 591 has bought seat number: 1817
-Client 592 has bought seat number: 314
-Client 593 has bought seat number: 898
-Client 594 has bought seat number: 1867
-Client 595 has booked seat number: 594
-Client 596 has booked seat number: 675
-Client 597 has bought seat number: 876
-Client 598 access to seat number 1323 denied
-Client 599 has bought seat number: 1776
+Client 500 access to seat number 2063 denied
+Client 501 has bought seat number: 121
+Client 502 access to seat number 558 denied
+Client 503 has bought seat number: 1020
+Client 504 access to seat number 774 denied
+Client 505 has bought seat number: 1331
+Client 506 has bought seat number: 1624
+Client 507 access to seat number 1018 denied
+Client 508 has bought seat number: 736
+Client 509 has bought seat number: 1548
+Client 510 has booked seat number: 1267
+Client 511 has bought seat number: 92
+Client 512 has booked seat number: 450
+Client 513 has booked seat number: 472
+Client 514 access to seat number 1740 denied
+Client 515 access to seat number 982 denied
+Client 516 access to seat number 1267 denied
+Client 517 access to seat number 1891 denied
+Client 518 has bought seat number: 102
+Client 519 access to seat number 1151 denied
+Client 520 has bought seat number: 1227
+Client 521 has booked seat number: 1200
+Client 522 has booked seat number: 13
+Client 523 has bought seat number: 19
+Client 524 has bought seat number: 133
+Client 525 has booked seat number: 1172
+Client 526 has bought seat number: 552
+Client 527 access to seat number 1207 denied
+Client 528 has booked seat number: 1638
+Client 529 has bought seat number: 1009
+Client 530 has bought seat number: 970
+Client 531 has bought seat number: 961
+Client 532 has bought seat number: 1695
+Client 533 has bought seat number: 2002
+Client 534 access to seat number 527 denied
+Client 535 access to seat number 173 denied
+Client 536 has bought seat number: 916
+Client 537 has booked seat number: 1463
+Client 538 has bought seat number: 1903
+Client 539 has bought seat number: 1241
+Client 540 has booked seat number: 1613
+Client 541 has bought seat number: 1160
+Client 542 has bought seat number: 879
+Client 543 access to seat number 1200 denied
+Client 544 has booked seat number: 595
+Client 545 has bought seat number: 924
+Client 546 has booked seat number: 848
+Client 547 has bought seat number: 664
+Client 548 has booked seat number: 1299
+Client 549 has booked seat number: 1255
+Client 550 access to seat number 1513 denied
+Client 551 access to seat number 998 denied
+Client 552 has booked seat number: 806
+Client 553 has bought seat number: 608
+Client 554 has bought seat number: 594
+Client 555 access to seat number 1772 denied
+Client 556 has booked seat number: 1592
+Client 557 access to seat number 536 denied
+Client 558 access to seat number 157 denied
+Client 559 has booked seat number: 556
+Client 560 has booked seat number: 492
+Client 561 has booked seat number: 1248
+Client 562 has bought seat number: 758
+Client 563 access to seat number 692 denied
+Client 564 has bought seat number: 1606
+Client 565 access to seat number 715 denied
+Client 566 has bought seat number: 1464
+Client 567 has bought seat number: 1562
+Client 568 has booked seat number: 1371
+Client 569 access to seat number 753 denied
+Client 570 has bought seat number: 1989
+Client 571 access to seat number 1974 denied
+Client 572 access to seat number 1721 denied
+Client 573 has bought seat number: 784
+Client 574 access to seat number 697 denied
+Client 575 access to seat number 1331 denied
+Client 576 has bought seat number: 1531
+Client 577 access to seat number 519 denied
+Client 578 has bought seat number: 868
+Client 579 access to seat number 1125 denied
+Client 580 has bought seat number: 1629
+Client 581 has booked seat number: 144
+Client 582 has booked seat number: 1852
+Client 583 access to seat number 1719 denied
+Client 584 access to seat number 2054 denied
+Client 585 has bought seat number: 597
+Client 586 has bought seat number: 545
+Client 587 has bought seat number: 1345
+Client 588 has bought seat number: 212
+Client 589 access to seat number 1320 denied
+Client 590 access to seat number 293 denied
+Client 591 has bought seat number: 655
+Client 592 has booked seat number: 283
+Client 593 has bought seat number: 328
+Client 594 has bought seat number: 892
+Client 595 has bought seat number: 1156
+Client 596 has booked seat number: 1259
+Client 597 access to seat number 474 denied
+Client 598 access to seat number 1009 denied
+Client 599 has booked seat number: 1181

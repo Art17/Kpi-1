@@ -70,8 +70,8 @@ void test_all ()
 
 int main()
 {
-    //emulate_cinema();
-    test_all ();
+    emulate_cinema();
+    //test_all ();
 
     return 0;
 }
