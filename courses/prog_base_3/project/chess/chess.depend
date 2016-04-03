@@ -1,6 +1,9 @@
 # depslib dependency file v1.0
-1459697649 source:c:\study\op\courses\courses\prog_base_3\project\chess\main.cpp
+1459704795 source:c:\study\op\courses\courses\prog_base_3\project\chess\main.cpp
 	<SFML/Graphics.hpp>
+	<stdio.h>
+	"settings.h"
+	"resources.h"
 
 1429780453 c:\frameworks\sfml-2.3.2\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -379,4 +382,8 @@
 	<SFML/System/String.hpp>
 	<string>
 	<vector>
+
+1459704823 c:\study\op\courses\courses\prog_base_3\project\chess\settings.h
+
+1459704795 c:\study\op\courses\courses\prog_base_3\project\chess\resources.h
 
