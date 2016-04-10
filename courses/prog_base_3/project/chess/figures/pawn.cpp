@@ -7,4 +7,3 @@ Pawn::Pawn (Color color, const char* pos)
     this->color = color;
 }
 
-void Pawn::draw ()

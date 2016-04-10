@@ -1,7 +1,10 @@
 # depslib dependency file v1.0
-1460288938 source:c:\study\op\courses\courses\prog_base_3\project\chess\main.cpp
+1462289361 source:c:\programming\c++\chess\chess\main.cpp
 	<stdio.h>
-	"app.h"
+	<memory.h>
+	<SFML/Graphics.hpp>
+	"resources.h"
+	"settings.h"
 
 1429780453 c:\frameworks\sfml-2.3.2\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
@@ -381,48 +384,18 @@
 	<string>
 	<vector>
 
-1460289134 c:\study\op\courses\courses\prog_base_3\project\chess\settings.h
+1462281932 c:\programming\c++\chess\chess\resources.h
 
-1460284690 c:\study\op\courses\courses\prog_base_3\project\chess\resources.h
+1462278398 c:\programming\c++\chess\chess\settings.h
 
-1460299254 source:c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.cpp
-	"chessboard.h"
-
-1460299254 c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.h
+1462289470 source:c:\study\op\courses\courses\prog_base_3\project\chess2\main.cpp
+	<stdio.h>
+	<memory.h>
 	<SFML/Graphics.hpp>
+	"resources.h"
 	"settings.h"
-	"resources.h"
 
-1460294538 source:c:\study\op\courses\courses\prog_base_3\project\chess\layout.cpp
-	"layout.h"
-	"resources.h"
+1462281932 c:\study\op\courses\courses\prog_base_3\project\chess2\resources.h
 
-1460294538 c:\study\op\courses\courses\prog_base_3\project\chess\layout.h
-	"chessboard.h"
-
-1460287785 source:c:\study\op\courses\courses\prog_base_3\project\chess\abstractfigure.cpp
-	"abstractfigure.h"
-
-1460287464 c:\study\op\courses\courses\prog_base_3\project\chess\abstractfigure.h
-
-1460299233 source:c:\study\op\courses\courses\prog_base_3\project\chess\app.cpp
-	"app.h"
-
-1460288876 c:\study\op\courses\courses\prog_base_3\project\chess\app.h
-	<SFML/Graphics.hpp>
-	"settings.h"
-	"resources.h"
-	"chessboard.h"
-	"layout.h"
-
-1460287785 source:c:\study\op\courses\courses\prog_base_3\project\chess\figures\abstractfigure.cpp
-	"abstractfigure.h"
-
-1460303146 c:\study\op\courses\courses\prog_base_3\project\chess\figures\abstractfigure.h
-
-1462272666 source:c:\study\op\courses\courses\prog_base_3\project\chess\figures\pawn.cpp
-	"pawn.h"
-
-1460304786 c:\study\op\courses\courses\prog_base_3\project\chess\figures\pawn.h
-	"abstractfigure.h"
+1462278398 c:\study\op\courses\courses\prog_base_3\project\chess2\settings.h
 

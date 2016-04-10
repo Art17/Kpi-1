@@ -13,15 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-DSFML_STATIC" />
-					<Add directory="../../../../../../../Frameworks/SFML-2.3.2/include" />
 				</Compiler>
-				<Linker>
-					<Add library="sfml-graphics" />
-					<Add library="sfml-window" />
-					<Add library="sfml-system" />
-					<Add directory="../../../../../../../Frameworks/SFML-2.3.2/lib" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/chess" prefix_auto="1" extension_auto="1" />
@@ -30,34 +22,23 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="-DSFML_STATIC" />
-					<Add directory="../../../../../../../Frameworks/SFML-2.3.2/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="sfml-graphics" />
-					<Add library="sfml-window" />
-					<Add library="sfml-system" />
-					<Add directory="../../../../../../../Frameworks/SFML-2.3.2/lib" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="../../../../Frameworks/SFML-2.3.2/include" />
 		</Compiler>
-		<Unit filename="MainWindow.cpp" />
-		<Unit filename="MainWindow.h" />
-		<Unit filename="SfmlWindow.cpp" />
-		<Unit filename="SfmlWindow.h" />
-		<Unit filename="app.cpp" />
-		<Unit filename="app.h" />
-		<Unit filename="chessboard.cpp" />
-		<Unit filename="chessboard.h" />
-		<Unit filename="figures/abstractfigure.cpp" />
-		<Unit filename="figures/abstractfigure.h" />
-		<Unit filename="layout.cpp" />
-		<Unit filename="layout.h" />
+		<Linker>
+			<Add library="sfml-graphics" />
+			<Add library="sfml-window" />
+			<Add library="sfml-system" />
+			<Add directory="../../../../Frameworks/SFML-2.3.2/lib" />
+		</Linker>
 		<Unit filename="main.cpp" />
 		<Unit filename="resources.h" />
 		<Unit filename="settings.h" />

@@ -1,0 +1,9 @@
+#ifndef SFMLWINDOW_H_INCLUDED
+#define SFMLWINDOW_H_INCLUDED
+
+class SfmlWindow
+{
+
+};
+
+#endif // SFMLWINDOW_H_INCLUDED
