@@ -385,19 +385,19 @@
 
 1460284690 c:\study\op\courses\courses\prog_base_3\project\chess\resources.h
 
-1460285546 source:c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.cpp
+1460299254 source:c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.cpp
 	"chessboard.h"
 
-1460285546 c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.h
+1460299254 c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.h
 	<SFML/Graphics.hpp>
 	"settings.h"
 	"resources.h"
 
-1460285546 source:c:\study\op\courses\courses\prog_base_3\project\chess\layout.cpp
+1460294538 source:c:\study\op\courses\courses\prog_base_3\project\chess\layout.cpp
 	"layout.h"
 	"resources.h"
 
-1460284784 c:\study\op\courses\courses\prog_base_3\project\chess\layout.h
+1460294538 c:\study\op\courses\courses\prog_base_3\project\chess\layout.h
 	"chessboard.h"
 
 1460287785 source:c:\study\op\courses\courses\prog_base_3\project\chess\abstractfigure.cpp
@@ -405,7 +405,7 @@
 
 1460287464 c:\study\op\courses\courses\prog_base_3\project\chess\abstractfigure.h
 
-1460288932 source:c:\study\op\courses\courses\prog_base_3\project\chess\app.cpp
+1460299233 source:c:\study\op\courses\courses\prog_base_3\project\chess\app.cpp
 	"app.h"
 
 1460288876 c:\study\op\courses\courses\prog_base_3\project\chess\app.h
@@ -414,4 +414,9 @@
 	"resources.h"
 	"chessboard.h"
 	"layout.h"
+
+1460287785 source:c:\study\op\courses\courses\prog_base_3\project\chess\figures\abstractfigure.cpp
+	"abstractfigure.h"
+
+1460303146 c:\study\op\courses\courses\prog_base_3\project\chess\figures\abstractfigure.h
 

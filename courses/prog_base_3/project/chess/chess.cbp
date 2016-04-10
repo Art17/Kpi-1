@@ -46,9 +46,17 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="app.cpp" />
+		<Unit filename="app.h" />
 		<Unit filename="chessboard.cpp" />
 		<Unit filename="chessboard.h" />
+		<Unit filename="figures/abstractfigure.cpp" />
+		<Unit filename="figures/abstractfigure.h" />
+		<Unit filename="figures/pawn.h" />
+		<Unit filename="layout.cpp" />
+		<Unit filename="layout.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="pawn.cpp" />
 		<Unit filename="resources.h" />
 		<Unit filename="settings.h" />
 		<Extensions>

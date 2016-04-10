@@ -1,6 +1,6 @@
 #include "chessboard.h"
 
-ChessBoard::ChessBoard(RenderWindow* windowPtr)
+ChessBoard::ChessBoard(RenderWindow* pWindow)
 {
     t_Board.loadFromFile (szField);
     s_Board.setTexture (t_Board);
@@ -8,7 +8,7 @@ ChessBoard::ChessBoard(RenderWindow* windowPtr)
     boardWidth = s_Board.getLocalBounds().width;
     boardHeight = s_Board.getLocalBounds().height;
 
-    this->windowPtr = windowPtr;
+    this->pWindow = pWindow;
 }
 
 ChessBoard::~ChessBoard ()
@@ -18,12 +18,12 @@ ChessBoard::~ChessBoard ()
 
 void ChessBoard::draw ()
 {
-    (*windowPtr).draw (s_Board);
+    pWindow->draw (s_Board);
 }
 
-void ChessBoard::setPosition (Vector2f v)
+void ChessBoard::setPosition (Vector2f v2f_Pos)
 {
-    s_Board.setPosition (v);
+    s_Board.setPosition (v2f_Pos);
 }
 
 FloatRect ChessBoard::getLocalBounds()

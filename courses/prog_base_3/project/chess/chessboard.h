@@ -2,6 +2,7 @@
 #define CHESSBOARD_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
+
 #include "settings.h"
 #include "resources.h"
 
@@ -10,7 +11,7 @@ using namespace sf;
 class ChessBoard
 {
     public:
-        ChessBoard (RenderWindow* );
+        ChessBoard (RenderWindow*);
         ~ChessBoard ();
 
         void draw ();
@@ -20,7 +21,7 @@ class ChessBoard
 
 
     private:
-        RenderWindow* windowPtr;
+        RenderWindow* pWindow;
 
         Texture t_Board;
         Sprite  s_Board;

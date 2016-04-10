@@ -1,7 +1,7 @@
 #include "layout.h"
 #include "resources.h"
 
-Layout::Layout (RenderWindow* windowPtr, ChessBoard* boardPtr)
+Layout::Layout (RenderWindow* pWindow, ChessBoard* pBoard)
 {
     t_Background.loadFromFile (szBackground);
     s_Background.setTexture (t_Background);
@@ -13,8 +13,8 @@ Layout::Layout (RenderWindow* windowPtr, ChessBoard* boardPtr)
                                      (float)screenWidth / backgroundWidth,
                                      (float)screenHeight / backgroundHeight)); // make background fullscreen
 
-    this->windowPtr = windowPtr;
-    this->boardPtr = boardPtr;
+    this->pWindow = pWindow;
+    this->pBoard = pBoard;
 }
 
 Layout::~Layout ()
@@ -24,6 +24,6 @@ Layout::~Layout ()
 
 void Layout::display ()
 {
-    windowPtr->draw (s_Background);
-    boardPtr->draw();
+    pWindow->draw (s_Background);
+    pBoard->draw();
 }

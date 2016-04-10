@@ -13,8 +13,8 @@ class Layout
 
 
     private:
-        RenderWindow* windowPtr;
-        ChessBoard* boardPtr;
+        RenderWindow* pWindow;
+        ChessBoard* pBoard;
 
         Texture t_Background;
         Sprite  s_Background;

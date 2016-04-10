@@ -6,10 +6,14 @@
 class Pawn : public AbstractFigure
 {
     public:
-        Pawn ();
+        Pawn (Color, const char*);
+
+        void draw ();
 
     private:
         Color color;
+        int xPos;
+        int yPos;
 
 };
 

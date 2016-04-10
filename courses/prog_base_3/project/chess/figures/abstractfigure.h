@@ -9,6 +9,7 @@ class AbstractFigure
     public:
         virtual void draw ();
         virtual FigureType getType ();
+
 };
 
 #endif // FIGURE_H_INCLUDED
