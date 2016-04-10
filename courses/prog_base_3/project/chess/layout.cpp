@@ -25,5 +25,5 @@ Layout::~Layout ()
 void Layout::display ()
 {
     windowPtr->draw (s_Background);
-    boardPtr->show();
+    boardPtr->draw();
 }

@@ -13,7 +13,7 @@ class ChessBoard
         ChessBoard (RenderWindow* );
         ~ChessBoard ();
 
-        void show ();
+        void draw ();
         void setPosition (Vector2f);
 
         FloatRect getLocalBounds ();

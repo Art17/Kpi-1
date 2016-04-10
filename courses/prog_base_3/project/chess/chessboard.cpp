@@ -16,7 +16,7 @@ ChessBoard::~ChessBoard ()
 
 }
 
-void ChessBoard::show ()
+void ChessBoard::draw ()
 {
     (*windowPtr).draw (s_Board);
 }
