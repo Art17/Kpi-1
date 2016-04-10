@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1459707153 source:c:\study\op\courses\courses\prog_base_3\project\chess\main.cpp
+1459707689 source:c:\study\op\courses\courses\prog_base_3\project\chess\main.cpp
 	<SFML/Graphics.hpp>
 	<stdio.h>
 	"settings.h"
@@ -384,15 +384,22 @@
 	<string>
 	<vector>
 
-1459707262 c:\study\op\courses\courses\prog_base_3\project\chess\settings.h
+1460284690 c:\study\op\courses\courses\prog_base_3\project\chess\settings.h
 
-1459707262 c:\study\op\courses\courses\prog_base_3\project\chess\resources.h
+1460284690 c:\study\op\courses\courses\prog_base_3\project\chess\resources.h
 
-1459707361 source:c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.cpp
+1460284690 source:c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.cpp
 	"chessboard.h"
 
-1459707361 c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.h
+1459707748 c:\study\op\courses\courses\prog_base_3\project\chess\chessboard.h
 	<SFML/Graphics.hpp>
 	"settings.h"
 	"resources.h"
+
+1460284819 source:c:\study\op\courses\courses\prog_base_3\project\chess\layout.cpp
+	"layout.h"
+	"resources.h"
+
+1460284784 c:\study\op\courses\courses\prog_base_3\project\chess\layout.h
+	"chessboard.h"
 

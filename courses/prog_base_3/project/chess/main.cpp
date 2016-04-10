@@ -6,8 +6,11 @@
 #include "resources.h"
 
 #include "chessboard.h"
+#include "layout.h"
 
 using namespace sf;
+
+void mainLoop (RenderWindow*, Layout*);     // app cycle
 
 int main()
 {
@@ -23,42 +26,30 @@ int main()
                                      screenHeight/2 - chessBoard.getLocalBounds().height/2));
     /*                                  */
 
-    /*  Loading and creating textures   */
-    Texture t_Background;
-    t_Background.loadFromFile(szBackground);
-    /*                  */
+    /*  Initializing main layout    */
+    Layout mainLayout (&mainWindow, &chessBoard);
+    /*                              */
 
-    /*  Loading and creating sprites    */
-    Sprite s_Background;
-    s_Background.setTexture(t_Background);
-    /*                  */
-
-    /*  sprites data(width, height etc)  */
-    int backgroundWidth = s_Background.getLocalBounds().width;
-    int backgroundHeight = s_Background.getLocalBounds().height;
-    /*                                   */
-
-    /*  positioning, scaling sprites    */
-    s_Background.setScale (Vector2f (
-                                     (float)screenWidth / backgroundWidth,
-                                     (float)screenHeight / backgroundHeight));     //  make background fullscreen
-
-    /*                                  */
-
-    while (mainWindow.isOpen())
-    {
-        Event event;
-        while (mainWindow.pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-                mainWindow.close();
-        }
-
-        mainWindow.clear();
-        mainWindow.draw (s_Background);
-        chessBoard.show ();
-        mainWindow.display();
-    }
+    mainLoop (&mainWindow, &mainLayout);    // app cycle
 
     return 0;
+}
+
+void mainLoop (RenderWindow* windowPtr, Layout* layoutPtr)
+{
+    while (windowPtr->isOpen())
+    {
+        Event event;
+        while (windowPtr->pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                windowPtr->close();
+        }
+
+        windowPtr->clear();
+
+        layoutPtr->display();
+
+        windowPtr->display();
+    }
 }

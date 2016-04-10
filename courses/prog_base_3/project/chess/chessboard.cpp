@@ -8,7 +8,7 @@ ChessBoard::ChessBoard(RenderWindow* windowPtr)
     boardWidth = s_Board.getLocalBounds().width;
     boardHeight = s_Board.getLocalBounds().height;
 
-    ChessBoard::windowPtr = windowPtr;
+    this->windowPtr = windowPtr;
 }
 
 ChessBoard::~ChessBoard ()
