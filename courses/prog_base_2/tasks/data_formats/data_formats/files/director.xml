@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<directors>
+
+    <director>
+        <name>James</name>
+        <surname>Wilson</surname>
+        <birthdate>1971-02-24</birthdate>
+        <year>2001</year>
+        <magic>4.3</magic>
+    </director>
+
+    <director>
+        <name>Adam</name>
+        <surname>Smith</surname>
+        <birthdate>1982-03-01</birthdate>
+        <year>2002</year>
+        <magic>10.2</magic>
+    </director>
+
+    <director>
+        <name>John</name>
+        <surname>Johnson</surname>
+        <birthdate>1966-10-25</birthdate>
+        <year>1999</year>
+        <magic>20.32</magic>
+    </director>
+
+
+</directors>

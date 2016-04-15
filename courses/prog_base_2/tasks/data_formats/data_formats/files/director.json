@@ -1,0 +1,25 @@
+[
+    {
+        "name": "James",
+        "surname": "Wilson",
+        "birthdate": "1971-02-24",
+        "year": 2001,
+        "magic": "4.3"
+    },
+
+    {
+        "name": "Adam",
+        "surname": "Smith",
+        "birthdate": "1982-03-01",
+        "year": 2002,
+        "magic": "10.2"
+    },
+
+    {
+        "name": "John",
+        "surname": "Johnson",
+        "birthdate": "1966-10-25",
+        "year": 1999,
+        "magic": "20.32"
+    }
+]
