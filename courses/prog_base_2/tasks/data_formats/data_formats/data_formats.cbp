@@ -39,6 +39,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="director.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="director.h" />
 		<Unit filename="files/director.csv" />
 		<Unit filename="files/director.json" />
 		<Unit filename="files/director.xml" />
