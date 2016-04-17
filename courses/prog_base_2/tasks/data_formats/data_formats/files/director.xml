@@ -7,6 +7,9 @@
         <birthdate>1971-02-24</birthdate>
         <year>2001</year>
         <magic>4.3</magic>
+        <company country='Ukraine'>
+            <name>Malvina</name>
+        </company>
     </director>
 
     <director>
@@ -15,6 +18,9 @@
         <birthdate>1982-03-01</birthdate>
         <year>2002</year>
         <magic>10.2</magic>
+        <company country='Russia'>
+            <name>Buratino</name>
+        </company>
     </director>
 
     <director>
@@ -23,6 +29,9 @@
         <birthdate>1966-10-25</birthdate>
         <year>1999</year>
         <magic>20.32</magic>
+        <company country='USA'>
+            <name>Karabas</name>
+        </company>
     </director>
 
 

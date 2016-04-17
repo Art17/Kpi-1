@@ -4,7 +4,11 @@
         "surname": "Wilson",
         "birthdate": "1971-02-24",
         "year": 2001,
-        "magic": "4.3"
+        "magic": "4.3",
+        "company":{
+            "country":"Ukraine",
+            "name":"Malvina"
+        }
     },
 
     {
@@ -12,7 +16,11 @@
         "surname": "Smith",
         "birthdate": "1982-03-01",
         "year": 2002,
-        "magic": "10.2"
+        "magic": "10.2",
+        "company":{
+            "country":"Russia",
+            "name":"Buratino"
+        }
     },
 
     {
@@ -20,6 +28,10 @@
         "surname": "Johnson",
         "birthdate": "1966-10-25",
         "year": 1999,
-        "magic": "20.32"
+        "magic": "20.32",
+        "company":{
+            "country":"USA",
+            "name":"Karabas"
+        }
     }
 ]
