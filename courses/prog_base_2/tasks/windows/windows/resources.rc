@@ -1,0 +1,19 @@
+#include "menu.h"
+
+1 24 MOVEABLE PURE "data.bin"
+
+MyWindow MENU
+{
+         POPUP "&Main"
+         {
+               MENUITEM "&Exit", IDM_EXIT
+               }
+         POPUP "&Commands"
+         {
+             POPUP "&From1"
+             {
+               MENUITEM "&Reset", IDM_RESET
+               MENUITEM "&Random", IDM_RANDOM
+             }
+               }
+}
