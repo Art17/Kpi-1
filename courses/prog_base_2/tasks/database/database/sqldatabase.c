@@ -307,3 +307,63 @@ int SqlDatabaseCreateRecord (SqlDatabase* pSqlDatabase, const Record* pRec)
 
     return ret;
 }
+
+int SqlDatabaseUpdate (SqlDatabase* pSqlDatabase, double budget, int years)
+{
+    const char* szSqlStatement = "UPDATE Director SET budget = @budget WHERE years > @years";
+
+    sqlite3_stmt* stmt = NULL;
+
+    int ret = sqlite3_prepare_v2(pSqlDatabase->sp->db,
+                                 szSqlStatement,
+                                 strlen(szSqlStatement) + 1,
+                                 &stmt,
+                                 NULL);
+    if (SQLITE_OK != ret)
+    {
+        #ifdef TEST_VERSION
+        printf ("Error preparing statement(SqlDatabaseUpdate)\n");
+        #endif // TEST_VERSION
+        sqlite3_finalize(stmt);
+        return ret;
+    }
+
+    int budgetArgIndex = sqlite3_bind_parameter_index(stmt, "@budget");
+    ret = sqlite3_bind_double(stmt, budgetArgIndex, budget );
+
+    if (SQLITE_OK != ret)
+    {
+        #ifdef TEST_VERSION
+        printf ("Error binding text\n");
+        #endif // TEST_VERSION
+        sqlite3_finalize(stmt);
+        return ret;
+    }
+
+    int conditionArgIndex = sqlite3_bind_parameter_index(stmt, "@years");
+    ret = sqlite3_bind_int(stmt, conditionArgIndex, years);
+
+    if (SQLITE_OK != ret)
+    {
+        #ifdef TEST_VERSION
+        printf ("Error binding integer\n");
+        #endif // TEST_VERSION
+        sqlite3_finalize(stmt);
+        return ret;
+    }
+
+    ret = sqlite3_step(stmt);
+
+    if (SQLITE_DONE != ret)
+    {
+        #ifdef TEST_VERSION
+        printf ("Error making step\n");
+        #endif // TEST_VERSION
+        sqlite3_finalize(stmt);
+        return ret;
+    }
+
+    sqlite3_finalize(stmt);
+
+    return ret;
+}

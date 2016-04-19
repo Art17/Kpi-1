@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "sqldatabase.h"
 #include "record.h"
 
 int main()
 {
+    srand (time (NULL));
+
     const char* szFilePath = "data\\director.db";
     const char* szTableName = "Director";
     SqlDatabase sqlDatabase;
@@ -74,9 +77,10 @@ int main()
 
     int id = 3;
     Record rec;
-
+    const char* names[] = {"Jack", "Bob", "Clark", "Jackson", "Piter", "Adam", "Pol", "Aaron", "Mike"};
+    int qNames = sizeof (names) / sizeof (char*);
     rec.id = id;
-    strcpy (rec.name, "Jack");
+    strcpy (rec.name, names[ rand () % qNames ]);
     strcpy (rec.surname, "Parker");
     strcpy (rec.birthdate, "1991-02-02");
     rec.budget = 125.25;
@@ -93,6 +97,16 @@ int main()
     }
     printf ("---------------------------------------\n\n");
 
+    printf ("update Director. set budget = 5000 where years >= 50\n");
+    SqlDatabaseUpdate (&sqlDatabase, 5000., 50);
+    printf ("printing all database: \n\n");
+    printf ("---------------------------------------\n\n");
+    if (SQLITE_ERROR == SqlDatabasePrintAll (&sqlDatabase))
+    {
+        SqlDatabaseDeinitialize (&sqlDatabase);
+        return 0;
+    }
+    printf ("---------------------------------------\n\n");
 
     SqlDatabaseDeinitialize (&sqlDatabase);
     return 0;

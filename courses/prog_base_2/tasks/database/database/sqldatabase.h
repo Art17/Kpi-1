@@ -19,6 +19,7 @@ int  SqlDatabaseDeleteRecordById (SqlDatabase*, int);
 int  SqlDatabaseTask (SqlDatabase*, double, int);
 int  SqlDatabasePrintById (SqlDatabase*, int);
 int  SqlDatabaseCreateRecord (SqlDatabase*, const Record*);
+int  SqlDatabaseUpdate (SqlDatabase*, double, int);
 void SqlDatabaseDeinitialize (SqlDatabase* );
 
 #endif // SQLDB_H_INCLUDED
