@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1461333504 source:c:\study\op\courses\courses\prog_base_2\labs\lab2\main\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+	"stack.h"
+	"staticlib.h"
+
+1461318183 c:\study\op\courses\courses\prog_base_2\labs\lab2\main\stack.h
+	<stdlib.h>
+
+1461319826 c:\study\op\courses\courses\prog_base_2\labs\lab2\main\staticlib.h
+

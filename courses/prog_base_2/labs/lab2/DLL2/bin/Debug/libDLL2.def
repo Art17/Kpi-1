@@ -1,0 +1,4 @@
+EXPORTS
+    DllMain@12 @1
+    addString @2
+    stackFullReaction @3

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1461320114 source:c:\study\op\courses\courses\prog_base_2\labs\lab2\staticlib\main.c
+	"stack.h"
+	<time.h>
+	<stdlib.h>
+	"randstrings.h"
+
+1461318183 c:\study\op\courses\courses\prog_base_2\labs\lab2\staticlib\stack.h
+	<stdlib.h>
+
+1461319479 c:\study\op\courses\courses\prog_base_2\labs\lab2\staticlib\randstrings.h
+

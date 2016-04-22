@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1461334296 source:c:\study\op\courses\courses\prog_base_2\labs\lab2\stack\stack.c
+	"stack.h"
+	<stdlib.h>
+	<memory.h>
+	<stdio.h>
+
+1461318183 c:\study\op\courses\courses\prog_base_2\labs\lab2\stack\stack.h
+	<stdlib.h>
+
