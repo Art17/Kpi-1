@@ -308,12 +308,11 @@ int SqlDatabaseCreateRecord (SqlDatabase* pSqlDatabase, const Record* pRec)
     return ret;
 }
 
-int SqlDatabaseUpdate (SqlDatabase* pSqlDatabase, double budget, int years)
+int  SqlDatabaseUpdate (SqlDatabase* pSqlDatabase, const Record* pRec)
 {
-    const char* szSqlStatement = "UPDATE Director SET budget = @budget WHERE years > @years";
-
+    const char* szSqlStatement = "UPDATE Director SET Name = @name, Surname = @surname, Birthdate = @birthday,"
+                                "Budget = @budget, Years = @years WHERE Id = @id;";
     sqlite3_stmt* stmt = NULL;
-
     int ret = sqlite3_prepare_v2(pSqlDatabase->sp->db,
                                  szSqlStatement,
                                  strlen(szSqlStatement) + 1,
@@ -322,35 +321,26 @@ int SqlDatabaseUpdate (SqlDatabase* pSqlDatabase, double budget, int years)
     if (SQLITE_OK != ret)
     {
         #ifdef TEST_VERSION
-        printf ("Error preparing statement(SqlDatabaseUpdate)\n");
+        printf ("Error preparing statement(SqlDatabaseUpdateRecord)\n");
         #endif // TEST_VERSION
         sqlite3_finalize(stmt);
         return ret;
     }
 
-    int budgetArgIndex = sqlite3_bind_parameter_index(stmt, "@budget");
-    ret = sqlite3_bind_double(stmt, budgetArgIndex, budget );
+    int positions[6];
+    positions[0] = sqlite3_bind_parameter_index (stmt, "@id");
+    positions[1] = sqlite3_bind_parameter_index (stmt, "@name");
+    positions[2] = sqlite3_bind_parameter_index (stmt, "@surname");
+    positions[3] = sqlite3_bind_parameter_index (stmt, "@birthday");
+    positions[4] = sqlite3_bind_parameter_index (stmt, "@budget");
+    positions[5] = sqlite3_bind_parameter_index (stmt, "@years");
 
-    if (SQLITE_OK != ret)
-    {
-        #ifdef TEST_VERSION
-        printf ("Error binding text\n");
-        #endif // TEST_VERSION
-        sqlite3_finalize(stmt);
-        return ret;
-    }
-
-    int conditionArgIndex = sqlite3_bind_parameter_index(stmt, "@years");
-    ret = sqlite3_bind_int(stmt, conditionArgIndex, years);
-
-    if (SQLITE_OK != ret)
-    {
-        #ifdef TEST_VERSION
-        printf ("Error binding integer\n");
-        #endif // TEST_VERSION
-        sqlite3_finalize(stmt);
-        return ret;
-    }
+    sqlite3_bind_int(stmt, positions[0], pRec->id);
+    sqlite3_bind_text (stmt, positions[1], pRec->name, strlen (pRec->name), NULL);
+    sqlite3_bind_text (stmt, positions[2], pRec->surname, strlen (pRec->surname), NULL);
+    sqlite3_bind_text (stmt, positions[3], pRec->birthdate, strlen (pRec->birthdate), NULL);
+    sqlite3_bind_double (stmt, positions[4], pRec->budget);
+    sqlite3_bind_int(stmt, positions[5], pRec->years);
 
     ret = sqlite3_step(stmt);
 

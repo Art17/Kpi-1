@@ -1,0 +1,22 @@
+# depslib dependency file v1.0
+1461340291 source:c:\study\op\courses\courses\prog_base_2\tasks\database\database\sqldatabase.c
+	"sqldatabase.h"
+	<stdio.h>
+
+1461339970 c:\study\op\courses\courses\prog_base_2\tasks\database\database\sqldatabase.h
+	<sqlite3.h>
+	"record.h"
+
+1450774966 c:\study\op\courses\courses\prog_base_2\tasks\database\database\sqlite\sqlite3.h
+	<stdarg.h>
+
+1461006020 c:\study\op\courses\courses\prog_base_2\tasks\database\database\record.h
+
+1461341067 source:c:\study\op\courses\courses\prog_base_2\tasks\database\database\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"sqldatabase.h"
+	"record.h"
+
