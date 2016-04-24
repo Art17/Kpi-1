@@ -30,8 +30,13 @@
     <addaction name="actionNew_game_against_computer"/>
     <addaction name="actionNew_game_against_human"/>
     <addaction name="separator"/>
-    <addaction name="actionOptions"/>
+    <addaction name="actionUndo"/>
     <addaction name="separator"/>
+    <addaction name="actionStatistics"/>
+    <addaction name="actionOptions"/>
+    <addaction name="actionChange_Appearance"/>
+    <addaction name="separator"/>
+    <addaction name="actionResign"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -72,6 +77,26 @@
   <action name="actionOptions">
    <property name="text">
     <string>Options</string>
+   </property>
+  </action>
+  <action name="actionResign">
+   <property name="text">
+    <string>Resign</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="actionStatistics">
+   <property name="text">
+    <string>Statistics</string>
+   </property>
+  </action>
+  <action name="actionChange_Appearance">
+   <property name="text">
+    <string>Change Appearance</string>
    </property>
   </action>
  </widget>

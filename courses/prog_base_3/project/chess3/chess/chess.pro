@@ -15,12 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     qsfmlcanvas.cpp \
-    chessboard.cpp
+    chessboard.cpp \
+    movethread.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
     chessboard.h \
-    resources.h
+    resources.h \
+    movethread.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 
