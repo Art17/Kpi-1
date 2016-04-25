@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1461605379 source:c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"communicator.h"
+	"comnet.h"
+
+1461603579 c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\communicator.h
+
+1461603592 source:c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\communicator.c
+	"communicator.h"
+
+1461601603 source:c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\comnet.c
+	"comnet.h"
+
+1461600263 c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\comnet.h
+	"event.h"
+	"communicator.h"
+	"communicator.h"
+
+1461599995 c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\event.h
+
+1461605190 source:c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\tests\totaltests.c
+	"tests.h"
+
+1461603688 c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\tests\tests.h
+
+1461605278 source:c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\tests\communicator_tests.c
+	<stdlib.h>
+	<stdarg.h>
+	<stddef.h>
+	<setjmp.h>
+	"cmocka.h"
+	"tests.h"
+	"../communicator.h"
+
+1426175038 c:\study\op\courses\courses\prog_base_2\labs\lab3\lab3\tests\cmocka.h
+

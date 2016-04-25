@@ -6,6 +6,13 @@
 #include "stack.h"
 #include "staticlib.h"
 
+int (*NAME)(double, char);
+int*;
+
+struct s
+{
+};
+
 typedef int (*add_f)(Stack* );
 typedef void (*react_f)(Stack* );
 
