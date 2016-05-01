@@ -5,7 +5,7 @@ MoveThread::MoveThread(QRect rc, Sprite* sp)
 {
     rect = rc;
     sprite = sp;
-    time = 25;
+    time = 15;
 }
 
 

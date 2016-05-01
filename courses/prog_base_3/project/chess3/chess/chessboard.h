@@ -5,16 +5,32 @@
 #include <qsfmlcanvas.h>
 
 #include <QMouseEvent>
+#include <QStack>
 
 using namespace sf;
 
 enum Figures {Pawn = 1, Knight, Bishop, Rook, Queen, King};
+
+struct FigureMovedInfo
+{
+    Sprite* s_Figure;
+    int figure;
+    int figureIndex;
+    QRect figureMove;
+
+    Sprite* s_ExtraFigure;
+    int extraFigure;
+    int extraFigureIndex;
+    QRect extraFigureMove;
+};
 
 class ChessBoard : public QSFMLCanvas
 {
 public :
 
     ChessBoard(QWidget* , const QPoint& , const QSize& );
+
+    void undo ();
 
 private :
 
@@ -29,6 +45,7 @@ private :
     void loadBoard ();
 
     int indexTable[8][8];
+    int figuresTable[8][8];
 
     Texture t_Figures;
     Sprite s_Figures[32];
@@ -43,6 +60,12 @@ private :
 
     int iSelectedFigure;
     int iSelectedTileX, iSelectedTileY;
+
+    int qWhiteDestroyed, qBlackDestroyed;
+
+    QStack<FigureMovedInfo> journal;
+
+    RectangleShape rs_Selected;
 
     Texture  t_Board;
     Sprite s_Board;

@@ -22,7 +22,7 @@ void ChessBoard::OnInit()
     loadFigures ();
 
     rs_Selected = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
-    rs_Selected.setFillColor(Color (0, 255, 0, 127));
+    rs_Selected.setFillColor(Color (0, 255, 0, 64));
 
 }
 
