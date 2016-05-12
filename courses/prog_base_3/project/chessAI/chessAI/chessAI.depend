@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1463079934 source:c:\programming\c++\chessai\chessai\main.cpp
+	"ChessEngine.h"
+	<memory.h>
+	<cstdio>
+
+1463039717 c:\programming\c++\chessai\chessai\include\chessengine.h
+
+1462984289 source:c:\programming\c++\chessai\chessai\src\chessengine.cpp
+	"ChessEngine.h"
+	<memory.h>
+
+1463079885 source:c:\programming\c++\chessai\chessai\chessengine.cpp
+	"ChessEngine.h"
+	<memory.h>
+
+1463083442 c:\programming\c++\chessai\chessai\chessengine.h
+	<stack>
+
