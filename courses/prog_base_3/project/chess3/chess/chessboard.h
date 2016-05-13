@@ -7,9 +7,11 @@
 #include <QMouseEvent>
 #include <QStack>
 
+#include <chessengine.h>
+
 using namespace sf;
 
-enum Figures {Pawn = 1, Knight, Bishop, Rook, Queen, King};
+enum Figures {Rook = 1, Knight = 2, Bishop = 4, Queen = 8, King = 16, Pawn = 32};
 
 struct FigureMovedInfo
 {
@@ -35,8 +37,11 @@ public :
 private :
 
     virtual void mousePressEvent (QMouseEvent* );
-    /*virtual void mouseMoveEvent (QMouseEvent*);
-    virtual void mouseReleaseEvent (QMouseEvent*);*/
+    virtual void mouseMoveEvent (QMouseEvent* );
+
+    void unselect ();
+
+    inline bool isWhite (int);
 
     void OnInit();
     void OnUpdate();
@@ -47,6 +52,8 @@ private :
     int indexTable[8][8];
     int figuresTable[8][8];
 
+    const int colorWhite;
+
     Texture t_Figures;
     Sprite s_Figures[32];
 
@@ -54,9 +61,6 @@ private :
     float boardTileWidth, boardTileHeight;
 
     float figureWidth, figureHeight;
-
-    int boardMarginTop, boardMarginBottom, boardMarginLeft, boardMarginRight;
-    int figureMarginX, figureMarginY;
 
     int iSelectedFigure;
     int iSelectedTileX, iSelectedTileY;
@@ -66,6 +70,13 @@ private :
     QStack<FigureMovedInfo> journal;
 
     RectangleShape rs_Selected;
+    RectangleShape rs_Moving;
+    RectangleShape rs_ValidMoveHighlight[8][8];
+    bool bValid[8][8];
+
+    ChessEngine* chessEng;
+
+    int movingTileX, movingTileY;
 
     Texture  t_Board;
     Sprite s_Board;

@@ -9,9 +9,9 @@ using namespace std;
 
 
 ChessBoard::ChessBoard(QWidget* Parent, const QPoint& Position, const QSize& Size) :
-QSFMLCanvas(Parent, Position, Size)
+QSFMLCanvas(Parent, Position, Size), colorWhite (64)
 {
-
+    setMouseTracking(true);
 }
 
 void ChessBoard::OnInit()
@@ -22,7 +22,22 @@ void ChessBoard::OnInit()
     loadFigures ();
 
     rs_Selected = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
-    rs_Selected.setFillColor(Color (0, 255, 0, 127));
+    rs_Selected.setFillColor(Color (0, 255, 0, 64));
+
+    rs_Moving = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
+    rs_Moving.setFillColor(Color (0, 255, 0, 32));
+
+    memset (bValid, 0, sizeof (bool)*8*8);
+
+    for (int i = 0; i < 8; i++)
+        for (int j = 0; j < 8; j++)
+        {
+            rs_ValidMoveHighlight[i][j] = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
+            rs_ValidMoveHighlight[i][j].setFillColor (Color (0, 255, 0, 48));
+            rs_ValidMoveHighlight[i][j].setPosition (j*boardTileWidth, i*boardTileHeight );
+        }
+    chessEng = new ChessEngine ();
+    chessEng->newGame();
 
 }
 
@@ -33,21 +48,29 @@ void ChessBoard::OnUpdate()
     this->draw (s_Board);
     if (iSelectedFigure >= 0)
     {
-        rs_Selected.setPosition(boardMarginLeft + boardTileWidth*iSelectedTileX + figureMarginX,
-                                boardMarginTop + boardTileHeight*iSelectedTileY + figureMarginY);
+        rs_Selected.setPosition(boardTileWidth*iSelectedTileX,
+                                 boardTileHeight*iSelectedTileY);
 
         this->draw (rs_Selected);
     }
+
+    rs_Moving.setPosition( boardTileWidth*movingTileX, movingTileY*boardTileHeight );
+    this->draw(rs_Moving);
+
+    for (int i = 0; i < 8; i++)
+        for (int j = 0; j < 8; j++)
+            if (bValid[i][j])
+                this->draw(rs_ValidMoveHighlight[i][j]);
+
     for (int i = 0; i < 32; i++)
     {
         this->draw (s_Figures[i]);
     }
-
-
-    /*for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 8; j++)
-           if (indexTable[i][j] != -1)
-               this->draw (s_Figures[indexTable[i][j]]);*/
+}
+void ChessBoard::mouseMoveEvent(QMouseEvent *e)
+{
+    movingTileX = e->x() / boardTileWidth;
+    movingTileY = e->y() / boardTileHeight;
 }
 
 void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
@@ -55,147 +78,261 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
     int x = mouseEvent->x();
     int y = mouseEvent->y();
 
-    if (x <= boardMarginLeft || y <= boardMarginTop)
+    if (x >= boardWidth || y >= boardHeight)
         return;
-    if (x >= boardMarginLeft + boardWidth || y >= boardMarginTop + boardHeight)
-        return;
-
-    x -= boardMarginLeft + 5;
-    y -= boardMarginTop;
 
     int tileX = x / boardTileWidth;
     int tileY = y / boardTileHeight;
 
     if (tileX == iSelectedTileX && tileY == iSelectedTileY)
     {
-        iSelectedTileX = -1;
-        iSelectedTileY = -1;
-        iSelectedFigure = -1;
-
+        unselect ();
         return;
     }
 
     if (iSelectedFigure == -1)
     {
-        iSelectedFigure = indexTable[tileX][tileY];
+        iSelectedFigure = indexTable[tileY][tileX];
         iSelectedTileX = tileX;
         iSelectedTileY = tileY;
+
+        int from = tileY*8 + tileX;
+        byte validMoves[32];
+        int l;
+
+        chessEng->getValidMoves(from, (byte*)validMoves, &l);
+
+        for (int i = 0; i < l; i++)
+        {
+            int x = validMoves[i] % 8;
+            int y = validMoves[i] / 8;
+
+            bValid[y][x] = true;
+        }
+        byte board[8][8];
+        chessEng->getBoard((byte*)board);
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                cout << (int)board[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
     else
     {
-        /*s_Figures[iSelectedFigure].setPosition ( Vector2f (boardMarginLeft + tileX*boardTileWidth + figureMarginX,
-                                                           boardMarginTop + tileY*boardTileHeight + figureMarginY) );*/
-
-        QRect rect;
-        rect.setCoords(s_Figures[iSelectedFigure].getPosition().x,
-                       s_Figures[iSelectedFigure].getPosition().y,
-                       boardMarginLeft + tileX*boardTileWidth + figureMarginX,
-                       boardMarginTop + tileY*boardTileHeight + figureMarginY);
-        MoveThread* moveThread = new MoveThread(rect,
-                                                &s_Figures[iSelectedFigure]);
-        moveThread->start ();
-
-        rect.setCoords(iSelectedTileX, iSelectedTileY, tileX, tileY);
-        FigureMovedInfo fmi;
-        memset (&fmi, 0, sizeof (FigureMovedInfo));
-        fmi.s_Figure = &s_Figures[iSelectedFigure];
-        fmi.figureIndex = iSelectedFigure;
-        fmi.figure = figuresTable[iSelectedTileX][iSelectedTileY];
-        fmi.figureMove = rect;
-
-
-        int newX, newY;
-
-        if (figuresTable[tileX][tileY] != 0)
+        if ( bValid[tileY][tileX] )
         {
-            if (figuresTable[tileX][tileY] < 10)
-            {
-                newX = 0;
-                newY = (qWhiteDestroyed++)*figureHeight;
-                //s_Figures[ indexTable[tileX][tileY] ].setPosition(0, (qWhiteDestroyed++)*figureHeight);
-            }
-            if (figuresTable[tileX][tileY] >= 10)
-            {
-                newX = boardMarginLeft + boardWidth + 5;
-                newY = (qBlackDestroyed++)*figureHeight;
-                //s_Figures[ indexTable[tileX][tileY] ].setPosition(boardMarginLeft + boardWidth + 5, (qBlackDestroyed++)*figureHeight);
-            }
-
-            rect.setCoords( s_Figures[ indexTable[tileX][tileY] ].getPosition().x,
-                            s_Figures[ indexTable[tileX][tileY] ].getPosition().y,
-                               newX,
-                               newY);
-            moveThread = new MoveThread(rect,
-                                        &s_Figures[ indexTable[tileX][tileY] ]);
+            QRect rect;
+            rect.setCoords(s_Figures[iSelectedFigure].getPosition().x,
+                           s_Figures[iSelectedFigure].getPosition().y,
+                           tileX*boardTileWidth,
+                           tileY*boardTileHeight);
+            MoveThread* moveThread = new MoveThread(rect,
+                                                    &s_Figures[iSelectedFigure]);
             moveThread->start ();
-            rect.setCoords (tileX, tileY, -1, -1);
-            fmi.s_ExtraFigure = &s_Figures[ indexTable[tileX][tileY] ];
-            fmi.extraFigureIndex = indexTable[tileX][tileY];
-            fmi.extraFigure = figuresTable [tileX][tileY];
-            fmi.extraFigureMove = rect;
+
+            rect.setCoords(iSelectedTileX, iSelectedTileY, tileX, tileY);
+            FigureMovedInfo fmi;
+            memset (&fmi, 0, sizeof (FigureMovedInfo));
+            fmi.s_Figure = &s_Figures[iSelectedFigure];
+            fmi.figureIndex = iSelectedFigure;
+            fmi.figure = figuresTable[iSelectedTileY][iSelectedTileX];
+            fmi.figureMove = rect;
+
+
+            if (figuresTable[tileY][tileX] != 0)
+            {
+                s_Figures[ indexTable[tileY][tileX] ].setPosition(Vector2f (-100, -100));
+                rect.setCoords (tileX, tileY, -100, -100);
+                fmi.s_ExtraFigure = &s_Figures[ indexTable[tileY][tileX] ];
+                fmi.extraFigureIndex = indexTable[tileY][tileX];
+                fmi.extraFigure = figuresTable [tileY][tileX];
+                fmi.extraFigureMove = rect;
+            }
+            else if ( figuresTable[iSelectedTileY][iSelectedTileX] & King )
+            {
+                if ( tileX == iSelectedTileX+2 )
+                {
+                    if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]) )
+                    {
+                        rect.setCoords(7*boardTileWidth, 7*boardTileHeight, 5*boardTileWidth, 7*boardTileHeight);
+                        MoveThread* moveThread = new MoveThread(rect,
+                                                                &s_Figures[indexTable[7][7]]);
+                        rect.setCoords(7, 7, 5, 7);
+                        moveThread->start();
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[7][7] ];
+                        fmi.extraFigureIndex = indexTable[7][7];
+                        fmi.extraFigure = figuresTable [7][7];
+                        fmi.extraFigureMove = rect;
+
+                        indexTable[7][5] = indexTable[7][7];
+                        indexTable[7][7] = -1;
+
+                        figuresTable[7][5] = figuresTable[7][7];
+                        figuresTable[7][7] = 0;
+                    }
+                    else
+                    {
+                        rect.setCoords(7*boardTileWidth, 0*boardTileHeight, 5*boardTileWidth, 0*boardTileHeight);
+                        MoveThread* moveThread = new MoveThread(rect,
+                                                                &s_Figures[indexTable[0][7]]);
+                        moveThread->start();
+                        rect.setCoords(7, 0, 5, 0);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[0][7] ];
+                        fmi.extraFigureIndex = indexTable[0][7];
+                        fmi.extraFigure = figuresTable [0][7];
+                        fmi.extraFigureMove = rect;
+
+                        indexTable[0][5] = indexTable[0][7];
+                        indexTable[0][7] = -1;
+
+                        figuresTable[0][5] = figuresTable[0][7];
+                        figuresTable[0][7] = 0;
+                    }
+                }
+                if ( tileX == iSelectedTileX-2 )
+                {
+                    if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]) )
+                    {
+                        rect.setCoords(0*boardTileWidth, 7*boardTileHeight, 3*boardTileWidth, 7*boardTileHeight);
+                        MoveThread* moveThread = new MoveThread(rect,
+                                                                &s_Figures[indexTable[7][0]]);
+                        moveThread->start();
+                        rect.setCoords(0, 7, 3, 7);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[7][0] ];
+                        fmi.extraFigureIndex = indexTable[7][0];
+                        fmi.extraFigure = figuresTable [7][0];
+                        fmi.extraFigureMove = rect;
+
+                        indexTable[7][3] = indexTable[7][0];
+                        indexTable[7][0] = -1;
+
+                        figuresTable[7][3] = figuresTable[7][0];
+                        figuresTable[7][0] = 0;
+
+                    }
+                    else
+                    {
+                        rect.setCoords(0*boardTileWidth, 0*boardTileHeight, 3*boardTileWidth, 0*boardTileHeight);
+                        MoveThread* moveThread = new MoveThread(rect,
+                                                                &s_Figures[indexTable[0][0]]);
+                        moveThread->start();
+                        rect.setCoords(0, 0, 3, 0);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[0][0] ];
+                        fmi.extraFigureIndex = indexTable[0][0];
+                        fmi.extraFigure = figuresTable [0][0];
+                        fmi.extraFigureMove = rect;
+
+                        indexTable[0][3] = indexTable[0][0];
+                        indexTable[0][0] = -1;
+
+                        figuresTable[0][3] = figuresTable[0][0];
+                        figuresTable[0][0] = 0;
+                    }
+                }
+            }
+            FigureMovedInfo lastFmi;
+            if (journal.isEmpty())
+            {
+                memset (&lastFmi, 0, sizeof (FigureMovedInfo));
+            }
+            else
+                lastFmi = journal.top();
+            int xFrom = iSelectedTileX;
+            int yFrom = iSelectedTileY;
+            int xTo = tileX;
+            int yTo = tileY;
+            int lastXFrom, lastYFrom, lastXTo, lastYTo;
+            lastFmi.figureMove.getCoords(&lastXFrom, &lastYFrom, &lastXTo, &lastYTo);
+
+            if ( yFrom == 3 )
+            {
+                if (xFrom+1 < 8 && lastYFrom == 1 && lastXFrom == xFrom+1 && lastYTo == 3 && lastXTo == xFrom+1 && xTo == xFrom+1)
+                {
+                    if ( figuresTable[3][xFrom+1] & Pawn && figuresTable[yFrom][xFrom] & Pawn)
+                    {
+                        rect.setCoords (xFrom+1, 3, -100, -100);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[3][xFrom+1] ];
+                        fmi.extraFigureIndex = indexTable[3][xFrom+1];
+                        fmi.extraFigure = figuresTable [3][xFrom+1];
+                        fmi.extraFigureMove = rect;
+
+                        figuresTable[3][xFrom+1] = 0;
+                        s_Figures[ indexTable[3][xFrom+1] ].setPosition(Vector2f (-100, -100));
+                        indexTable[3][xFrom+1] = -1;
+                    }
+                }
+                if (xFrom-1 >= 0 && lastYFrom == 1 && lastXFrom == xFrom-1 && lastYTo == 3 && lastXTo == xFrom-1 && xTo == xFrom-1)
+                {
+                    if ( figuresTable[3][xFrom-1] & Pawn && figuresTable[yFrom][xFrom] & Pawn )
+                    {
+                        rect.setCoords (xFrom-1, 3, -100, -100);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[3][xFrom-1] ];
+                        fmi.extraFigureIndex = indexTable[3][xFrom-1];
+                        fmi.extraFigure = figuresTable [3][xFrom-1];
+                        fmi.extraFigureMove = rect;
+
+                        figuresTable[3][xFrom-1] = 0;
+                        s_Figures[ indexTable[3][xFrom-1] ].setPosition(Vector2f (-100, -100));
+                        indexTable[3][xFrom-1] = -1;
+                    }
+                }
+            }
+
+            if ( yFrom == 4 )
+            {
+                if (xFrom+1 < 8 && lastYFrom == 6 && lastXFrom == xFrom+1 && lastYTo == 4 && lastXTo == xFrom+1 && xTo == xFrom+1)
+                {
+                    if ( figuresTable[4][xFrom+1] & Pawn && figuresTable[yFrom][xFrom] & Pawn )
+                    {
+                        rect.setCoords (xFrom+1, 4, -100, -100);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[4][xFrom+1] ];
+                        fmi.extraFigureIndex = indexTable[4][xFrom+1];
+                        fmi.extraFigure = figuresTable [4][xFrom+1];
+                        fmi.extraFigureMove = rect;
+
+                        figuresTable[4][xFrom+1] = 0;
+                        s_Figures[ indexTable[4][xFrom+1] ].setPosition(Vector2f (-100, -100));
+                        indexTable[4][xFrom+1] = -1;
+                    }
+                }
+                if (xFrom-1 >= 0 && lastYFrom == 6 && lastXFrom == xFrom-1 && lastYTo == 4 && lastXTo == xFrom-1 && xTo == xFrom-1)
+                {
+                    if ( figuresTable[4][xFrom-1] & Pawn && figuresTable[yFrom][xFrom] & Pawn )
+                    {
+                        rect.setCoords (xFrom-1, 3, -100, -100);
+                        fmi.s_ExtraFigure = &s_Figures[ indexTable[4][xFrom-1] ];
+                        fmi.extraFigureIndex = indexTable[4][xFrom-1];
+                        fmi.extraFigure = figuresTable [4][xFrom-1];
+                        fmi.extraFigureMove = rect;
+                        figuresTable[4][xFrom-1] = 0;
+                        s_Figures[ indexTable[4][xFrom-1] ].setPosition(Vector2f (-100, -100));
+                        indexTable[4][xFrom-1] = -1;
+                    }
+
+                }
+            }
+
+            journal.push(fmi);
+
+            figuresTable[tileY][tileX] = figuresTable[iSelectedTileY][iSelectedTileX];
+            figuresTable[iSelectedTileY][iSelectedTileX] = 0;
+
+            indexTable[iSelectedTileY][iSelectedTileX] = -1;
+            indexTable[tileY][tileX] = iSelectedFigure;
+
+            Move move;
+            move.from = iSelectedTileY*8 + iSelectedTileX;
+            move.to = tileY*8 + tileX;
+            cout << iSelectedTileY*8 + iSelectedTileX << " " << tileY*8 + tileX << endl;
+            chessEng->makeMove (move);
         }
-        journal.push(fmi);
-
-        figuresTable[tileX][tileY] = figuresTable[iSelectedTileX][iSelectedTileY];
-        figuresTable[iSelectedTileX][iSelectedTileY] = 0;
-
-        indexTable[iSelectedTileX][iSelectedTileY] = -1;
-        indexTable[tileX][tileY] = iSelectedFigure;
-
-        iSelectedFigure = -1;
+            unselect ();
     }
 
 }
-
-/*void ChessBoard::mouseMoveEvent (QMouseEvent* mouseEvent)
-{
-    int x = mouseEvent->x();
-    int y = mouseEvent->y();
-
-    if (x <= boardMarginLeft || y <= boardMarginTop)
-        return;
-    if (x >= boardMarginLeft + boardWidth || y >= boardMarginTop + boardHeight)
-        return;
-    if (iSelectedFigure == -1)
-        return;
-
-
-    if (mouseEvent->buttons() & Qt::LeftButton)
-    {
-        s_Figures[iSelectedFigure].setPosition ( Vector2f (x - figureWidth/2,
-                                                           y - figureHeight/2) );
-    }
-}
-
-void ChessBoard::mouseReleaseEvent(QMouseEvent* mouseEvent)
-{
-
-    int x = mouseEvent->x();
-    int y = mouseEvent->y();
-
-    if (iSelectedFigure == -1)
-        return;
-    if (x <= boardMarginLeft || y <= boardMarginTop)
-        return;
-    if (x >= boardMarginLeft + boardWidth || y >= boardMarginTop + boardHeight)
-        return;
-
-    x -= boardMarginLeft + 5;
-    y -= boardMarginTop;
-
-    int tileX = x / boardTileWidth;
-    int tileY = y / boardTileHeight;
-
-
-    //if (mouseEvent->buttons() & Qt::LeftButton)
-    //{
-        s_Figures[iSelectedFigure].setPosition ( Vector2f (boardMarginLeft + tileX*boardTileWidth + figureMarginX,
-                                                           boardMarginTop + tileY*boardTileHeight + figureMarginY) );
-        indexTable[iSelectedTileX][iSelectedTileY] = -1;
-        indexTable[tileX][tileY] = iSelectedFigure;
-        iSelectedFigure = -1;
-    //}
-}*/
 
 void ChessBoard::loadBoard ()
 {
@@ -204,44 +341,29 @@ void ChessBoard::loadBoard ()
 
     memset (figuresTable, 0, sizeof(int)*64);
 
-    int color = 10;
-    figuresTable[0][0] = Rook + color;
-    figuresTable[1][0] = Knight + color;
-    figuresTable[2][0] = Bishop + color;
-    figuresTable[3][0] = Queen + color;
-    figuresTable[4][0] = King + color;
-    figuresTable[5][0] = Bishop + color;
-    figuresTable[6][0] = Knight + color;
-    figuresTable[7][0] = Rook + color;
+    figuresTable[0][0] = Rook;
+    figuresTable[0][1] = Knight;
+    figuresTable[0][2] = Bishop;
+    figuresTable[0][3] = Queen;
+    figuresTable[0][4] = King;
+    figuresTable[0][5] = Bishop;
+    figuresTable[0][6] = Knight;
+    figuresTable[0][7] = Rook;
 
     for (int i = 0; i < 8; i++)
-        figuresTable[i][1] = Pawn + color;
-
-    color = 0;
+        figuresTable[1][i] = Pawn;
 
     for (int i = 0; i < 8; i++)
-        figuresTable[i][6] = Pawn + color;
+        figuresTable[6][i] = Pawn | colorWhite;
 
-    figuresTable[0][7] = Rook + color;
-    figuresTable[1][7] = Knight + color;
-    figuresTable[2][7] = Bishop + color;
-    figuresTable[3][7] = Queen + color;
-    figuresTable[4][7] = King + color;
-    figuresTable[5][7] = Bishop + color;
-    figuresTable[6][7] = Knight + color;
-    figuresTable[7][7] = Rook + color;
-
-    /*for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            cout << figuresTable[i][j] << " ";
-        }
-        cout << endl;
-    }*/
-
-
-
+    figuresTable[7][0] = Rook | colorWhite;
+    figuresTable[7][1] = Knight | colorWhite;
+    figuresTable[7][2] = Bishop | colorWhite;
+    figuresTable[7][3] = Queen | colorWhite;
+    figuresTable[7][4] = King | colorWhite;
+    figuresTable[7][5] = Bishop | colorWhite;
+    figuresTable[7][6] = Knight | colorWhite;
+    figuresTable[7][7] = Rook | colorWhite;
 
     t_Board.loadFromFile(szBoard);
     s_Board.setTexture(t_Board);
@@ -256,13 +378,9 @@ void ChessBoard::loadBoard ()
                                      ((float)widgetWidth) / (spriteWidth),
                                      ((float)widgetheight) / spriteHeight));
 
-    boardMarginLeft = 58;
-    boardMarginRight = 64;
-    boardMarginTop = 59;
-    boardMarginBottom  = 63;
 
-    boardWidth = (spriteWidth - boardMarginLeft - boardMarginRight)*s_Board.getScale().x;
-    boardHeight = (spriteHeight - boardMarginBottom - boardMarginTop)*s_Board.getScale().y;
+    boardWidth = (spriteWidth)*s_Board.getScale().x;
+    boardHeight = (spriteHeight)*s_Board.getScale().y;
 
     boardTileWidth = boardWidth / 8;
     boardTileHeight = boardHeight / 8;
@@ -281,9 +399,6 @@ void ChessBoard::loadFigures ()
 
     figureWidth = figuresWidth / qFiguresPerWidth;
     figureHeight = figuresHeight / qFiguresPerHeight;
-
-    figureMarginX = 7;
-    figureMarginY = 6;
 
     int figurePos = 0;
     int currentSprite = 0;
@@ -315,16 +430,16 @@ void ChessBoard::loadFigures ()
                     if (isBlack)
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + 4*boardTileWidth + figureMarginX,
-                                                                         boardMarginTop  + figureMarginY) );
-                        indexTable[4][0] = currentSprite;
+                                                                          4*boardTileWidth,
+                                                                           0) );
+                        indexTable[0][4] = currentSprite;
                     }
                     else
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + 4*boardTileWidth + figureMarginX,
-                                                                         boardMarginTop + boardHeight - boardTileHeight + figureMarginY) );
-                        indexTable[4][7] = currentSprite;
+                                                                         4*boardTileWidth,
+                                                                         boardHeight - boardTileHeight) );
+                        indexTable[7][4] = currentSprite;
                     }
                 }
                 else if ( imageSequece[figurePos % qFiguresPerWidth] == Queen )
@@ -332,16 +447,16 @@ void ChessBoard::loadFigures ()
                     if (isBlack)
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + 3*boardTileWidth + figureMarginX,
-                                                                         boardMarginTop + figureMarginY) );
-                        indexTable[3][0] = currentSprite;
+                                                                         3*boardTileWidth,
+                                                                         0) );
+                        indexTable[0][3] = currentSprite;
                     }
                     else
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + 3*boardTileWidth + figureMarginX,
-                                                                         boardMarginTop + boardHeight - boardTileHeight + figureMarginY) );
-                        indexTable[3][7] = currentSprite;
+                                                                         3*boardTileWidth,
+                                                                          boardHeight - boardTileHeight) );
+                        indexTable[7][3] = currentSprite;
                     }
                 }
 
@@ -365,16 +480,16 @@ void ChessBoard::loadFigures ()
                     if (isBlack)
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + i*boardTileWidth  + figureMarginX,
-                                                                         boardMarginTop + boardTileHeight + figureMarginY) );
-                        indexTable[i][1] = currentSprite;
+                                                                         i*boardTileWidth,
+                                                                         boardTileHeight) );
+                        indexTable[1][i] = currentSprite;
                     }
                     else
                     {
                         s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                         boardMarginLeft + i*boardTileWidth + figureMarginX,
-                                                                         boardMarginTop + boardHeight - 2*boardTileHeight + figureMarginY) );
-                        indexTable[i][6] = currentSprite;
+                                                                         i*boardTileWidth,
+                                                                         boardHeight - 2*boardTileHeight) );
+                        indexTable[6][i] = currentSprite;
                     }
                     currentSprite++;
                 }
@@ -398,16 +513,16 @@ void ChessBoard::loadFigures ()
                         if (isBlack)
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + i*(boardWidth - boardTileWidth) + figureMarginX,
-                                                                             boardMarginTop + figureMarginY) );
-                            indexTable[i*7][0] = currentSprite;
+                                                                             i*(boardWidth - boardTileWidth),
+                                                                              0) );
+                            indexTable[0][i*7] = currentSprite;
                         }
                         else
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + i*(boardWidth - boardTileWidth) + figureMarginX,
-                                                                             boardMarginTop + boardHeight - boardTileHeight + figureMarginY) );
-                            indexTable[i*7][7] = currentSprite;
+                                                                             i*(boardWidth - boardTileWidth),
+                                                                             boardHeight - boardTileHeight) );
+                            indexTable[7][i*7] = currentSprite;
 
                         }
                     }
@@ -416,16 +531,16 @@ void ChessBoard::loadFigures ()
                         if (isBlack)
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + 1*boardTileWidth + 5*i*boardTileWidth + figureMarginX,
-                                                                             boardMarginTop + figureMarginY) );
-                            indexTable[1 + 5*i][0] = currentSprite;
+                                                                             1*boardTileWidth + 5*i*boardTileWidth ,
+                                                                              0) );
+                            indexTable[0][1+5*i] = currentSprite;
                         }
                         else
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + 1*boardTileWidth + 5*i*boardTileWidth + figureMarginX,
-                                                                             boardMarginTop + boardHeight - boardTileHeight + figureMarginY) );
-                            indexTable[1 + 5*i][7] = currentSprite;
+                                                                             1*boardTileWidth + 5*i*boardTileWidth,
+                                                                              boardHeight - boardTileHeight) );
+                            indexTable[7][1+5*i] = currentSprite;
                         }
                     }
                     else
@@ -433,16 +548,16 @@ void ChessBoard::loadFigures ()
                         if (isBlack)
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + 2*boardTileWidth + 3*i*boardTileWidth + figureMarginX,
-                                                                             boardMarginTop + figureMarginY) );
-                            indexTable[2 + 3*i][0] = currentSprite;
+                                                                              2*boardTileWidth + 3*i*boardTileWidth,
+                                                                              0) );
+                            indexTable[0][2+3*i] = currentSprite;
                         }
                         else
                         {
                             s_Figures[currentSprite].setPosition ( Vector2f (
-                                                                             boardMarginLeft + 2*boardTileWidth + 3*i*boardTileWidth + figureMarginX,
-                                                                             boardMarginTop + boardHeight - boardTileHeight + figureMarginY) );
-                            indexTable[2 + 3*i][7] = currentSprite;
+                                                                             2*boardTileWidth + 3*i*boardTileWidth,
+                                                                             boardHeight - boardTileHeight) );
+                            indexTable[7][2+3*i] = currentSprite;
                         }
                     }
 
@@ -462,28 +577,46 @@ void ChessBoard::undo()
     FigureMovedInfo fmi = journal.pop();
     int tileX1, tileY1, tileX2, tileY2;
     fmi.figureMove.getCoords(&tileX1, &tileY1, &tileX2, &tileY2);
-    fmi.s_Figure->setPosition(Vector2f (boardMarginLeft + tileX1*boardTileWidth  + figureMarginX,
-                                        boardMarginTop + tileY1*boardTileHeight + figureMarginY));
+    fmi.s_Figure->setPosition(Vector2f (tileX1*boardTileWidth,
+                                        tileY1*boardTileHeight));
 
-    indexTable[tileX2][tileY2] = -1;
-    indexTable[tileX1][tileY1] = fmi.figureIndex;
+    indexTable[tileY2][tileX2] = -1;
+    indexTable[tileY1][tileX1] = fmi.figureIndex;
 
-    figuresTable[tileX2][tileY2] = 0;
-    figuresTable[tileX1][tileY1] = fmi.figure;
+    figuresTable[tileY2][tileX2] = 0;
+    figuresTable[tileY1][tileX1] = fmi.figure;
 
     if ( fmi.extraFigureIndex != 0 )
     {
-        cout << "WHAT THE FUCK" << endl;
+        cout << "hell" << endl;
         int tileX1, tileY1, tileX2, tileY2;
         fmi.extraFigureMove.getCoords(&tileX1, &tileY1, &tileX2, &tileY2);
         fmi.s_ExtraFigure->setPosition( Vector2f (
-                                                  boardMarginLeft + tileX1*boardTileWidth + figureMarginX,
-                                                  boardMarginTop + tileY1*boardTileHeight + figureMarginY)  );
-        figuresTable[tileX1][tileY1] = fmi.extraFigure;
-        indexTable[tileX1][tileY1] = fmi.extraFigureIndex;
-    }
+                                                  tileX1*boardTileWidth,
+                                                  tileY1*boardTileHeight)  );
+        figuresTable[tileY1][tileX1] = fmi.extraFigure;
+        indexTable[tileY1][tileX1] = fmi.extraFigureIndex;
 
-    iSelectedFigure = -1;
+        if (tileX2 >= 0 && tileY2 >= 0)
+        {
+            indexTable[tileY2][tileX2] = -1;
+            figuresTable[tileY2][tileX2] = 0;
+        }
+    }
+    unselect ();
+    chessEng->undo();
+}
+
+void ChessBoard::unselect()
+{
     iSelectedTileX = -1;
     iSelectedTileY = -1;
+    iSelectedFigure = -1;
+
+    memset (bValid, 0, sizeof (bool)*8*8);
+}
+
+inline bool ChessBoard::isWhite (int figure)
+{
+    return (figure & colorWhite) == colorWhite;
 }

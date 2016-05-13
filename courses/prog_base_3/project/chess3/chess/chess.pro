@@ -16,13 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     qsfmlcanvas.cpp \
     chessboard.cpp \
-    movethread.cpp
+    movethread.cpp \
+    chessengine.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
     chessboard.h \
     resources.h \
-    movethread.h
+    movethread.h \
+    chessengine.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 
