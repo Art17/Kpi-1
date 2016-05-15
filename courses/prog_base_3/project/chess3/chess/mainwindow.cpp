@@ -51,3 +51,13 @@ void MainWindow::on_actionUndo_triggered()
 {
     pChessBoard->undo ();
 }
+
+void MainWindow::on_actionNew_game_against_human_triggered()
+{
+    pChessBoard->newGameAgainstHuman ();
+}
+
+void MainWindow::on_actionNew_game_against_computer_triggered()
+{
+    pChessBoard->newGameAgainstComputer ();
+}

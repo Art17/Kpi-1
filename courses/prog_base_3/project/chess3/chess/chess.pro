@@ -17,14 +17,21 @@ SOURCES += main.cpp\
     qsfmlcanvas.cpp \
     chessboard.cpp \
     movethread.cpp \
-    chessengine.cpp
+    chessengine.cpp \
+    selectfiguredialog.cpp \
+    chessboard_load.cpp \
+    chessboard_reset.cpp \
+    chessboard_undo.cpp \
+    chessboard_mouse.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
     chessboard.h \
     resources.h \
     movethread.h \
-    chessengine.h
+    chessengine.h \
+    selectfiguredialog.h \
+    figures.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 
@@ -34,7 +41,8 @@ CONFIG(debug, debug|release): LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-ma
 INCLUDEPATH += c:/Frameworks/SFML-2.3.2/include/
 DEPENDPATH += c:/Frameworks/SFML-2.3.2/include/
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    selectfiguredialog.ui
 
 CONFIG += c++11
 

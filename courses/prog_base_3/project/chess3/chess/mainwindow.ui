@@ -63,10 +63,16 @@
    <property name="text">
     <string>New game against computer</string>
    </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
   </action>
   <action name="actionNew_game_against_human">
    <property name="text">
     <string>New game against human</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
   <action name="actionExit">

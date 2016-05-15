@@ -2,10 +2,13 @@
 #include <memory.h>
 #include <iostream>
 
+#define WHITE_LEFT_CASTLING 1
+#define WHITE_RIGHT_CASTLING 2
+#define BLACK_LEFT_CASTLING 4
+#define BLACK_RIGHT_CASTLING 8
+
 #define min(a,b) a < b ? a : b
 #define max(a,b) a > b ? a : b
-
-enum Figures {Rook = 1, Knight = 2, Bishop = 4, Queen = 8, King = 16, Pawn = 32};
 
 ChessEngine::ChessEngine() : colorWhite(64)
 {
@@ -28,23 +31,32 @@ bool ChessEngine::makeMove (const Move& move)
         int xTo = to % 8;
         int yTo = to / 8;
 
+        ExtraMove eMove;
+        eMove.from = move.from;
+        eMove.to = move.to;
+        eMove.extraFigure = move.extra;
+        eMove.beatenFigure = 0;
+        eMove.canCastling = canCastling;
+
         if ( board[yFrom][xFrom] & Rook && yFrom == 7 && xFrom == 0 )
-            bWhiteLeftRookMoved = true;
+            canCastling ^= WHITE_LEFT_CASTLING;
         if ( board[yFrom][xFrom] & Rook && yFrom == 7 && xFrom == 7 )
-            bWhiteRightRookMoved = true;
+            canCastling ^= WHITE_RIGHT_CASTLING;
         if ( board[yFrom][xFrom] & King && isWhite (board[yFrom][xFrom]) )
         {
-            bWhiteKingMoved = true;
+            canCastling ^= WHITE_LEFT_CASTLING;
+            canCastling ^= WHITE_RIGHT_CASTLING;
             whiteKingPos = to;
         }
 
         if ( board[yFrom][xFrom] & Rook && yFrom == 0 && xFrom == 0 )
-            bBlackLeftRookMoved = true;
+            canCastling ^= BLACK_LEFT_CASTLING;
         if ( board[yFrom][xFrom] & Rook && yFrom == 0 && xFrom == 7 )
-            bBlackRightRookMoved = true;
+            canCastling ^= BLACK_RIGHT_CASTLING;
         if ( board[yFrom][xFrom] & King && !isWhite (board[yFrom][xFrom]) )
         {
-            bBlackKingMoved = true;
+            canCastling ^= BLACK_LEFT_CASTLING;
+            canCastling ^= BLACK_RIGHT_CASTLING;
             blackKingPos = to;
         }
 
@@ -74,11 +86,6 @@ bool ChessEngine::makeMove (const Move& move)
                 board[0][7] = 0;
             }
         }
-        ExtraMove eMove;
-        eMove.from = move.from;
-        eMove.to = move.to;
-        eMove.extraFigure = move.extra;
-        eMove.beatenFigure = 0;
 
         if ( board[yTo][xTo] != 0 )
             eMove.beatenFigure = board[yTo][xTo];
@@ -136,10 +143,23 @@ bool ChessEngine::makeMove (const Move& move)
                     board[4][xFrom+1] = 0;
             }
         }
-
+        int newFigure = 0;
+        if ( board[yFrom][xFrom] & Pawn )
+        {
+            if (yTo == 0)
+                newFigure = move.extra | colorWhite;
+            else if (yTo == 7)
+                newFigure = move.extra;
+        }
 
         board[yTo][xTo] = board[yFrom][xFrom];
         board[yFrom][xFrom] = 0;
+
+        if (newFigure != 0)
+        {
+            board[yTo][xTo] = newFigure;
+            eMove.extraFigure = newFigure;
+        }
 
 
         whiteTurn = !whiteTurn;
@@ -153,32 +173,8 @@ bool ChessEngine::makeMove (const Move& move)
 
 void ChessEngine::newGame()
 {
-    memset (&board, 0, sizeof(byte)*8*8);
     reload ();
-
-    board[0][0] = Rook;
-    board[0][1] = Knight;
-    board[0][2] = Bishop;
-    board[0][3] = Queen;
-    board[0][4] = King;
-    board[0][5] = Bishop;
-    board[0][6] = Knight;
-    board[0][7] = Rook;
-
-    for (int i = 0; i < 8; i++)
-        board[1][i] = Pawn;
-
-    board[7][0] = Rook | colorWhite;
-    board[7][1] = Knight | colorWhite;
-    board[7][2] = Bishop | colorWhite;
-    board[7][3] = Queen | colorWhite;
-    board[7][4] = King | colorWhite;
-    board[7][5] = Bishop | colorWhite;
-    board[7][6] = Knight | colorWhite;
-    board[7][7] = Rook | colorWhite;
-
-    for (int i = 0; i < 8; i++)
-        board[6][i] = Pawn | colorWhite;
+    fillBoard ();
 }
 
 bool ChessEngine::getBoard (byte* pBoard)
@@ -450,8 +446,12 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
         {
             if ( board[ y[i] ][ x[i] ] == 0 || isDifferentColor ( board[yFrom][xFrom], board[ y[i] ][ x[i] ] ) )
             {
-                if ( !isBeaten ( cti (x[i], y[i]), !isWhite (board[yFrom][xFrom] )) )
+                byte temp = board[yFrom][xFrom];
+                bool bWhite = !isWhite (board[yFrom][xFrom] );
+                board[yFrom][xFrom] = 0;
+                if ( !isBeaten ( cti (x[i], y[i]), bWhite) )
                     moves[c++] = cti (x[i], y[i]);
+                board[yFrom][xFrom] = temp;
             }
         }
     }
@@ -460,73 +460,67 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
 
     if (bWhite)
     {
-        if ( !bWhiteKingMoved )
-        {
-            if ( !bWhiteLeftRookMoved )
+            if ( canCastling & WHITE_LEFT_CASTLING )
             {
-                bool canCastling = true;
+                bool bCastling = true;
                 for (int i = 1; i < 4; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
-                        canCastling = false;
+                        bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
-                    canCastling = false;
+                    bCastling = false;
 
-                if (canCastling)
+                if (bCastling)
                 {
                     moves[c++] = 58;
                 }
 
             }
-            if ( !bWhiteRightRookMoved )
+            if ( canCastling & WHITE_RIGHT_CASTLING )
             {
-                bool canCastling = true;
+                bool bCastling = true;
                 for (int i = 5; i < 7; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
-                        canCastling = false;
+                        bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
-                    canCastling = false;
+                    bCastling = false;
 
-                if (canCastling)
+                if (bCastling)
                 {
                     moves[c++] = 62;
                 }
             }
-        }
     }
     else
     {
-        if ( !bBlackKingMoved )
-        {
-            if ( !bBlackLeftRookMoved )
+            if ( canCastling & BLACK_LEFT_CASTLING )
             {
-                bool canCastling = true;
+                bool bCastling = true;
                 for (int i = 1; i < 4; i++)
                     if ( board[0][i] != 0 || isBeaten(cti(i, 0), true) )
-                        canCastling = false;
+                        bCastling = false;
                 if ( isBeaten ( cti(4, 0), true ) )
-                    canCastling = false;
+                    bCastling = false;
 
-                if (canCastling)
+                if (bCastling)
                 {
                     moves[c++] = 2;
                 }
 
             }
-            if ( !bBlackRightRookMoved )
+            if ( canCastling & BLACK_RIGHT_CASTLING )
             {
-                bool canCastling = true;
+                bool bCastling = true;
                 for (int i = 5; i < 7; i++)
                     if ( board[0][i] != 0 || isBeaten(cti(i, 0), true) )
-                        canCastling = false;
+                        bCastling = false;
                 if ( isBeaten ( cti(4, 0), true ) )
-                    canCastling = false;
+                    bCastling = false;
 
-                if (canCastling)
+                if (bCastling)
                 {
                     moves[c++] = 6;
                 }
             }
-        }
     }
 
     *lPtr = c;
@@ -936,7 +930,10 @@ bool ChessEngine::undo ()
     board[lastYFrom][lastXFrom] = board[lastYTo][lastXTo];
     board[lastYTo][lastXTo] = lastMove.beatenFigure;
 
+    if (lastMove.extraFigure != 0)
+        board[lastYFrom][lastXFrom] = Pawn | (lastMove.extraFigure & colorWhite);
 
+    canCastling = lastMove.canCastling;
     whiteTurn = !whiteTurn;
 
     return true;
@@ -950,10 +947,56 @@ int ChessEngine::cti (int x, int y) const
 void ChessEngine::reload ()
 {
     whiteTurn = true;
-    bWhiteKingMoved = false, bWhiteLeftRookMoved = false, bWhiteRightRookMoved = false;
-    bBlackKingMoved = false, bBlackLeftRookMoved = false, bBlackRightRookMoved = false;
+    canCastling = 0;
+    canCastling = WHITE_LEFT_CASTLING | WHITE_RIGHT_CASTLING | BLACK_RIGHT_CASTLING | BLACK_LEFT_CASTLING;
+
     while (lastMoves.size() != 0)
         lastMoves.pop ();
     whiteKingPos = cti (4, 7);
     blackKingPos = cti (4, 0);
+}
+
+void ChessEngine::fillBoard()
+{
+    memset (board, 0, sizeof(byte)*8*8);
+
+    board[0][0] = Rook;
+    board[0][1] = Knight;
+    board[0][2] = Bishop;
+    board[0][3] = Queen;
+    board[0][4] = King;
+    board[0][5] = Bishop;
+    board[0][6] = Knight;
+    board[0][7] = Rook;
+
+    for (int i = 0; i < 8; i++)
+        board[1][i] = Pawn;
+
+    board[7][0] = Rook | colorWhite;
+    board[7][1] = Knight | colorWhite;
+    board[7][2] = Bishop | colorWhite;
+    board[7][3] = Queen | colorWhite;
+    board[7][4] = King | colorWhite;
+    board[7][5] = Bishop | colorWhite;
+    board[7][6] = Knight | colorWhite;
+    board[7][7] = Rook | colorWhite;
+
+    for (int i = 0; i < 8; i++)
+        board[6][i] = Pawn | colorWhite;
+}
+
+int ChessEngine::getKingPos(bool bWhite) const
+{
+    if (bWhite)
+        return whiteKingPos;
+    else
+        return blackKingPos;
+}
+
+bool ChessEngine::isCheck (bool bWhite) const
+{
+    if (bWhite)
+        return isBeaten (whiteKingPos, false);
+    else
+        return isBeaten (blackKingPos, true);
 }

@@ -4,6 +4,8 @@
 #include <stack>
 #include <cstdio>
 
+#include <figures.h>
+
 using namespace std;
 
 typedef char byte;
@@ -21,6 +23,7 @@ struct ExtraMove
     byte to;
     byte extraFigure;
     byte beatenFigure; // exclude passant
+    int canCastling;
 };
 
 class ChessEngine
@@ -40,6 +43,10 @@ class ChessEngine
         bool getBoard (byte* );
         void setBoard (byte*, bool);
 
+        int getKingPos (bool) const;
+        bool isCheck (bool) const;
+
+
         bool undo ();
 
         bool isBeaten (int, bool) const;
@@ -58,12 +65,12 @@ class ChessEngine
         bool isFigurePinned (int from, int to) ;
 
         void reload ();
+        void fillBoard ();
 
         byte board[8][8];
         const byte colorWhite;
 
-        bool bWhiteKingMoved, bWhiteLeftRookMoved, bWhiteRightRookMoved;
-        bool bBlackKingMoved, bBlackLeftRookMoved, bBlackRightRookMoved;
+        int canCastling;
 
         int whiteKingPos, blackKingPos;
 

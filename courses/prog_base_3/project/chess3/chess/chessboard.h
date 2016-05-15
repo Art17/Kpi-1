@@ -8,10 +8,11 @@
 #include <QStack>
 
 #include <chessengine.h>
+#include <figures.h>
+#include <selectfiguredialog.h>
 
 using namespace sf;
 
-enum Figures {Rook = 1, Knight = 2, Bishop = 4, Queen = 8, King = 16, Pawn = 32};
 
 struct FigureMovedInfo
 {
@@ -19,6 +20,7 @@ struct FigureMovedInfo
     int figure;
     int figureIndex;
     QRect figureMove;
+    bool bPromoted;
 
     Sprite* s_ExtraFigure;
     int extraFigure;
@@ -28,9 +30,13 @@ struct FigureMovedInfo
 
 class ChessBoard : public QSFMLCanvas
 {
+    Q_OBJECT
 public :
 
     ChessBoard(QWidget* , const QPoint& , const QSize& );
+
+    void newGameAgainstComputer ();
+    void newGameAgainstHuman ();
 
     void undo ();
 
@@ -41,13 +47,26 @@ private :
 
     void unselect ();
 
-    inline bool isWhite (int);
+    inline bool isWhite (int figure)
+    {
+        return (figure & colorWhite) == colorWhite;
+    }
 
     void OnInit();
     void OnUpdate();
 
     void loadFigures ();
     void loadBoard ();
+    void loadRectangles ();
+    void loadChessEngine ();
+    void resetVariables ();
+    void clearJournal ();
+    void initFigureRects ();
+
+    void fillTable ();
+    void setSpritesPositionAndRects ();
+
+    void setSpriteRect (Sprite* , int);
 
     int indexTable[8][8];
     int figuresTable[8][8];
@@ -61,11 +80,13 @@ private :
     float boardTileWidth, boardTileHeight;
 
     float figureWidth, figureHeight;
+    float figureOriginalWidth, figureOriginalHeight;
 
     int iSelectedFigure;
     int iSelectedTileX, iSelectedTileY;
 
-    int qWhiteDestroyed, qBlackDestroyed;
+    bool bWhiteCheck, bBlackCheck;
+    bool bAgainstComputer;
 
     QStack<FigureMovedInfo> journal;
 
@@ -73,6 +94,9 @@ private :
     RectangleShape rs_Moving;
     RectangleShape rs_ValidMoveHighlight[8][8];
     bool bValid[8][8];
+    RectangleShape rs_Check;
+
+    IntRect figureRects[6][2];
 
     ChessEngine* chessEng;
 
@@ -80,6 +104,8 @@ private :
 
     Texture  t_Board;
     Sprite s_Board;
+
+    SelectFigureDialog* selectDialog;
 
 };
 

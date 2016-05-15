@@ -29,6 +29,10 @@ private slots:
 
     void on_actionUndo_triggered();
 
+    void on_actionNew_game_against_human_triggered();
+
+    void on_actionNew_game_against_computer_triggered();
+
 private:
     Ui::MainWindow *ui;
 
