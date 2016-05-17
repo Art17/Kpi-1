@@ -25,7 +25,7 @@ void ChessBoard::undo()
     figuresTable[tileY2][tileX2] = 0;
     figuresTable[tileY1][tileX1] = fmi.figure;
 
-    if ( fmi.extraFigureIndex != 0 )
+    if ( fmi.extraFigureIndex != -1 )
     {
         int tileX1, tileY1, tileX2, tileY2;
         fmi.extraFigureMove.getCoords(&tileX1, &tileY1, &tileX2, &tileY2);

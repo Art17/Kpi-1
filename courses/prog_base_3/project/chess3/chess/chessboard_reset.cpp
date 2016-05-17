@@ -71,6 +71,12 @@ void ChessBoard::setSpritesPositionAndRects()
             indexTable[ ((c==0)?7:0) ][i] = currentSprite++;
         }
     }
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+            cout << indexTable[i][j] << " ";
+        cout << endl;
+    }
 }
 
 

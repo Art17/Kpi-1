@@ -40,6 +40,7 @@ int ChessBoard::makeMove (const Move& move)
     fmi.figureIndex = iSelectedFigure;
     fmi.figure = figuresTable[iSelectedTileY][iSelectedTileX];
     fmi.figureMove = rect;
+    fmi.extraFigureIndex = -1;
 
     if (figuresTable[tileY][tileX] != 0)
     {

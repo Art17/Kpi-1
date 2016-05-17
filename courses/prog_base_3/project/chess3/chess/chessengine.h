@@ -36,7 +36,7 @@ struct ExtraMove
     byte to;
     byte extraFigure;
     byte beatenFigure; // exclude passant
-    int canCastling;
+    int canCastling;  // doesnt take care about beaten rooks, getKingMoves checks it
 };
 
 class ChessEngine

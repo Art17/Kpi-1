@@ -308,6 +308,8 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 for (int i = 1; i < 4; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
                         bCastling = false;
+                if (board[7][0] != Rook | colorWhite)
+                    bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
                     bCastling = false;
 
@@ -324,6 +326,8 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
                         bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
+                    bCastling = false;
+                if (board[7][7] != Rook | colorWhite)
                     bCastling = false;
 
                 if (bCastling)
@@ -342,7 +346,8 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                         bCastling = false;
                 if ( isBeaten ( cti(4, 0), true ) )
                     bCastling = false;
-
+                if (board[0][0] != Rook)
+                    bCastling = false;
                 if (bCastling)
                 {
                     moves[c++] = 2;
@@ -356,6 +361,8 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                     if ( board[0][i] != 0 || isBeaten(cti(i, 0), true) )
                         bCastling = false;
                 if ( isBeaten ( cti(4, 0), true ) )
+                    bCastling = false;
+                if (board[0][7] != Rook)
                     bCastling = false;
 
                 if (bCastling)
