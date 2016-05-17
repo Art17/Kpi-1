@@ -16,6 +16,7 @@ void ChessBoard::resetVariables()
 
     bAgainstComputer = false;
     bFlipped = false;
+    bComputerMove = false;
 }
 
 void ChessBoard::fillTable ()
@@ -83,7 +84,6 @@ void ChessBoard::setSpriteRect(Sprite* pSprite, int figure)
             index = i;
             break;
         }
-    cout << index << endl;
     pSprite->setTextureRect(figureRects[index][!isWhite(figure)]);
 
 }

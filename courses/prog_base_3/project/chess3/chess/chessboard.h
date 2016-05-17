@@ -15,6 +15,11 @@
 #include <qmessagebox.h>
 #include <selectcolordialog.h>
 
+#include <chessboardcalcthread.h>
+#include <movethread.h>
+
+#include <QMutex>
+
 using namespace sf;
 
 struct FigureMovedInfo
@@ -33,6 +38,7 @@ struct FigureMovedInfo
 
 class ChessBoard : public QSFMLCanvas
 {
+    Q_OBJECT
 public :
 
     ChessBoard(QWidget* , const QPoint& , const QSize& );
@@ -42,10 +48,15 @@ public :
 
     void undo ();
 
-private :
+    int makeMove (const Move& );
 
+private slots:
+    void moveReady(Move);
+
+private :
     virtual void mousePressEvent (QMouseEvent* );
-    virtual void mouseMoveEvent (QMouseEvent* );
+    void OnInit();
+    void OnUpdate();
 
     void unselect ();
 
@@ -53,11 +64,6 @@ private :
     {
         return (figure & colorWhite) == colorWhite;
     }
-
-    int makeMove (const Move& );
-
-    void OnInit();
-    void OnUpdate();
 
     void endGame (int);
 
@@ -94,7 +100,7 @@ private :
     int iSelectedTileX, iSelectedTileY;
 
     bool bWhiteCheck, bBlackCheck;
-    bool bAgainstComputer, bAsWhite;
+    bool bAgainstComputer, bAsWhite, bComputerMove;
 
     QStack<FigureMovedInfo> journal;
 
@@ -108,8 +114,6 @@ private :
 
     ChessEngine* chessEng;
 
-    int movingTileX, movingTileY;
-
     Texture  t_Board;
     Sprite s_Board;
 
@@ -118,6 +122,8 @@ private :
     SelectFigureDialog* selectDialog;
     EndGameDialog* egd;
     SelectColorDialog* scd;
+
+    ChessBoardCalcThread* cbct;
 
 };
 

@@ -1,12 +1,32 @@
 #include "ChessEngine.h"
 #include <memory.h>
 #include <iostream>
+#include <iomanip>
+#include <stdio.h>
 
-int ChessEngine::userMove (const Move& move)
+int ChessEngine::makeMove (const Move& move)
 {
+
+    /*for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            cout << setw(2) << (int)board[i][j] << " ";
+        }
+        cout << endl;
+    }*/
     if ( isValidMove(move) )
     {
-        return makeMoveLow (move);
+        int ret = makeMoveLow (move);
+        /*for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                cout << setw(2) << (int)board[i][j] << " ";
+            }
+            cout << endl;
+        }*/
+        return ret;
     }
     return -1;
 }
@@ -36,7 +56,7 @@ int ChessEngine::makeMoveLow (const Move& move)
     ExtraMove eMove;
     eMove.from = move.from;
     eMove.to = move.to;
-    eMove.extraFigure = move.extra;
+    eMove.extraFigure = 0;
     eMove.beatenFigure = 0;
     eMove.canCastling = canCastling;
 
@@ -186,7 +206,6 @@ int ChessEngine::makeMoveLow (const Move& move)
         board[yTo][xTo] = newFigure;
         eMove.extraFigure = newFigure;
     }
-
 
     whiteTurn = !whiteTurn;
 

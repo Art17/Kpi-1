@@ -23,7 +23,6 @@ typedef short dbyte;
 
 enum Status {ACTIVE_GAME=0, WHITE_WON, BLACK_WON, DRAW};
 
-
 struct Move
 {
     byte from;
@@ -47,12 +46,12 @@ class ChessEngine
 
         void newGame ();
 
-        bool isValidMove (const Move&) ;
+        bool isValidMove (const Move&);
 
         byte* getValidMoves (int from, byte moves[], int* lPtr);
 
-        void engineMove (Move* );
-        int userMove (const Move& );
+        void getBestMove (Move* );
+        int makeMove (const Move& );
 
         bool getBoard (byte* );
         void setBoard (byte*, bool);
@@ -93,9 +92,7 @@ class ChessEngine
         list<byte> blackPositions;
 
         int canCastling;
-
         int whiteKingPos, blackKingPos;
-
         bool whiteTurn;
 
         stack<ExtraMove> lastMoves;

@@ -16,6 +16,8 @@ QSFMLCanvas(Parent, Position, Size), colorWhite (64)
 
 void ChessBoard::OnInit()
 {
+    qRegisterMetaType<Move> ("Move");
+
     selectDialog = new SelectFigureDialog (this);
     egd = new EndGameDialog (this);
     scd = new SelectColorDialog (this);
@@ -27,6 +29,10 @@ void ChessBoard::OnInit()
     loadFigures ();
     loadRectangles ();
     loadChessEngine ();
+
+    cbct = new ChessBoardCalcThread (chessEng);
+    QObject::connect(cbct, SIGNAL(moveReady(Move)),
+                     this, SLOT(moveReady(Move)));
 
     fillTable ();
     setSpritesPositionAndRects ();
@@ -53,13 +59,22 @@ void ChessBoard::newGameAgainstComputer()
     setSpritesPositionAndRects();
 
     bAgainstComputer = true;
+    chessEng->newGame();
 
     if (scd->exec())
     {
         bAsWhite = scd->isWhite();
     }
 
-    chessEng->newGame();
+    if (bAsWhite)
+    {
+        bComputerMove = false;
+    }
+    else
+    {
+        bComputerMove = true;
+        cbct->start();
+    }
 
     /*dbyte allMoves[64];
     int l = 0;
@@ -81,9 +96,16 @@ void ChessBoard::OnUpdate()
 
         this->draw (rs_Selected);
     }
-
-    rs_Moving.setPosition( boardTileWidth*movingTileX, movingTileY*boardTileHeight );
-    this->draw(rs_Moving);
+    QPoint cursorPoint = mapFromGlobal(QCursor::pos());
+    int cx = cursorPoint.x();
+    int cy = cursorPoint.y();
+    if (cx >= 0 && cx < boardWidth && cy >= 0 & cy < boardHeight)
+    {
+        int movingTileX = cx / boardTileWidth;
+        int movingTileY = cy / boardTileHeight;
+        rs_Moving.setPosition( boardTileWidth*movingTileX, movingTileY*boardTileHeight );
+        this->draw(rs_Moving);
+    }
 
     if (bWhiteCheck)
     {

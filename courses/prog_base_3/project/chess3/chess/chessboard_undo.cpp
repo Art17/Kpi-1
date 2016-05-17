@@ -46,6 +46,21 @@ void ChessBoard::undo()
         setSpriteRect(&s_Figures[fmi.figureIndex], Pawn | ((bWhite) ? colorWhite : 0));
     }
     unselect ();
+
+    if (bAgainstComputer)
+    {
+        if (bComputerMove)
+        {
+            cbct->terminate();
+            bComputerMove = false;
+        }
+        else
+        {
+            cbct->start();
+            bComputerMove = true;
+        }
+    }
+
     chessEng->undo();
     bWhiteCheck = chessEng->isCheck (true);
     bBlackCheck = chessEng->isCheck (false);

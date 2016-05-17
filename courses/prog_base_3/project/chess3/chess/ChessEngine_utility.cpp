@@ -2,7 +2,6 @@
 #include <memory.h>
 #include <iostream>
 
-
 bool ChessEngine::isFigurePinned (int from, int to)
 {
     int xFrom = from % 8;
@@ -53,7 +52,6 @@ int ChessEngine::isEnd ()
             getValidMoves(*it, moves, &l);
             if (l != 0)
                 whiteCanMove = true;
-            cout << "Hell " << (int)*it << endl;
         }
 
         if (!whiteCanMove && isBeaten(whiteKingPos, false))
@@ -71,7 +69,6 @@ int ChessEngine::isEnd ()
             if (l != 0)
                 blackCanMove = true;
         }
-        cout << "HELL" << " " << blackCanMove << endl;
         if (!blackCanMove && isBeaten(blackKingPos, true))
             return WHITE_WON;
         if (!blackCanMove && !isBeaten(blackKingPos, true))

@@ -55,7 +55,7 @@ bool ChessEngine::undo ()
     {
         if (isWhite (board[lastYTo][lastXTo]))
             whiteKingPos = cti (lastXFrom, lastYFrom);
-        else
+        else if (!isWhite (board[lastYTo][lastXTo]))
             blackKingPos = cti (lastXFrom, lastYFrom);
         if ( lastXTo == lastXFrom-2)
         {
