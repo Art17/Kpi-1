@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 ChessBoard::ChessBoard(QWidget* Parent, const QPoint& Position, const QSize& Size) :
 QSFMLCanvas(Parent, Position, Size), colorWhite (64)
 {
@@ -18,8 +17,11 @@ QSFMLCanvas(Parent, Position, Size), colorWhite (64)
 void ChessBoard::OnInit()
 {
     selectDialog = new SelectFigureDialog (this);
+    egd = new EndGameDialog (this);
+    scd = new SelectColorDialog (this);
 
     resetVariables();
+    bAgainstComputer = true;
 
     loadBoard ();
     loadFigures ();
@@ -45,7 +47,26 @@ void ChessBoard::newGameAgainstHuman()
 
 void ChessBoard::newGameAgainstComputer()
 {
+    resetVariables ();
+    clearJournal ();
+    fillTable ();
+    setSpritesPositionAndRects();
 
+    bAgainstComputer = true;
+
+    if (scd->exec())
+    {
+        bAsWhite = scd->isWhite();
+    }
+
+    chessEng->newGame();
+
+    /*dbyte allMoves[64];
+    int l = 0;
+    chessEng->getAllMoves(allMoves, &l, true);
+    for (int i = 0; i < l; i++)
+        cout << "h " << (int)LOBYTE(allMoves[i])%8 << " " << (int)LOBYTE(allMoves[i])/8 << " "
+             << (int)HIBYTE (allMoves[i])%8 << " " << (int)HIBYTE (allMoves[i])/8 << endl;*/
 }
 
 
@@ -88,3 +109,11 @@ void ChessBoard::OnUpdate()
     }
 }
 
+void ChessBoard::endGame(int res)
+{
+    const char* messages[] = {"White won by checkmate",
+                             "Black won by checkmate",
+                             "Game ended in a draw"};
+    egd->setText( QString (messages[res-1]) );
+    egd->exec();
+}

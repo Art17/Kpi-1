@@ -11,13 +11,13 @@ using namespace std;
 void ChessBoard::loadRectangles()
 {
     rs_Selected = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
-    rs_Selected.setFillColor(Color (0, 255, 0, 96));
+    rs_Selected.setFillColor(Color (0, 255, 0, 112));
 
     rs_Moving = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
-    rs_Moving.setFillColor(Color (0, 255, 0, 64));
+    rs_Moving.setFillColor(Color (0, 255, 0, 80));
 
     rs_Check = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
-    rs_Check.setFillColor(Color (255, 0, 0, 160));
+    rs_Check.setFillColor(Color (255, 0, 0, 176));
 
     memset (bValid, 0, sizeof (bool)*8*8);
 

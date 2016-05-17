@@ -3,12 +3,26 @@
 
 #include <stack>
 #include <cstdio>
+#include <list>
 
-#include <figures.h>
+#include "figures.h"
+
+#define MAKEWORD(a,b)   ((short)(((char)(a))|(((short)((char)(b)))<<8)))
+#define LOBYTE(w)	((char)(w))
+#define HIBYTE(w)	((char)(((short)(w)>>8)&0xFF))
+
+#define WHITE_LEFT_CASTLING 1
+#define WHITE_RIGHT_CASTLING 2
+#define BLACK_LEFT_CASTLING 4
+#define BLACK_RIGHT_CASTLING 8
 
 using namespace std;
 
 typedef char byte;
+typedef short dbyte;
+
+enum Status {ACTIVE_GAME=0, WHITE_WON, BLACK_WON, DRAW};
+
 
 struct Move
 {
@@ -38,7 +52,7 @@ class ChessEngine
         byte* getValidMoves (int from, byte moves[], int* lPtr);
 
         void engineMove (Move* );
-        bool makeMove (const Move& );
+        int userMove (const Move& );
 
         bool getBoard (byte* );
         void setBoard (byte*, bool);
@@ -46,10 +60,12 @@ class ChessEngine
         int getKingPos (bool) const;
         bool isCheck (bool) const;
 
-
         bool undo ();
 
         bool isBeaten (int, bool) const;
+        int isEnd ();
+
+        dbyte* getAllMoves (dbyte*, int*, bool);
     private:
         inline bool isDifferentColor (int, int) const;
         inline bool isWhite (int) const;
@@ -63,12 +79,18 @@ class ChessEngine
         byte* getPawnMoves (int, byte [], int* ) ;
 
         bool isFigurePinned (int from, int to) ;
+        int makeMoveLow (const Move& );
+
+        void getRandomMove (Move* );
 
         void reload ();
         void fillBoard ();
 
         byte board[8][8];
         const byte colorWhite;
+
+        list<byte> whitePositions;
+        list<byte> blackPositions;
 
         int canCastling;
 

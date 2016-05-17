@@ -10,9 +10,12 @@
 #include <chessengine.h>
 #include <figures.h>
 #include <selectfiguredialog.h>
+#include <endgamedialog.h>
+
+#include <qmessagebox.h>
+#include <selectcolordialog.h>
 
 using namespace sf;
-
 
 struct FigureMovedInfo
 {
@@ -30,7 +33,6 @@ struct FigureMovedInfo
 
 class ChessBoard : public QSFMLCanvas
 {
-    Q_OBJECT
 public :
 
     ChessBoard(QWidget* , const QPoint& , const QSize& );
@@ -52,8 +54,12 @@ private :
         return (figure & colorWhite) == colorWhite;
     }
 
+    int makeMove (const Move& );
+
     void OnInit();
     void OnUpdate();
+
+    void endGame (int);
 
     void loadFigures ();
     void loadBoard ();
@@ -62,6 +68,8 @@ private :
     void resetVariables ();
     void clearJournal ();
     void initFigureRects ();
+
+    void flipView ();
 
     void fillTable ();
     void setSpritesPositionAndRects ();
@@ -86,7 +94,7 @@ private :
     int iSelectedTileX, iSelectedTileY;
 
     bool bWhiteCheck, bBlackCheck;
-    bool bAgainstComputer;
+    bool bAgainstComputer, bAsWhite;
 
     QStack<FigureMovedInfo> journal;
 
@@ -105,7 +113,11 @@ private :
     Texture  t_Board;
     Sprite s_Board;
 
+    bool bFlipped;
+
     SelectFigureDialog* selectDialog;
+    EndGameDialog* egd;
+    SelectColorDialog* scd;
 
 };
 

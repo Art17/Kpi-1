@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "chessboard.h"
+#include "aboutdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,8 @@ private slots:
     void on_actionNew_game_against_human_triggered();
 
     void on_actionNew_game_against_computer_triggered();
+
+    void on_actionAboutChess_triggered();
 
 private:
     Ui::MainWindow *ui;

@@ -7,7 +7,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
+{   
     loadBackground ();
 
     ui->setupUi(this);
@@ -60,4 +60,10 @@ void MainWindow::on_actionNew_game_against_human_triggered()
 void MainWindow::on_actionNew_game_against_computer_triggered()
 {
     pChessBoard->newGameAgainstComputer ();
+}
+
+void MainWindow::on_actionAboutChess_triggered()
+{
+    AboutDialog* ad = new AboutDialog ();
+    ad->show ();
 }

@@ -17,21 +17,35 @@ SOURCES += main.cpp\
     qsfmlcanvas.cpp \
     chessboard.cpp \
     movethread.cpp \
-    chessengine.cpp \
     selectfiguredialog.cpp \
     chessboard_load.cpp \
     chessboard_reset.cpp \
     chessboard_undo.cpp \
-    chessboard_mouse.cpp
+    chessboard_mouse.cpp \
+    ChessEngine.cpp \
+    ChessEngine_AI.cpp \
+    ChessEngine_board.cpp \
+    ChessEngine_getMoves.cpp \
+    ChessEngine_reload.cpp \
+    ChessEngine_undo.cpp \
+    ChessEngine_userMove.cpp \
+    ChessEngine_utility.cpp \
+    endgamedialog.cpp \
+    chessboard_flip.cpp \
+    aboutdialog.cpp \
+    selectcolodialog.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
     chessboard.h \
     resources.h \
     movethread.h \
-    chessengine.h \
     selectfiguredialog.h \
-    figures.h
+    figures.h \
+    ChessEngine.h \
+    endgamedialog.h \
+    aboutdialog.h \
+    selectcolordialog.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 
@@ -42,7 +56,10 @@ INCLUDEPATH += c:/Frameworks/SFML-2.3.2/include/
 DEPENDPATH += c:/Frameworks/SFML-2.3.2/include/
 
 FORMS    += mainwindow.ui \
-    selectfiguredialog.ui
+    selectfiguredialog.ui \
+    endgamedialog.ui \
+    aboutdialog.ui \
+    selectcolordialog.ui
 
 CONFIG += c++11
 

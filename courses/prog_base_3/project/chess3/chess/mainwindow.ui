@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Chess 0.2</string>
+   <string>Chess 0.3</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -32,24 +32,19 @@
     <addaction name="separator"/>
     <addaction name="actionUndo"/>
     <addaction name="separator"/>
-    <addaction name="actionStatistics"/>
-    <addaction name="actionOptions"/>
-    <addaction name="actionChange_Appearance"/>
-    <addaction name="separator"/>
-    <addaction name="actionResign"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionT"/>
+    <addaction name="actionAboutChess"/>
     <addaction name="actionAbout_Qt"/>
    </widget>
    <addaction name="menuGame"/>
    <addaction name="menuHelp"/>
   </widget>
-  <action name="actionT">
+  <action name="actionAboutChess">
    <property name="text">
     <string>About chess</string>
    </property>

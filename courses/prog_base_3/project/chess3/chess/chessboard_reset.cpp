@@ -15,6 +15,7 @@ void ChessBoard::resetVariables()
     bBlackCheck = false;
 
     bAgainstComputer = false;
+    bFlipped = false;
 }
 
 void ChessBoard::fillTable ()
