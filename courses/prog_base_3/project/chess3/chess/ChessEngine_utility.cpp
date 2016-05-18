@@ -42,18 +42,55 @@ int ChessEngine::isEnd ()
 {
     bool whiteCanMove = false;
     bool blackCanMove = false;
+    int whitePower = 0;
+    int blackPower = 0;
+    bool bPawnDetected = false;
+#define WHITE_TILE_BISHOP 1
+#define BLACK_TILE_BISHOP 2
+#define OTHER_FIGURE 4
+    int whiteBishops = 0;
+    int blackBishops = 0;
+
+    for (list<byte>::iterator it = whitePositions.begin (); it != whitePositions.end(); it++)
+    {
+        int figure = board[(*it)/8][(*it)%8];
+        if (figure == 0)
+            cout << "WHITE FIGURE HELL" << endl;
+        whitePower += getFigurePower (figure);
+        if (figure & Pawn)
+            bPawnDetected = true;
+        else if (figure & Bishop)
+            whiteBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+        else if (figure != 0 && !(figure & King))
+            whiteBishops |= OTHER_FIGURE;
+        byte moves[32];
+        int l = 0;
+        getValidMoves(*it, moves, &l);
+        if (l != 0)
+            whiteCanMove = true;
+    }
+
+    for (list<byte>::iterator it = blackPositions.begin (); it != blackPositions.end(); it++)
+    {
+        int figure = board[(*it)/8][(*it)%8];
+        if (figure == 0)
+            cout << "BLACK FIGURE HELL" << endl;
+        blackPower += getFigurePower(figure);
+        if (figure & Pawn)
+            bPawnDetected = true;
+        else if (figure & Bishop)
+            blackBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+        else if (figure != 0 && !(figure & King))
+            blackBishops |= OTHER_FIGURE;
+        byte moves[32];
+        int l = 0;
+        getValidMoves(*it, moves, &l);
+        if (l != 0)
+            blackCanMove = true;
+    }
 
     if (whiteTurn)
     {
-        for (list<byte>::iterator it = whitePositions.begin (); it != whitePositions.end(); it++)
-        {
-            byte moves[32];
-            int l = 0;
-            getValidMoves(*it, moves, &l);
-            if (l != 0)
-                whiteCanMove = true;
-        }
-
         if (!whiteCanMove && isBeaten(whiteKingPos, false))
             return BLACK_WON;
         if (!whiteCanMove && !isBeaten(whiteKingPos, false))
@@ -61,21 +98,43 @@ int ChessEngine::isEnd ()
     }
     else
     {
-        for (list<byte>::iterator it = blackPositions.begin (); it != blackPositions.end(); it++)
-        {
-            byte moves[32];
-            int l = 0;
-            getValidMoves(*it, moves, &l);
-            if (l != 0)
-                blackCanMove = true;
-        }
         if (!blackCanMove && isBeaten(blackKingPos, true))
             return WHITE_WON;
         if (!blackCanMove && !isBeaten(blackKingPos, true))
             return DRAW;
     }
+    cout << "Bishops" << whiteBishops << " " << blackBishops << endl;
+    cout << "Power" << whitePower << " " << blackPower << endl;
+
+    if (!bPawnDetected)
+    {
+        if (whitePower < 5 && blackPower < 5)
+        {
+            return DRAW;
+        }
+        if (blackPower < 5 && (whiteBishops == WHITE_TILE_BISHOP || whiteBishops == BLACK_TILE_BISHOP))
+            return DRAW;
+        if (whitePower < 5 && (blackBishops == WHITE_TILE_BISHOP || blackBishops == BLACK_TILE_BISHOP))
+            return DRAW;
+    }
 
     return ACTIVE_GAME;
+}
+
+int ChessEngine::getFigurePower (int figure)
+{
+    if (figure & Pawn)
+        return 1;
+    else if (figure & Knight || figure & Bishop)
+        return 3;
+    else if (figure & Rook)
+        return 5;
+    else if (figure & Queen)
+        return 9;
+    else if (figure & King)
+        return 0;
+
+    return 0;
 }
 
 bool ChessEngine::isBeaten (int from, bool bWhite) const

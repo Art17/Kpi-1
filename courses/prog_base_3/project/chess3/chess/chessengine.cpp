@@ -13,5 +13,8 @@ void ChessEngine::newGame()
     fillBoard ();
 }
 
-
+void ChessEngine::setTestMode(bool b)
+{
+    bTestMode = b;
+}
 

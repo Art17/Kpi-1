@@ -16,7 +16,7 @@
 #include <selectcolordialog.h>
 
 #include <chessboardcalcthread.h>
-#include <movethread.h>
+#include <chessboard_movethread.h>
 
 #include <QMutex>
 
@@ -47,6 +47,7 @@ public :
     void newGameAgainstHuman ();
 
     void undo ();
+    void undoLow ();
 
     int makeMove (const Move& );
 
@@ -100,7 +101,7 @@ private :
     int iSelectedTileX, iSelectedTileY;
 
     bool bWhiteCheck, bBlackCheck;
-    bool bAgainstComputer, bAsWhite, bComputerMove;
+    bool bAgainstComputer, bAsWhite, bLocked;
 
     QStack<FigureMovedInfo> journal;
 
@@ -122,6 +123,9 @@ private :
     SelectFigureDialog* selectDialog;
     EndGameDialog* egd;
     SelectColorDialog* scd;
+
+    MoveThread* figureMoveThread;
+    MoveThread* extraFigureMoveThread;
 
     ChessBoardCalcThread* cbct;
 

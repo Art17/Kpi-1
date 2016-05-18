@@ -1,11 +1,20 @@
-#include "movethread.h"
+#include "chessboard_movethread.h"
 #include <iostream>
 
-MoveThread::MoveThread(QRect rc, Sprite* sp)
+MoveThread::MoveThread()
+{
+    rect = QRect(0,0,0,0);
+    sprite = NULL;
+    time = 32;
+}
+
+void MoveThread::setRect (QRect rc)
 {
     rect = rc;
+}
+void MoveThread::setSprite (Sprite* sp)
+{
     sprite = sp;
-    time = 32;
 }
 
 

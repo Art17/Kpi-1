@@ -5,12 +5,16 @@
 #include <QRect>
 #include <SFML/Graphics.hpp>
 
+#include <QMutex>
+
 using namespace sf;
 
 class MoveThread : public QThread
 {
 public:
-    MoveThread (QRect, Sprite*);
+    MoveThread ();
+    void setRect (QRect);
+    void setSprite (Sprite*);
 
     void run();
 signals:

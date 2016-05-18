@@ -45,6 +45,7 @@ class ChessEngine
         ChessEngine();
 
         void newGame ();
+        void setTestMode (bool);
 
         bool isValidMove (const Move&);
 
@@ -80,7 +81,10 @@ class ChessEngine
         bool isFigurePinned (int from, int to) ;
         int makeMoveLow (const Move& );
 
+        int getFigurePower (int);
+
         void getRandomMove (Move* );
+        void getRandomBeatMove (Move* pRes);
 
         void reload ();
         void fillBoard ();
@@ -94,6 +98,8 @@ class ChessEngine
         int canCastling;
         int whiteKingPos, blackKingPos;
         bool whiteTurn;
+
+        bool bTestMode;
 
         stack<ExtraMove> lastMoves;
 

@@ -1,7 +1,7 @@
 #include "chessboard.h"
 #include "resources.h"
 
-#include <movethread.h>
+#include <chessboard_movethread.h>
 #include <selectfiguredialog.h>
 
 #include <iostream>

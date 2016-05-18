@@ -1,7 +1,7 @@
 #include "chessboard.h"
 #include "resources.h"
 
-#include <movethread.h>
+#include <chessboard_movethread.h>
 #include <selectfiguredialog.h>
 
 #include <iostream>
@@ -33,6 +33,8 @@ void ChessBoard::OnInit()
     cbct = new ChessBoardCalcThread (chessEng);
     QObject::connect(cbct, SIGNAL(moveReady(Move)),
                      this, SLOT(moveReady(Move)));
+    figureMoveThread = new MoveThread ();
+    extraFigureMoveThread = new MoveThread ();
 
     fillTable ();
     setSpritesPositionAndRects ();
@@ -49,6 +51,7 @@ void ChessBoard::newGameAgainstHuman()
     bAgainstComputer = false;
 
     chessEng->newGame();
+    chessEng->setTestMode(true);
 }
 
 void ChessBoard::newGameAgainstComputer()
@@ -68,11 +71,11 @@ void ChessBoard::newGameAgainstComputer()
 
     if (bAsWhite)
     {
-        bComputerMove = false;
+        bLocked = false;
     }
     else
     {
-        bComputerMove = true;
+        bLocked = true;
         cbct->start();
     }
 

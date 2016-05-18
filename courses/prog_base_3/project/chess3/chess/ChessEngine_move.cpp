@@ -212,6 +212,8 @@ int ChessEngine::makeMoveLow (const Move& move)
     lastMoves.push (eMove);
     int ret = isEnd ();
 
+
+
     return ret;
 
 }

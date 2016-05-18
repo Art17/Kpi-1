@@ -44,6 +44,7 @@ byte* ChessEngine::getValidMoves (int from, byte moves[], int* lPtr)
     int yFrom = from / 8;
 
     bool bWhite = isWhite (board[yFrom][xFrom]);
+    if (!bTestMode)
     if (bWhite != whiteTurn)
         return (byte*)moves;
     if ( board[yFrom][xFrom] == 0 )
@@ -308,7 +309,7 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 for (int i = 1; i < 4; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
                         bCastling = false;
-                if (board[7][0] != Rook | colorWhite)
+                if (board[7][0] != (Rook | colorWhite))
                     bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
                     bCastling = false;
@@ -327,7 +328,7 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                         bCastling = false;
                 if ( isBeaten ( cti(4, 7), false ) )
                     bCastling = false;
-                if (board[7][7] != Rook | colorWhite)
+                if (board[7][7] != (Rook | colorWhite))
                     bCastling = false;
 
                 if (bCastling)

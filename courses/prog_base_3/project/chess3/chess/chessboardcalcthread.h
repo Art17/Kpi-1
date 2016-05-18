@@ -11,6 +11,7 @@ public:
     ChessBoardCalcThread(ChessEngine*);
 
     void run();
+
 signals:
     void moveReady (Move);
 private:

@@ -16,7 +16,6 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     qsfmlcanvas.cpp \
     chessboard.cpp \
-    movethread.cpp \
     selectfiguredialog.cpp \
     chessboard_load.cpp \
     chessboard_reset.cpp \
@@ -35,20 +34,21 @@ SOURCES += main.cpp\
     selectcolodialog.cpp \
     chessboardcalcthread.cpp \
     chessboard_move.cpp \
-    ChessEngine_move.cpp
+    ChessEngine_move.cpp \
+    chessboard_movethread.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
     chessboard.h \
     resources.h \
-    movethread.h \
     selectfiguredialog.h \
     figures.h \
     ChessEngine.h \
     endgamedialog.h \
     aboutdialog.h \
     selectcolordialog.h \
-    chessboardcalcthread.h
+    chessboardcalcthread.h \
+    chessboard_movethread.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 

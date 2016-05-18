@@ -1,7 +1,7 @@
 #include "chessboard.h"
 #include "resources.h"
 
-#include <movethread.h>
+#include <chessboard_movethread.h>
 #include <selectfiguredialog.h>
 
 #include <iostream>
@@ -10,7 +10,7 @@ using namespace std;
 
 void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
 {
-    if (bComputerMove)
+    if (bLocked)
         return;
 
     int x = mouseEvent->x();
@@ -71,13 +71,14 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
 
             if ( makeMove (move) > 0 )
             {
+                bLocked = true;
                 unselect ();
                 return;
             }
 
             if (bAgainstComputer)
             {
-                bComputerMove = true;
+                bLocked = true;
                 cbct->start();
             }
         }

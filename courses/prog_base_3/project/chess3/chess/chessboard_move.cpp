@@ -1,7 +1,7 @@
 #include "chessboard.h"
 #include "resources.h"
 
-#include <movethread.h>
+#include <chessboard_movethread.h>
 #include <selectfiguredialog.h>
 
 #include <iostream>
@@ -10,7 +10,7 @@ using namespace std;
 
 void ChessBoard::moveReady (Move move)
 {
-    bComputerMove = false;
+    bLocked = false;
     makeMove(move);
 }
 
@@ -28,9 +28,8 @@ int ChessBoard::makeMove (const Move& move)
                    s_Figures[iSelectedFigure].getPosition().y,
                    tileX*boardTileWidth,
                    tileY*boardTileHeight);
-    MoveThread* figureMoveThread = new MoveThread(rect,
-                                            &s_Figures[iSelectedFigure]);
-    MoveThread* castlingMoveThread = NULL;
+    figureMoveThread->setRect(rect);
+    figureMoveThread->setSprite(&s_Figures[iSelectedFigure]);
     figureMoveThread->start ();
 
     rect.setCoords(iSelectedTileX, iSelectedTileY, tileX, tileY);
@@ -58,10 +57,11 @@ int ChessBoard::makeMove (const Move& move)
             if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]) )
             {
                 rect.setCoords(7*boardTileWidth, 7*boardTileHeight, 5*boardTileWidth, 7*boardTileHeight);
-                castlingMoveThread = new MoveThread(rect,
-                                                        &s_Figures[indexTable[7][7]]);
+                extraFigureMoveThread->setRect(rect);
+                extraFigureMoveThread->setSprite (&s_Figures[indexTable[7][7]]);
+                extraFigureMoveThread->start ();
+
                 rect.setCoords(7, 7, 5, 7);
-                castlingMoveThread->start();
                 fmi.s_ExtraFigure = &s_Figures[ indexTable[7][7] ];
                 fmi.extraFigureIndex = indexTable[7][7];
                 fmi.extraFigure = figuresTable [7][7];
@@ -76,9 +76,9 @@ int ChessBoard::makeMove (const Move& move)
             else
             {
                 rect.setCoords(7*boardTileWidth, 0*boardTileHeight, 5*boardTileWidth, 0*boardTileHeight);
-                castlingMoveThread = new MoveThread(rect,
-                                                        &s_Figures[indexTable[0][7]]);
-                castlingMoveThread->start();
+                extraFigureMoveThread->setRect(rect);
+                extraFigureMoveThread->setSprite (&s_Figures[indexTable[0][7]]);
+                extraFigureMoveThread->start ();
                 rect.setCoords(7, 0, 5, 0);
                 fmi.s_ExtraFigure = &s_Figures[ indexTable[0][7] ];
                 fmi.extraFigureIndex = indexTable[0][7];
@@ -97,9 +97,9 @@ int ChessBoard::makeMove (const Move& move)
             if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]) )
             {
                 rect.setCoords(0*boardTileWidth, 7*boardTileHeight, 3*boardTileWidth, 7*boardTileHeight);
-                castlingMoveThread = new MoveThread(rect,
-                                                        &s_Figures[indexTable[7][0]]);
-                castlingMoveThread->start();
+                extraFigureMoveThread->setRect(rect);
+                extraFigureMoveThread->setSprite (&s_Figures[indexTable[7][0]]);
+                extraFigureMoveThread->start ();
                 rect.setCoords(0, 7, 3, 7);
                 fmi.s_ExtraFigure = &s_Figures[ indexTable[7][0] ];
                 fmi.extraFigureIndex = indexTable[7][0];
@@ -116,9 +116,9 @@ int ChessBoard::makeMove (const Move& move)
             else
             {
                 rect.setCoords(0*boardTileWidth, 0*boardTileHeight, 3*boardTileWidth, 0*boardTileHeight);
-                castlingMoveThread = new MoveThread(rect,
-                                                        &s_Figures[indexTable[0][0]]);
-                castlingMoveThread->start();
+                extraFigureMoveThread->setRect(rect);
+                extraFigureMoveThread->setSprite (&s_Figures[indexTable[0][0]]);
+                extraFigureMoveThread->start ();
                 rect.setCoords(0, 0, 3, 0);
                 fmi.s_ExtraFigure = &s_Figures[ indexTable[0][0] ];
                 fmi.extraFigureIndex = indexTable[0][0];

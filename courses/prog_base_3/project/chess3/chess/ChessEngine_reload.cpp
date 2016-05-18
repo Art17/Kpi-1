@@ -10,6 +10,7 @@ void ChessEngine::reload ()
 
     whitePositions.clear ();
     blackPositions.clear ();
+    bTestMode = false;
 
     for (int i = 0; i < 16; i++)
         blackPositions.push_back (i);

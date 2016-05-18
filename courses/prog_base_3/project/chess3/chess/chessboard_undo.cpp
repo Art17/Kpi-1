@@ -1,17 +1,58 @@
 #include "chessboard.h"
 #include "resources.h"
 
-#include <movethread.h>
+#include <chessboard_movethread.h>
 #include <selectfiguredialog.h>
 
 #include <iostream>
 
 using namespace std;
 
-void ChessBoard::undo()
+void ChessBoard::undo ()
+{
+    /*if (bAgainstComputer)
+    {
+        if (bComputerMove)
+            undoLow ();
+        else
+        {
+            undoLow ();
+            undoLow ();
+        }
+    }
+    else
+        undoLow ();*/
+    if (bAgainstComputer)
+    {
+        if (bLocked)
+        {
+            cbct->terminate ();
+            bLocked = false;
+            undoLow ();
+        }
+        else
+        {
+            undoLow ();
+            undoLow ();
+        }
+    }
+    else
+    {
+        undoLow ();
+        bLocked = false;
+    }
+
+    if (figureMoveThread->isRunning())
+        figureMoveThread->terminate();
+    if (extraFigureMoveThread->isRunning())
+        extraFigureMoveThread->terminate();
+}
+
+void ChessBoard::undoLow()
 {
     if (journal.isEmpty())
         return;
+
     FigureMovedInfo fmi = journal.pop();
     int tileX1, tileY1, tileX2, tileY2;
     fmi.figureMove.getCoords(&tileX1, &tileY1, &tileX2, &tileY2);
@@ -46,20 +87,6 @@ void ChessBoard::undo()
         setSpriteRect(&s_Figures[fmi.figureIndex], Pawn | ((bWhite) ? colorWhite : 0));
     }
     unselect ();
-
-    if (bAgainstComputer)
-    {
-        if (bComputerMove)
-        {
-            cbct->terminate();
-            bComputerMove = false;
-        }
-        else
-        {
-            cbct->start();
-            bComputerMove = true;
-        }
-    }
 
     chessEng->undo();
     bWhiteCheck = chessEng->isCheck (true);

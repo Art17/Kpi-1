@@ -1,5 +1,9 @@
 #include "chessboardcalcthread.h"
 
+#include <iostream>
+
+using namespace std;
+
 ChessBoardCalcThread::ChessBoardCalcThread(ChessEngine* ce)
 {
     chessEng = ce;
@@ -9,7 +13,6 @@ ChessBoardCalcThread::ChessBoardCalcThread(ChessEngine* ce)
 void ChessBoardCalcThread::run ()
 {
     QThread::msleep(500);
-
     Move move;
     chessEng->getBestMove(&move);
 

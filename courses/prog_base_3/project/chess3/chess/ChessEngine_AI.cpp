@@ -5,7 +5,33 @@
 
 void ChessEngine::getBestMove(Move* pRes)
 {
-    getRandomMove (pRes);
+    getRandomBeatMove (pRes);
+}
+
+void ChessEngine::getRandomBeatMove (Move* pRes)
+{
+    srand (time (NULL));
+    dbyte allMoves[128];
+    int len = 0;
+
+    getAllMoves(allMoves, &len, whiteTurn);
+
+    if (len == 0)
+        return;
+
+    for (int i = 0; i < len; i++)
+    {
+        int from = LOBYTE (allMoves[i]);
+        int to = HIBYTE (allMoves[i]);
+        if ( board[to/8][to%8] != 0 )
+        {
+            pRes->from = from;
+            pRes->to = to;
+            pRes->extra = Queen;
+            return;
+        }
+    }
+    getRandomMove(pRes);
 }
 
 void ChessEngine::getRandomMove(Move* pRes)
@@ -25,7 +51,7 @@ void ChessEngine::getRandomMove(Move* pRes)
     pRes->to = HIBYTE (randMove);
     pRes->extra = Queen;
 
-    /*int xFrom = pRes->from % 8;
+    int xFrom = pRes->from % 8;
     int yFrom = pRes->from / 8;
     int yTo = pRes->to / 8;
 
@@ -36,5 +62,5 @@ void ChessEngine::getRandomMove(Move* pRes)
             int figures [] = {Knight, Bishop, Rook, Queen};
             pRes->extra = figures [ rand () % 4 ];
         }
-    }*/
+    }
 }
