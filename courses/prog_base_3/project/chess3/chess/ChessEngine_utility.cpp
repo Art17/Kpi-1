@@ -60,7 +60,7 @@ int ChessEngine::isEnd ()
         if (figure & Pawn)
             bPawnDetected = true;
         else if (figure & Bishop)
-            whiteBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+            whiteBishops |= (isWhiteTile(*it) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
         else if (figure != 0 && !(figure & King))
             whiteBishops |= OTHER_FIGURE;
         byte moves[32];
@@ -79,7 +79,7 @@ int ChessEngine::isEnd ()
         if (figure & Pawn)
             bPawnDetected = true;
         else if (figure & Bishop)
-            blackBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+            blackBishops |= (isWhiteTile(*it) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
         else if (figure != 0 && !(figure & King))
             blackBishops |= OTHER_FIGURE;
         byte moves[32];
@@ -105,6 +105,7 @@ int ChessEngine::isEnd ()
     }
     cout << "Bishops" << whiteBishops << " " << blackBishops << endl;
     cout << "Power" << whitePower << " " << blackPower << endl;
+    cout << "Size " << whitePositions.size() << " " << blackPositions.size() << endl;
 
     if (!bPawnDetected)
     {
@@ -119,6 +120,18 @@ int ChessEngine::isEnd ()
     }
 
     return ACTIVE_GAME;
+}
+
+bool ChessEngine::isWhiteTile (int tile)
+{
+    int xFrom = tile % 8;
+    int yFrom = tile / 8;
+
+    if (yFrom % 2 == 0)
+        return !(xFrom % 2);
+    else
+        return xFrom % 2;
+
 }
 
 int ChessEngine::getFigurePower (int figure)

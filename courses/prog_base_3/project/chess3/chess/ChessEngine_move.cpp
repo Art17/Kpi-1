@@ -126,7 +126,17 @@ int ChessEngine::makeMoveLow (const Move& move)
     }
 
     if ( board[yTo][xTo] != 0 )
+    {
+        if (isWhite (board[yTo][xTo]))
+        {
+            whitePositions.remove ( cti(xTo, yTo) );
+        }
+        else
+        {
+            blackPositions.remove ( cti(xTo, yTo) );
+        }
         eMove.beatenFigure = board[yTo][xTo];
+    }
 
     if (yTo == 0 && board[yTo][xTo] & Pawn )
         board[yTo][xTo] = move.extra | colorWhite;
