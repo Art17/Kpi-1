@@ -19,7 +19,7 @@ void ChessBoard::OnInit()
     qRegisterMetaType<Move> ("Move");
 
     selectDialog = new SelectFigureDialog (this);
-    egd = new EndGameDialog (this);
+    infoDialog = new InfoDialog (this);
     scd = new SelectColorDialog (this);
 
     resetVariables();
@@ -36,6 +36,8 @@ void ChessBoard::OnInit()
     figureMoveThread = new MoveThread ();
     extraFigureMoveThread = new MoveThread ();
 
+    QObject::connect(figureMoveThread, SIGNAL (resultReady(int)), this, SLOT (onFlipView(int)));
+
     fillTable ();
     setSpritesPositionAndRects ();
 }
@@ -43,6 +45,8 @@ void ChessBoard::OnInit()
 
 void ChessBoard::newGameAgainstHuman()
 {
+    infoDialog->setText("Playing new game against human");
+    infoDialog->exec();
     resetVariables ();
     clearJournal ();
     fillTable ();
@@ -51,7 +55,8 @@ void ChessBoard::newGameAgainstHuman()
     bAgainstComputer = false;
 
     chessEng->newGame();
-    chessEng->setTestMode(true);
+    chessEng->setTestMode(false);
+
 }
 
 void ChessBoard::newGameAgainstComputer()
@@ -75,6 +80,8 @@ void ChessBoard::newGameAgainstComputer()
     }
     else
     {
+        //flipView ();
+
         bLocked = true;
         cbct->start();
     }
@@ -87,6 +94,14 @@ void ChessBoard::newGameAgainstComputer()
              << (int)HIBYTE (allMoves[i])%8 << " " << (int)HIBYTE (allMoves[i])/8 << endl;*/
 }
 
+void ChessBoard::onFlipView(int i)
+{
+    /*if (!bAgainstComputer)
+    {
+        QThread::msleep(100);
+        flipView ();
+    }*/
+}
 
 void ChessBoard::OnUpdate()
 {
@@ -113,20 +128,28 @@ void ChessBoard::OnUpdate()
     if (bWhiteCheck)
     {
         int whitePos = chessEng->getKingPos(true);
-        rs_Check.setPosition((whitePos%8)*boardTileWidth, (whitePos/8)*boardTileHeight);
+        if (bFlipped)
+            rs_Check.setPosition((whitePos%8)*boardTileWidth, (7-whitePos/8)*boardTileHeight);
+        else
+            rs_Check.setPosition((whitePos%8)*boardTileWidth, (whitePos/8)*boardTileHeight);
         this->draw (rs_Check);
     }
     else if (bBlackCheck)
     {
         int blackPos = chessEng->getKingPos(false);
-        rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
+        if (bFlipped)
+            rs_Check.setPosition((blackPos%8)*boardTileWidth, (7-blackPos/8)*boardTileHeight);
+        else
+            rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
         this->draw (rs_Check);
     }
 
     for (int i = 0; i < 8; i++)
         for (int j = 0; j < 8; j++)
             if (bValid[i][j])
+            {
                 this->draw(rs_ValidMoveHighlight[i][j]);
+            }
 
     for (int i = 0; i < 32; i++)
     {
@@ -139,6 +162,6 @@ void ChessBoard::endGame(int res)
     const char* messages[] = {"White won by checkmate",
                              "Black won by checkmate",
                              "Game ended in a draw"};
-    egd->setText( QString (messages[res-1]) );
-    egd->exec();
+    infoDialog->setText( QString (messages[res-1]) );
+    infoDialog->exec();
 }

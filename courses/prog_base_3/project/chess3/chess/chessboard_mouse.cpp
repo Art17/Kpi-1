@@ -33,8 +33,11 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
         iSelectedFigure = indexTable[tileY][tileX];
         iSelectedTileX = tileX;
         iSelectedTileY = tileY;
-
-        int from = tileY*8 + tileX;
+        int from = 0;
+        if (bFlipped)
+            from = (7-tileY)*8 + tileX;
+        else
+            from = tileY*8 + tileX;
         byte validMoves[32];
         int l;
 
@@ -45,7 +48,26 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
             int x = validMoves[i] % 8;
             int y = validMoves[i] / 8;
 
-            bValid[y][x] = true;
+            if (bFlipped)
+                bValid[7-y][x] = true;
+            else
+                bValid[y][x] = true;
+
+            /*if (figuresTable[y][x] != 0)
+                rs_ValidMoveHighlight[y][x].setFillColor(Color (255,0,0,128));
+            else if (figuresTable[iSelectedTileY][iSelectedTileX] & Pawn)
+            {
+                if (x+1 < 8 && iSelectedTileX == x+1)
+                {
+                    rs_ValidMoveHighlight[y][x].setFillColor(Color (255,0,0,128));
+                }
+                else if (x-1 >= 0 && iSelectedTileX == x-1)
+                {
+                    rs_ValidMoveHighlight[y][x].setFillColor(Color (255,0,0,128));
+                }
+            }
+            else
+                rs_ValidMoveHighlight[y][x].setFillColor (Color (0, 255, 0, 128));*/
         }
     }
     else
@@ -53,8 +75,14 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
         if ( bValid[tileY][tileX] )
         {
             Move move;
-            move.from = iSelectedTileY*8 + iSelectedTileX;
-            move.to = tileY*8 + tileX;
+            if (bFlipped)
+                move.from = (7-iSelectedTileY)*8 + iSelectedTileX;
+            else
+                move.from = (iSelectedTileY)*8 + iSelectedTileX;
+            if (bFlipped)
+                move.to = (7-tileY)*8 + tileX;
+            else
+                move.to = tileY*8 + tileX;
             int newFigure = 0;
 
             if (figuresTable[iSelectedTileY][iSelectedTileX] & Pawn)
@@ -67,8 +95,6 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
                     }
                 }
             }
-            move.extra = newFigure;
-
             if ( makeMove (move) > 0 )
             {
                 bLocked = true;

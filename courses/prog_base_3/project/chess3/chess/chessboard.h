@@ -10,7 +10,7 @@
 #include <chessengine.h>
 #include <figures.h>
 #include <selectfiguredialog.h>
-#include <endgamedialog.h>
+#include <infodialog.h>
 
 #include <qmessagebox.h>
 #include <selectcolordialog.h>
@@ -53,6 +53,7 @@ public :
 
 private slots:
     void moveReady(Move);
+    void onFlipView (int);
 
 private :
     virtual void mousePressEvent (QMouseEvent* );
@@ -121,7 +122,7 @@ private :
     bool bFlipped;
 
     SelectFigureDialog* selectDialog;
-    EndGameDialog* egd;
+    InfoDialog* infoDialog;
     SelectColorDialog* scd;
 
     MoveThread* figureMoveThread;

@@ -28,14 +28,14 @@ SOURCES += main.cpp\
     ChessEngine_reload.cpp \
     ChessEngine_undo.cpp \
     ChessEngine_utility.cpp \
-    endgamedialog.cpp \
     chessboard_flip.cpp \
     aboutdialog.cpp \
     selectcolodialog.cpp \
     chessboardcalcthread.cpp \
     chessboard_move.cpp \
     ChessEngine_move.cpp \
-    chessboard_movethread.cpp
+    chessboard_movethread.cpp \
+    infodialog.cpp
 
 HEADERS  += mainwindow.h \
     qsfmlcanvas.h \
@@ -44,11 +44,11 @@ HEADERS  += mainwindow.h \
     selectfiguredialog.h \
     figures.h \
     ChessEngine.h \
-    endgamedialog.h \
     aboutdialog.h \
     selectcolordialog.h \
     chessboardcalcthread.h \
-    chessboard_movethread.h
+    chessboard_movethread.h \
+    infodialog.h
 
 LIBS += -LC:/Frameworks/SFML-2.3.2/lib/
 

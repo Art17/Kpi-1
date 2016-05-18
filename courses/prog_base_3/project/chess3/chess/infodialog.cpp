@@ -1,7 +1,7 @@
-#include "endgamedialog.h"
+#include "infodialog.h"
 #include "ui_endgamedialog.h"
 
-EndGameDialog::EndGameDialog(QWidget *parent) :
+InfoDialog::InfoDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::endgamedialog)
 {
@@ -9,17 +9,17 @@ EndGameDialog::EndGameDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
-EndGameDialog::~EndGameDialog()
+InfoDialog::~InfoDialog()
 {
     delete ui;
 }
 
-void EndGameDialog::on_pushButton_clicked()
+void InfoDialog::on_pushButton_clicked()
 {
     accept ();
 }
 
-void EndGameDialog::setText(QString str)
+void InfoDialog::setText(QString str)
 {
     text = str;
     ui->infoLabel->setText(text);

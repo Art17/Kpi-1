@@ -11,6 +11,7 @@ using namespace sf;
 
 class MoveThread : public QThread
 {
+    Q_OBJECT
 public:
     MoveThread ();
     void setRect (QRect);

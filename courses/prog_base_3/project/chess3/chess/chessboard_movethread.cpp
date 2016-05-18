@@ -39,6 +39,6 @@ void MoveThread::run ()
         this->msleep(5);
     }
 
-    //emit resultReady(0);
+    emit resultReady(0);
 }
 

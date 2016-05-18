@@ -7,13 +7,13 @@ namespace Ui {
 class endgamedialog;
 }
 
-class EndGameDialog : public QDialog
+class InfoDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit EndGameDialog(QWidget *parent = 0);
-    ~EndGameDialog();
+    explicit InfoDialog(QWidget *parent = 0);
+    ~InfoDialog();
 
     void setText (QString);
 

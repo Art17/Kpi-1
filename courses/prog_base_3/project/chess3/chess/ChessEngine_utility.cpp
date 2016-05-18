@@ -103,9 +103,6 @@ int ChessEngine::isEnd ()
         if (!blackCanMove && !isBeaten(blackKingPos, true))
             return DRAW;
     }
-    cout << "Bishops" << whiteBishops << " " << blackBishops << endl;
-    cout << "Power" << whitePower << " " << blackPower << endl;
-    cout << "Size " << whitePositions.size() << " " << blackPositions.size() << endl;
 
     if (!bPawnDetected)
     {
