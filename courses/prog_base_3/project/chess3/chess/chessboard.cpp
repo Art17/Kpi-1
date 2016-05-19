@@ -128,19 +128,13 @@ void ChessBoard::OnUpdate()
     if (bWhiteCheck)
     {
         int whitePos = chessEng->getKingPos(true);
-        if (bFlipped)
-            rs_Check.setPosition((whitePos%8)*boardTileWidth, (7-whitePos/8)*boardTileHeight);
-        else
             rs_Check.setPosition((whitePos%8)*boardTileWidth, (whitePos/8)*boardTileHeight);
         this->draw (rs_Check);
     }
     else if (bBlackCheck)
     {
         int blackPos = chessEng->getKingPos(false);
-        if (bFlipped)
-            rs_Check.setPosition((blackPos%8)*boardTileWidth, (7-blackPos/8)*boardTileHeight);
-        else
-            rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
+        rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
         this->draw (rs_Check);
     }
 

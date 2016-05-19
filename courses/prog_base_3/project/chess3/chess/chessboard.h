@@ -47,7 +47,7 @@ public :
     void newGameAgainstHuman ();
 
     void undo ();
-    void undoLow ();
+    bool undoLow ();
 
     int makeMove (const Move& );
 
@@ -78,6 +78,7 @@ private :
     void initFigureRects ();
 
     void flipView ();
+    void select(int, int);
 
     void fillTable ();
     void setSpritesPositionAndRects ();
@@ -118,8 +119,6 @@ private :
 
     Texture  t_Board;
     Sprite s_Board;
-
-    bool bFlipped;
 
     SelectFigureDialog* selectDialog;
     InfoDialog* infoDialog;

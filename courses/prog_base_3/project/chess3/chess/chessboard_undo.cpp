@@ -10,18 +10,6 @@ using namespace std;
 
 void ChessBoard::undo ()
 {
-    /*if (bAgainstComputer)
-    {
-        if (bComputerMove)
-            undoLow ();
-        else
-        {
-            undoLow ();
-            undoLow ();
-        }
-    }
-    else
-        undoLow ();*/
     if (bAgainstComputer)
     {
         if (bLocked)
@@ -33,7 +21,11 @@ void ChessBoard::undo ()
         else
         {
             undoLow ();
-            undoLow ();
+            if (!undoLow ())
+            {
+                cbct->start();
+                bLocked = true;
+            }
         }
     }
     else
@@ -48,10 +40,10 @@ void ChessBoard::undo ()
         extraFigureMoveThread->terminate();
 }
 
-void ChessBoard::undoLow()
+bool ChessBoard::undoLow()
 {
     if (journal.isEmpty())
-        return;
+        return false;
 
     FigureMovedInfo fmi = journal.pop();
     int tileX1, tileY1, tileX2, tileY2;
@@ -91,4 +83,6 @@ void ChessBoard::undoLow()
     chessEng->undo();
     bWhiteCheck = chessEng->isCheck (true);
     bBlackCheck = chessEng->isCheck (false);
+
+    return true;
 }

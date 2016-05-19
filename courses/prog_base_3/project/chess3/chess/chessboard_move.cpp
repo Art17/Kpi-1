@@ -21,13 +21,6 @@ int ChessBoard::makeMove (const Move& move)
     int tileX = move.to % 8;
     int tileY = move.to / 8;
 
-    if (bFlipped)
-    {
-        cout << "Move1 " << iSelectedTileY << " " << tileY << endl;
-        tileY = 7 - tileY;
-        iSelectedTileY = 7 - iSelectedTileY;
-        cout << "Move2 " << iSelectedTileY << " " << tileY << endl;
-    }
 
     int iSelectedFigure = indexTable[iSelectedTileY][iSelectedTileX];
 
@@ -64,7 +57,7 @@ int ChessBoard::makeMove (const Move& move)
         {
             if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]) )
             {
-                rect.setCoords(7*boardTileWidth, (bFlipped ? 0 : 7)*boardTileHeight, 5*boardTileWidth, (bFlipped ? 0 : 7)*boardTileHeight);
+                rect.setCoords(7*boardTileWidth, (7)*boardTileHeight, 5*boardTileWidth, (7)*boardTileHeight);
                 extraFigureMoveThread->setRect(rect);
                 extraFigureMoveThread->setSprite (&s_Figures[indexTable[7][7]]);
                 extraFigureMoveThread->start ();
@@ -83,7 +76,7 @@ int ChessBoard::makeMove (const Move& move)
             }
             else
             {
-                rect.setCoords(7*boardTileWidth, (bFlipped ? 7 : 0)*boardTileHeight, 5*boardTileWidth, (bFlipped ? 7 : 0)*boardTileHeight);
+                rect.setCoords(7*boardTileWidth, (0)*boardTileHeight, 5*boardTileWidth, (0)*boardTileHeight);
                 extraFigureMoveThread->setRect(rect);
                 extraFigureMoveThread->setSprite (&s_Figures[indexTable[0][7]]);
                 extraFigureMoveThread->start ();
@@ -104,7 +97,7 @@ int ChessBoard::makeMove (const Move& move)
         {
             if ( isWhite (figuresTable[iSelectedTileY][iSelectedTileX]))
             {
-                rect.setCoords(0*boardTileWidth, (bFlipped ? 0 : 7)*boardTileHeight, 3*boardTileWidth, (bFlipped ? 0 : 7)*boardTileHeight);
+                rect.setCoords(0*boardTileWidth, (7)*boardTileHeight, 3*boardTileWidth, (7)*boardTileHeight);
                 extraFigureMoveThread->setRect(rect);
                 extraFigureMoveThread->setSprite (&s_Figures[indexTable[7][0]]);
                 extraFigureMoveThread->start ();
@@ -123,7 +116,7 @@ int ChessBoard::makeMove (const Move& move)
             }
             else
             {
-                rect.setCoords(0*boardTileWidth, (bFlipped ? 7 : 0)*boardTileHeight, 3*boardTileWidth, (bFlipped ? 7 : 0)*boardTileHeight);
+                rect.setCoords(0*boardTileWidth, (0)*boardTileHeight, 3*boardTileWidth, (0)*boardTileHeight);
                 extraFigureMoveThread->setRect(rect);
                 extraFigureMoveThread->setSprite (&s_Figures[indexTable[0][0]]);
                 extraFigureMoveThread->start ();

@@ -69,7 +69,6 @@ class ChessEngine
     private:
         inline bool isDifferentColor (int, int) const;
         inline bool isWhite (int) const;
-        bool isWhiteTile (int);
         int cti (int, int) const;
 
         byte* getRookMoves (int , byte [], int* ) ;

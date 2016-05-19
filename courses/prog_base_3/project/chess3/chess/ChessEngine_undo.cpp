@@ -87,8 +87,8 @@ bool ChessEngine::undo ()
             }
             else
             {
-                blackPositions.remove (cti(lastXTo, lastYTo));
-                blackPositions.push_back (cti(lastXFrom, lastYFrom));
+                blackPositions.remove (cti(lastXTo-1, lastYTo));
+                blackPositions.push_back (cti(7, lastYTo));
             }
 
         }
@@ -97,15 +97,24 @@ bool ChessEngine::undo ()
     {
         whitePositions.remove (cti(lastXTo, lastYTo));
         whitePositions.push_back (cti(lastXFrom, lastYFrom));
+        if (lastMove.beatenFigure != 0)
+        {
+            blackPositions.push_back(cti (lastXTo, lastYTo));
+        }
     }
     else
     {
         blackPositions.remove (cti(lastXTo, lastYTo));
         blackPositions.push_back (cti(lastXFrom, lastYFrom));
+        if (lastMove.beatenFigure != 0)
+        {
+            whitePositions.push_back(cti (lastXTo, lastYTo));
+        }
     }
 
     board[lastYFrom][lastXFrom] = board[lastYTo][lastXTo];
     board[lastYTo][lastXTo] = lastMove.beatenFigure;
+
 
     if (lastMove.extraFigure != 0)
         board[lastYFrom][lastXFrom] = Pawn | (lastMove.extraFigure & colorWhite);

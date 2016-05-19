@@ -60,9 +60,9 @@ DEPENDPATH += c:/Frameworks/SFML-2.3.2/include/
 
 FORMS    += mainwindow.ui \
     selectfiguredialog.ui \
-    endgamedialog.ui \
     aboutdialog.ui \
-    selectcolordialog.ui
+    selectcolordialog.ui \
+    infodialog.ui
 
 CONFIG += c++11
 

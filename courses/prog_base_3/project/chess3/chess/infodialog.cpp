@@ -6,6 +6,7 @@ InfoDialog::InfoDialog(QWidget *parent) :
     ui(new Ui::endgamedialog)
 {
     text = "Game ended";
+    this->setWindowTitle("Information");
     ui->setupUi(this);
 }
 
@@ -23,4 +24,5 @@ void InfoDialog::setText(QString str)
 {
     text = str;
     ui->infoLabel->setText(text);
+    this->setWindowTitle("Information");
 }
