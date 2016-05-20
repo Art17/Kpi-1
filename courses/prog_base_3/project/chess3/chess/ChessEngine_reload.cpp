@@ -8,15 +8,7 @@ void ChessEngine::reload ()
     canCastling = 0;
     canCastling = WHITE_LEFT_CASTLING | WHITE_RIGHT_CASTLING | BLACK_RIGHT_CASTLING | BLACK_LEFT_CASTLING;
 
-    whitePositions.clear ();
-    blackPositions.clear ();
     bTestMode = false;
-
-    for (int i = 0; i < 16; i++)
-        blackPositions.push_back (i);
-    for (int i = 48; i < 64; i++)
-        whitePositions.push_back (i);
-
 
     while (lastMoves.size() != 0)
         lastMoves.pop ();

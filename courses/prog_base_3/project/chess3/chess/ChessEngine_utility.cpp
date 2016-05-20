@@ -2,7 +2,7 @@
 #include <memory.h>
 #include <iostream>
 
-bool ChessEngine::isFigurePinned (int from, int to)
+bool ChessEngine::isFigurePinned (int from, int to) // optimized
 {
     int xFrom = from % 8;
     int yFrom = from / 8;
@@ -10,33 +10,20 @@ bool ChessEngine::isFigurePinned (int from, int to)
     int yTo = to / 8;
     bool bRet = false;
 
-    if (xTo < 8 && xTo >= 0 && yTo >= 0 && yTo < 8 &&  board[yTo][xTo] == 0 || isDifferentColor( board[yFrom][xFrom], board[yTo][xTo] ) )
-    {
-        int fromFigure = board[yFrom][xFrom];
-        int toFigure = board[yTo][xTo];
-        int temp = board[yTo][xTo];
-        board[yTo][xTo] = fromFigure;
-        board[yFrom][xFrom] = 0;
-        if ( isBeaten ( isWhite (fromFigure) ? whiteKingPos : blackKingPos, !isWhite (fromFigure)  ))
-            {
-                bRet = true;
-            }
-        board[yFrom][xFrom] = fromFigure;
-        board[yTo][xTo] = toFigure;
-    }
+    int fromFigure = board[yFrom][xFrom];
+    int toFigure = board[yTo][xTo];
+    board[yTo][xTo] = fromFigure;
+    board[yFrom][xFrom] = 0;
+    if ( isBeaten ( isWhite (fromFigure) ? whiteKingPos : blackKingPos, !isWhite (fromFigure)  ))
+        {
+            bRet = true;
+        }
+    board[yFrom][xFrom] = fromFigure;
+    board[yTo][xTo] = toFigure;
 
     return bRet;
 }
 
-inline bool ChessEngine::isDifferentColor(int x1, int x2) const
-{
-    return (((x1 & colorWhite) ^ (x2 & colorWhite)) == colorWhite);
-}
-
-inline bool ChessEngine::isWhite (int figure) const
-{
-    return (figure & colorWhite) == colorWhite;
-}
 
 int ChessEngine::isEnd ()
 {
@@ -45,49 +32,51 @@ int ChessEngine::isEnd ()
     int whitePower = 0;
     int blackPower = 0;
     bool bPawnDetected = false;
-    cout << "WB: " << whitePositions.size() << " " << blackPositions.size() << endl;
 #define WHITE_TILE_BISHOP 1
 #define BLACK_TILE_BISHOP 2
 #define OTHER_FIGURE 4
     int whiteBishops = 0;
     int blackBishops = 0;
 
-    for (list<byte>::iterator it = whitePositions.begin (); it != whitePositions.end(); it++)
+    for (int i = 0; i < 64; i++)
     {
-        int figure = board[(*it)/8][(*it)%8];
-        if (figure == 0)
-            cout << "WHITE FIGURE HELL" << endl;
-        whitePower += getFigurePower (figure);
-        if (figure & Pawn)
-            bPawnDetected = true;
-        else if (figure & Bishop)
-            whiteBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
-        else if (figure != 0 && !(figure & King))
-            whiteBishops |= OTHER_FIGURE;
-        byte moves[32];
-        int l = 0;
-        getValidMoves(*it, moves, &l);
-        if (l != 0)
-            whiteCanMove = true;
-    }
-
-    for (list<byte>::iterator it = blackPositions.begin (); it != blackPositions.end(); it++)
-    {
-        int figure = board[(*it)/8][(*it)%8];
-        if (figure == 0)
-            cout << "BLACK FIGURE HELL" << endl;
-        blackPower += getFigurePower(figure);
-        if (figure & Pawn)
-            bPawnDetected = true;
-        else if (figure & Bishop)
-            blackBishops |= (((*it)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
-        else if (figure != 0 && !(figure & King))
-            blackBishops |= OTHER_FIGURE;
-        byte moves[32];
-        int l = 0;
-        getValidMoves(*it, moves, &l);
-        if (l != 0)
-            blackCanMove = true;
+        int x = i % 8;
+        int y = i / 8;
+        if (board[y][x] != 0)
+        {
+            if (isWhite (board[y][x]))
+            {
+                int figure = board[y][x];
+                whitePower += getFigurePower (figure);
+                if (figure & Pawn)
+                    bPawnDetected = true;
+                else if (figure & Bishop)
+                    whiteBishops |= (((i)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+                else if (figure != 0 && !(figure & King))
+                    whiteBishops |= OTHER_FIGURE;
+                byte moves[32];
+                int l = 0;
+                getValidMoves(i, moves, &l);
+                if (l != 0)
+                    whiteCanMove = true;
+            }
+            else
+            {
+                int figure = board[y][x];
+                blackPower += getFigurePower(figure);
+                if (figure & Pawn)
+                    bPawnDetected = true;
+                else if (figure & Bishop)
+                    blackBishops |= (((i)%2) ? BLACK_TILE_BISHOP : WHITE_TILE_BISHOP);
+                else if (figure != 0 && !(figure & King))
+                    blackBishops |= OTHER_FIGURE;
+                byte moves[32];
+                int l = 0;
+                getValidMoves(i, moves, &l);
+                if (l != 0)
+                    blackCanMove = true;
+            }
+        }
     }
 
     if (whiteTurn)
@@ -120,23 +109,8 @@ int ChessEngine::isEnd ()
     return ACTIVE_GAME;
 }
 
-int ChessEngine::getFigurePower (int figure)
-{
-    if (figure & Pawn)
-        return 1;
-    else if (figure & Knight || figure & Bishop)
-        return 3;
-    else if (figure & Rook)
-        return 5;
-    else if (figure & Queen)
-        return 9;
-    else if (figure & King)
-        return 0;
 
-    return 0;
-}
-
-bool ChessEngine::isBeaten (int from, bool bWhite) const
+bool ChessEngine::isBeaten (int from, bool bWhite) const // optimized
 {
     int xFrom = from % 8;
     int yFrom = from / 8;
@@ -218,17 +192,23 @@ bool ChessEngine::isBeaten (int from, bool bWhite) const
     /* Pawn */
     if (bWhite)
     {
-        if ( yFrom+1 < 8 && xFrom+1 < 8 && board[yFrom+1][xFrom+1] & Pawn && bWhite == isWhite (board[yFrom+1][xFrom+1]))
-            return true;
-        if ( yFrom+1 < 8 && xFrom-1 >= 0 && board[yFrom+1][xFrom-1] & Pawn && bWhite == isWhite (board[yFrom+1][xFrom-1]) )
-            return true;
+        if (yFrom + 1 < 8)
+        {
+            if (xFrom+1 < 8 && board[yFrom+1][xFrom+1] & Pawn && bWhite == isWhite (board[yFrom+1][xFrom+1]))
+                return true;
+            if (xFrom-1 >= 0 && board[yFrom+1][xFrom-1] & Pawn && bWhite == isWhite (board[yFrom+1][xFrom-1]) )
+                return true;
+        }
     }
     else
     {
-        if ( yFrom-1 >= 0 && xFrom+1 < 8 && board[yFrom-1][xFrom+1] & Pawn && bWhite == isWhite (board[yFrom-1][xFrom+1]))
-            return true;
-        if ( yFrom-1 >= 0 && xFrom-1 >= 0 && board[yFrom-1][xFrom-1] & Pawn && bWhite == isWhite (board[yFrom-1][xFrom-1]) )
-            return true;
+        if (yFrom-1 >= 0)
+        {
+            if (xFrom+1 < 8 && board[yFrom-1][xFrom+1] & Pawn && bWhite == isWhite (board[yFrom-1][xFrom+1]))
+                return true;
+            if (xFrom-1 >= 0 && board[yFrom-1][xFrom-1] & Pawn && bWhite == isWhite (board[yFrom-1][xFrom-1]) )
+                return true;
+        }
     }
     /* --- */
 
@@ -324,11 +304,6 @@ bool ChessEngine::isValidMove (const Move& move)
         if ( to == moves[i] )
             return true;
     return false;
-}
-
-int ChessEngine::cti (int x, int y) const
-{
-    return y*8 + x;
 }
 
 int ChessEngine::getKingPos(bool bWhite) const

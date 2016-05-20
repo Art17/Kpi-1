@@ -1,5 +1,5 @@
 #include "infodialog.h"
-#include "ui_endgamedialog.h"
+#include "ui_infodialog.h"
 
 InfoDialog::InfoDialog(QWidget *parent) :
     QDialog(parent),

@@ -5,7 +5,7 @@ MoveThread::MoveThread()
 {
     rect = QRect(0,0,0,0);
     sprite = NULL;
-    time = 32;
+    time = 16;
 }
 
 void MoveThread::setRect (QRect rc)
@@ -36,7 +36,7 @@ void MoveThread::run ()
 
         sprite->setPosition(Vector2f(currentX, currentY));
 
-        this->msleep(5);
+        this->msleep(15);
     }
 
     emit resultReady(0);

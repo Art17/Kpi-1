@@ -4,6 +4,8 @@
 #include <stack>
 #include <cstdio>
 #include <list>
+#include <vector>
+#include <QList>
 
 #include "figures.h"
 
@@ -34,8 +36,15 @@ struct ExtraMove
 {
     byte from;
     byte to;
-    byte extraFigure;
-    byte beatenFigure; // exclude passant
+
+    byte extraFigure;  // pawn promotion
+
+    byte beatenFigure; // include passant
+    byte beatenFigurePos;
+
+    byte castlingFigureFrom;
+    byte castlingFigureTo;
+
     int canCastling;  // doesnt take care about beaten rooks, getKingMoves checks it
 };
 
@@ -67,9 +76,8 @@ class ChessEngine
 
         dbyte* getAllMoves (dbyte*, int*, bool);
     private:
-        inline bool isDifferentColor (int, int) const;
-        inline bool isWhite (int) const;
-        int cti (int, int) const;
+
+        int minmax (Move* pRes, int depth);
 
         byte* getRookMoves (int , byte [], int* ) ;
         byte* getKnightMoves (int , byte [], int* ) ;
@@ -78,10 +86,11 @@ class ChessEngine
         byte* getKingMoves (int, byte [], int* ) ;
         byte* getPawnMoves (int, byte [], int* ) ;
 
+        byte* getValidMovesLow (int, byte [], int*);
+
         bool isFigurePinned (int from, int to) ;
         int makeMoveLow (const Move& );
-
-        int getFigurePower (int);
+        void makeMoveLL (const Move& );
 
         void getRandomMove (Move* );
         void getRandomBeatMove (Move* pRes);
@@ -92,8 +101,8 @@ class ChessEngine
         byte board[8][8];
         const byte colorWhite;
 
-        list<byte> whitePositions;
-        list<byte> blackPositions;
+        /*QList<byte> whitePositions;
+        QList<byte> blackPositions;*/
 
         int canCastling;
         int whiteKingPos, blackKingPos;
@@ -102,6 +111,34 @@ class ChessEngine
         bool bTestMode;
 
         stack<ExtraMove> lastMoves;
+
+        inline bool isDifferentColor (int f1, int f2) const
+        {
+            return (((f1 & colorWhite) ^ (f2 & colorWhite)) == colorWhite);
+        }
+        inline bool isWhite (int figure) const
+        {
+            return (figure & colorWhite) == colorWhite;
+        }
+        inline int cti (int x, int y) const
+        {
+            return y*8 + x;
+        }
+        inline int getFigurePower (int figure)
+        {
+            if (figure & Pawn)
+                return 1;
+            else if (figure & Knight || figure & Bishop)
+                return 3;
+            else if (figure & Rook)
+                return 5;
+            else if (figure & Queen)
+                return 9;
+            else if (figure & King)
+                return 0;
+
+            return 0;
+        }
 
 };
 

@@ -2,51 +2,67 @@
 #include <memory.h>
 #include <iostream>
 
-dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite)
+dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // optimized
 {
     *res = 0;
     if (bWhite)
     {
-        for (list<byte>::iterator it = whitePositions.begin (); it != whitePositions.end(); it++)
+        for (int i = 0; i < 64; i++)
         {
-            byte moves[32];
-            int l = 0;
-            getValidMoves(*it, moves, &l);
-            for (int i = 0; i < l; i++)
-                allMoves[*res+i] = MAKEWORD (*it, moves[i]);
-            *res += l;
+            int x = i % 8;
+            int y = i / 8;
+            if ( board[y][x] != 0 && isWhite (board[y][x]) )
+            {
+                byte moves[32];
+                int l = 0;
+                getValidMovesLow(i, moves, &l);
+                for (int j = 0; j < l; j++)
+                    allMoves[*res+j] = MAKEWORD (i, moves[j]);
+                *res += l;
+            }
         }
     }
     else
     {
-        for (list<byte>::iterator it = blackPositions.begin (); it != blackPositions.end(); it++)
+        for (int i = 0; i < 64; i++)
         {
-            byte moves[32];
-            int l = 0;
-            getValidMoves(*it, moves, &l);
-            for (int i = 0; i < l; i++)
-                allMoves[*res+i] = MAKEWORD (*it, moves[i]);
-            *res += l;
+            int x = i % 8;
+            int y = i / 8;
+            if ( board[y][x] != 0 && !isWhite (board[y][x]) )
+            {
+                byte moves[32];
+                int l = 0;
+                getValidMovesLow(i, moves, &l);
+                for (int j = 0; j < l; j++)
+                    allMoves[*res+j] = MAKEWORD (i, moves[j]);
+                *res += l;
+            }
         }
     }
 
     return allMoves;
 }
 
-
-byte* ChessEngine::getValidMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getValidMoves (int from, byte moves[], int* lPtr) // optimized
 {
     *lPtr = 0;
+    int xFrom = from % 8;
+    int yFrom = from / 8;
     if (from < 0 || from > 63)
         return (byte*)moves;
+    bool bWhite = isWhite (board[yFrom][xFrom]);
+    if (bWhite != whiteTurn)
+        return (byte*)moves;
 
+    return getValidMovesLow (from, moves, lPtr);
+}
+
+
+byte* ChessEngine::getValidMovesLow (int from, byte moves[], int* lPtr) // optimized
+{
     int xFrom = from % 8;
     int yFrom = from / 8;
 
-    bool bWhite = isWhite (board[yFrom][xFrom]);
-    if (!bTestMode)
-    if (bWhite != whiteTurn)
-        return (byte*)moves;
     if ( board[yFrom][xFrom] == 0 )
         return (byte*)moves;
     else if ( board[yFrom][xFrom] & Pawn )
@@ -65,7 +81,7 @@ byte* ChessEngine::getValidMoves (int from, byte moves[], int* lPtr)
     return (byte*)moves;
 }
 
-byte* ChessEngine::getRookMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getRookMoves (int from, byte moves[], int* lPtr) // optimized
 {
     int c = 0;
 
@@ -108,7 +124,6 @@ byte* ChessEngine::getRookMoves (int from, byte moves[], int* lPtr)
 
     }
 
-
     for (int i = yFrom + 1; i < 8; i++)
     {
         if (board[i][xFrom] == 0)
@@ -148,7 +163,7 @@ byte* ChessEngine::getRookMoves (int from, byte moves[], int* lPtr)
     *lPtr = c;
     return (byte*)moves;
 }
-byte* ChessEngine::getKnightMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getKnightMoves (int from, byte moves[], int* lPtr) // optimized
 {
     int c = 0;
     *lPtr = 0;
@@ -172,14 +187,13 @@ byte* ChessEngine::getKnightMoves (int from, byte moves[], int* lPtr)
     *lPtr = c;
     return (byte*)moves;
 }
-byte* ChessEngine::getBishopMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getBishopMoves (int from, byte moves[], int* lPtr) // optimized
 {
     int c = 0;
     *lPtr = 0;
 
     int yFrom = from / 8;
     int xFrom = from % 8;
-
 
     int i, j;
     for (i = xFrom + 1, j = yFrom + 1; i < 8 && j < 8; i++, j++)
@@ -256,7 +270,7 @@ byte* ChessEngine::getBishopMoves (int from, byte moves[], int* lPtr)
     *lPtr = c;
     return (byte*)moves;
 }
-byte* ChessEngine::getQueenMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getQueenMoves (int from, byte moves[], int* lPtr)  // optimized
 {
     byte moves1[16];
     byte moves2[16];
@@ -274,7 +288,7 @@ byte* ChessEngine::getQueenMoves (int from, byte moves[], int* lPtr)
         moves[i] = moves2[i-l1];
     *lPtr = c;
 }
-byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr) // optimized
 {
     int c = 0;
     int yFrom = from / 8;
@@ -308,12 +322,15 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 bool bCastling = true;
                 for (int i = 2; i < 4; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
+                    {
                         bCastling = false;
+                        break;
+                    }
                 if (board[7][1] != 0)
                     bCastling = false;
-                if (board[7][0] != (Rook | colorWhite))
+                else if (board[7][0] != (Rook | colorWhite))
                     bCastling = false;
-                if ( isBeaten ( cti(4, 7), false ) )
+                else if ( isBeaten ( cti(4, 7), false ) )
                     bCastling = false;
 
                 if (bCastling)
@@ -327,10 +344,13 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 bool bCastling = true;
                 for (int i = 5; i < 7; i++)
                     if ( board[7][i] != 0 || isBeaten(cti(i, 7), false) )
+                    {
                         bCastling = false;
+                        break;
+                    }
                 if ( isBeaten ( cti(4, 7), false ) )
                     bCastling = false;
-                if (board[7][7] != (Rook | colorWhite))
+                else if (board[7][7] != (Rook | colorWhite))
                     bCastling = false;
 
                 if (bCastling)
@@ -346,12 +366,15 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 bool bCastling = true;
                 for (int i = 2; i < 4; i++)
                     if ( board[0][i] != 0 || isBeaten(cti(i, 0), true) )
+                    {
                         bCastling = false;
+                        break;
+                    }
                 if (board[0][2] != 0)
                     bCastling = false;
-                if ( isBeaten ( cti(4, 0), true ) )
+                else if ( isBeaten ( cti(4, 0), true ) )
                     bCastling = false;
-                if (board[0][0] != Rook)
+                else if (board[0][0] != Rook)
                     bCastling = false;
                 if (bCastling)
                 {
@@ -364,10 +387,13 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
                 bool bCastling = true;
                 for (int i = 5; i < 7; i++)
                     if ( board[0][i] != 0 || isBeaten(cti(i, 0), true) )
+                    {
                         bCastling = false;
+                        break;
+                    }
                 if ( isBeaten ( cti(4, 0), true ) )
                     bCastling = false;
-                if (board[0][7] != Rook)
+                else if (board[0][7] != Rook)
                     bCastling = false;
 
                 if (bCastling)
@@ -380,7 +406,7 @@ byte* ChessEngine::getKingMoves (int from, byte moves[], int* lPtr)
     *lPtr = c;
     return (byte*)moves;
 }
-byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr)
+byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr) // optimized
 {
     int c = 0;
     *lPtr = 0;
@@ -420,14 +446,15 @@ byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr)
                 if ( !isFigurePinned( from, cti (xFrom+1, yFrom-1) ) )
                     moves[c++] = cti (xFrom+1, yFrom - 1);
             }
-            if (xFrom - 1 >= 0 && board[yFrom-1][xFrom-1] != 0 && !isWhite (board[yFrom-1][xFrom-1]) )
+            if (xFrom-1 >= 0 && board[yFrom-1][xFrom-1] != 0 && !isWhite (board[yFrom-1][xFrom-1]) )
             {
                 if ( !isFigurePinned( from, cti (xFrom-1, yFrom-1) ) )
                     moves[c++] = cti (xFrom-1, yFrom - 1);
             }
-            if ( yFrom == 3 )
+
+            if ( yFrom == 3 && lastYFrom == 1 && lastYTo == 3)
             {
-                if (xFrom+1 < 8 && lastYFrom == 1 && lastXFrom == xFrom+1 && lastYTo == 3 && lastXTo == xFrom+1)
+                if (lastXFrom == xFrom+1 && lastXTo == xFrom+1)
                 {
                     if ( board[3][xFrom+1] & Pawn )
                     {
@@ -435,7 +462,7 @@ byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr)
                             moves[c++] = cti (xFrom+1, yFrom-1);
                     }
                 }
-                if (xFrom-1 >= 0 && lastYFrom == 1 && lastXFrom == xFrom-1 && lastYTo == 3 && lastXTo == xFrom-1)
+                if (lastXFrom == xFrom-1 && lastXTo == xFrom-1)
                 {
                     if ( board[3][xFrom-1] & Pawn )
                     {
@@ -463,14 +490,15 @@ byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr)
                 if ( !isFigurePinned( from, cti (xFrom+1, yFrom+1) ) )
                     moves[c++] = cti (xFrom+1, yFrom+1);
             }
-            if (xFrom - 1 >= 0 && board[yFrom+1][xFrom-1] != 0 && isWhite (board[yFrom+1][xFrom-1]) )
+            if (xFrom-1 >= 0 && board[yFrom+1][xFrom-1] != 0 && isWhite (board[yFrom+1][xFrom-1]) )
             {
                 if ( !isFigurePinned( from, cti (xFrom-1, yFrom+1) ) )
                     moves[c++] = cti (xFrom-1, yFrom + 1);
             }
-            if ( yFrom == 4 )
+
+            if ( yFrom == 4 && lastYFrom == 6 && lastYTo == 4)
             {
-                if (xFrom+1 < 8 && lastYFrom == 6 && lastXFrom == xFrom+1 && lastYTo == 4 && lastXTo == xFrom+1)
+                if (lastXFrom == xFrom+1 && lastXTo == xFrom+1)
                 {
                     if ( board[4][xFrom+1] & Pawn )
                     {
@@ -478,7 +506,7 @@ byte* ChessEngine::getPawnMoves (int from, byte moves[], int* lPtr)
                             moves[c++] = cti (xFrom+1, yFrom+1);
                     }
                 }
-                if (xFrom-1 >= 0 && lastYFrom == 6 && lastXFrom == xFrom-1 && lastYTo == 4 && lastXTo == xFrom-1)
+                if (lastXFrom == xFrom-1 && lastXTo == xFrom-1)
                 {
                     if ( board[4][xFrom-1] & Pawn )
                     {

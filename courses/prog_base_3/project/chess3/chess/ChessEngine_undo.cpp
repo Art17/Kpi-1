@@ -2,7 +2,7 @@
 #include <memory.h>
 #include <iostream>
 
-bool ChessEngine::undo ()
+bool ChessEngine::undo ()  // optimized
 {
     if ( lastMoves.size() == 0 )
         return false;
@@ -15,106 +15,34 @@ bool ChessEngine::undo ()
     int lastYFrom = lastFrom / 8;
     int lastXTo = lastTo % 8;
     int lastYTo = lastTo / 8;
+    int beatenFigure = lastMove.beatenFigure;
+    int beatenFigureX = lastMove.beatenFigurePos % 8;
+    int beatenFigureY = lastMove.beatenFigurePos / 8;
 
-    if (board[lastYTo][lastXTo] & Pawn)
-    {
-        if ( isWhite (board[lastYTo][lastXTo]) )
-        {
-            if ( lastYFrom == 3 && lastYTo == 2 && lastMove.beatenFigure == 0)
-            {
-                if ( lastXFrom + 1 == lastXTo)
-                {
-                    board[lastYFrom][lastXFrom+1] = Pawn;
-                    blackPositions.push_back (cti (lastXFrom+1, lastYFrom));
-                }
-                else if (lastXFrom - 1 == lastXTo)
-                {
-                    board[lastYFrom][lastXFrom-1] = Pawn;
-                    blackPositions.push_back (cti (lastXFrom-1, lastYFrom));
-                }
-            }
-        }
-        else
-        {
-            if ( lastYFrom == 4 && lastYTo == 5  && lastMove.beatenFigure == 0)
-            {
-                if ( lastXFrom + 1 == lastXTo)
-                {
-                    whitePositions.push_back (cti (lastXFrom+1, lastYFrom));
-                    board[lastYFrom][lastXFrom+1] = Pawn | colorWhite;
-                }
-                else if (lastXFrom == lastXTo - 1)
-                {
-                    whitePositions.push_back (cti (lastXFrom-1, lastYFrom));
-                    board[lastYFrom][lastXFrom-1] = Pawn | colorWhite;
-                }
-            }
-        }
-    }
-    else if ( board[lastYTo][lastXTo] & King )
+    int castlingFigureXFrom = lastMove.castlingFigureFrom % 8;
+    int castlingFigureYFrom = lastMove.castlingFigureFrom / 8;
+    int castlingFigureXTo = lastMove.castlingFigureTo % 8;
+    int castlingFigureYTo = lastMove.castlingFigureTo / 8;
+
+    if ( board[lastYTo][lastXTo] & King )
     {
         if (isWhite (board[lastYTo][lastXTo]))
             whiteKingPos = cti (lastXFrom, lastYFrom);
         else if (!isWhite (board[lastYTo][lastXTo]))
             blackKingPos = cti (lastXFrom, lastYFrom);
-        if ( lastXTo == lastXFrom-2)
+        if ( lastMove.castlingFigureFrom != -1 )
         {
-            board[lastYTo][0] = board[lastYTo][lastXTo+1];
-            board[lastYTo][lastXTo+1] = 0;
-
-            if (isWhite (board[lastYTo][lastXTo]))
-            {
-                whitePositions.remove (cti(lastXTo+1, lastYTo));
-                whitePositions.push_back (cti(0, lastYTo));
-            }
-            else
-            {
-                blackPositions.remove (cti(lastXTo+1, lastYTo));
-                blackPositions.push_back (cti(0, lastYTo));
-            }
-
-        }
-        else if ( lastXTo == lastXFrom+2)
-        {
-            board[lastYTo][7] = board[lastYTo][lastXTo-1];
-            board[lastYTo][lastXTo-1] = 0;
-
-
-            if (isWhite (board[lastYTo][lastXTo]))
-            {
-                whitePositions.remove (cti(lastXTo-1, lastYTo));
-                whitePositions.push_back (cti(7, lastYTo));
-            }
-            else
-            {
-                blackPositions.remove (cti(lastXTo-1, lastYTo));
-                blackPositions.push_back (cti(7, lastYTo));
-            }
-
-        }
-    }
-    if (isWhite (board[lastYTo][lastXTo]))
-    {
-        whitePositions.remove (cti(lastXTo, lastYTo));
-        whitePositions.push_back (cti(lastXFrom, lastYFrom));
-        if (lastMove.beatenFigure != 0)
-        {
-            blackPositions.push_back(cti (lastXTo, lastYTo));
-        }
-    }
-    else
-    {
-        blackPositions.remove (cti(lastXTo, lastYTo));
-        blackPositions.push_back (cti(lastXFrom, lastYFrom));
-        if (lastMove.beatenFigure != 0)
-        {
-            whitePositions.push_back(cti (lastXTo, lastYTo));
+            board[castlingFigureYFrom][castlingFigureXFrom] = board[castlingFigureYTo][castlingFigureXTo];
+            board[castlingFigureYTo][castlingFigureXTo] = 0;
         }
     }
 
     board[lastYFrom][lastXFrom] = board[lastYTo][lastXTo];
-    board[lastYTo][lastXTo] = lastMove.beatenFigure;
-
+    board[lastYTo][lastXTo] = 0;
+    if (beatenFigure != 0)
+    {
+        board[beatenFigureY][beatenFigureX] = beatenFigure;
+    }
 
     if (lastMove.extraFigure != 0)
         board[lastYFrom][lastXFrom] = Pawn | (lastMove.extraFigure & colorWhite);
