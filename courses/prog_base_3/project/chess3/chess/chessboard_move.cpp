@@ -21,6 +21,11 @@ int ChessBoard::makeMove (const Move& move)
     int tileX = move.to % 8;
     int tileY = move.to / 8;
 
+    lastMoveFrom = iSelectedTileY*8 + iSelectedTileX;
+    lastMoveTo = tileY*8 + tileX;
+
+    rs_lastMoveFrom.setPosition(Vector2f (iSelectedTileX*boardTileWidth, iSelectedTileY*boardTileHeight));
+    rs_lastMoveTo.setPosition(Vector2f (tileX*boardTileWidth, tileY*boardTileHeight));
 
     int iSelectedFigure = indexTable[iSelectedTileY][iSelectedTileX];
 
@@ -140,7 +145,7 @@ int ChessBoard::makeMove (const Move& move)
         memset (&lastFmi, 0, sizeof (FigureMovedInfo));
     }
     else
-        lastFmi = journal.top();
+        lastFmi = journal.last();
     int xFrom = iSelectedTileX;
     int yFrom = iSelectedTileY;
     int xTo = tileX;
@@ -245,7 +250,18 @@ int ChessBoard::makeMove (const Move& move)
     bWhiteCheck = chessEng->isCheck (true);
     bBlackCheck = chessEng->isCheck (false);
 
-    journal.push(fmi);
+    if (bWhiteCheck)
+    {
+        int whitePos = chessEng->getKingPos(true);
+        rs_Check.setPosition((whitePos%8)*boardTileWidth, (whitePos/8)*boardTileHeight);
+    }
+    if (bBlackCheck)
+    {
+        int blackPos = chessEng->getKingPos(false);
+        rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
+    }
+
+    journal.push_back(fmi);
 
     if (ret > 0)
         endGame (ret);

@@ -109,9 +109,6 @@ void ChessBoard::OnUpdate()
     this->draw (s_Board);
     if (iSelectedFigure >= 0)
     {
-        rs_Selected.setPosition(boardTileWidth*iSelectedTileX,
-                                 boardTileHeight*iSelectedTileY);
-
         this->draw (rs_Selected);
     }
     QPoint cursorPoint = mapFromGlobal(QCursor::pos());
@@ -127,15 +124,28 @@ void ChessBoard::OnUpdate()
 
     if (bWhiteCheck)
     {
-        int whitePos = chessEng->getKingPos(true);
-            rs_Check.setPosition((whitePos%8)*boardTileWidth, (whitePos/8)*boardTileHeight);
         this->draw (rs_Check);
     }
     else if (bBlackCheck)
     {
-        int blackPos = chessEng->getKingPos(false);
-        rs_Check.setPosition((blackPos%8)*boardTileWidth, (blackPos/8)*boardTileHeight);
         this->draw (rs_Check);
+    }
+
+    if (lastMoveFrom != -1)
+    {
+        int lastXFrom = lastMoveFrom % 8;
+        int lastYFrom = lastMoveFrom / 8;
+        int lastXTo = lastMoveTo % 8;
+        int lastYTo = lastMoveTo / 8;
+
+        if ( !bValid[lastYFrom][lastXFrom] )
+        {
+            this->draw(rs_lastMoveFrom);
+        }
+        if ( !bValid[lastYTo][lastXTo] )
+        {
+            this->draw(rs_lastMoveTo);
+        }
     }
 
     for (int i = 0; i < 8; i++)

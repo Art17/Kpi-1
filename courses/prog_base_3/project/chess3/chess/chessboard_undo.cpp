@@ -45,11 +45,29 @@ bool ChessBoard::undoLow()
     if (journal.isEmpty())
         return false;
 
-    FigureMovedInfo fmi = journal.pop();
+    FigureMovedInfo fmi = journal.last();
+    journal.pop_back();
     int tileX1, tileY1, tileX2, tileY2;
     fmi.figureMove.getCoords(&tileX1, &tileY1, &tileX2, &tileY2);
     fmi.s_Figure->setPosition(Vector2f (tileX1*boardTileWidth,
                                         tileY1*boardTileHeight));
+    if (!journal.isEmpty())
+    {
+        int tx1, ty1, tx2, ty2;
+        FigureMovedInfo fmiPrev = journal.last();
+        fmiPrev.figureMove.getCoords(&tx1, &ty1, &tx2, &ty2);
+        lastMoveFrom = ty1*8 + tx1;
+        lastMoveTo = ty2*8 + tx2;
+        rs_lastMoveFrom.setPosition( Vector2f (tx1*boardTileWidth, ty1*boardTileHeight) );
+        rs_lastMoveTo.setPosition( Vector2f (tx2*boardTileWidth, ty2*boardTileHeight) );
+    }
+    else
+    {
+        lastMoveFrom = -1;
+        lastMoveTo = -1;
+    }
+
+
     bool bWhite = isWhite (fmi.figure);
 
     indexTable[tileY2][tileX2] = -1;

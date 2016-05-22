@@ -5,7 +5,7 @@
 #include <qsfmlcanvas.h>
 
 #include <QMouseEvent>
-#include <QStack>
+#include <QVector>
 
 #include <chessengine.h>
 #include <figures.h>
@@ -107,10 +107,11 @@ private :
 
     int lastMoveFrom, lastMoveTo;
 
-    QStack<FigureMovedInfo> journal;
+    QVector<FigureMovedInfo> journal;
 
     RectangleShape rs_Selected;
     RectangleShape rs_Moving;
+    RectangleShape rs_lastMoveFrom, rs_lastMoveTo;
     RectangleShape rs_ValidMoveHighlight[8][8];
     bool bValid[8][8];
     RectangleShape rs_Check;

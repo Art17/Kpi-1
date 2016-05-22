@@ -19,6 +19,12 @@ void ChessBoard::loadRectangles()
     rs_Check = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
     rs_Check.setFillColor(Color (255, 0, 0, 176));
 
+    rs_lastMoveFrom = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
+    rs_lastMoveFrom.setFillColor(Color (255, 255, 0, 176));
+
+    rs_lastMoveTo = RectangleShape ( Vector2f (boardTileWidth, boardTileHeight) );
+    rs_lastMoveTo.setFillColor(Color (255, 255, 0, 176));
+
     memset (bValid, 0, sizeof (bool)*8*8);
 
     for (int i = 0; i < 8; i++)

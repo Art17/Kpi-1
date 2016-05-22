@@ -31,6 +31,8 @@ void ChessBoard::mousePressEvent(QMouseEvent* mouseEvent)
     if (iSelectedFigure == -1)
     {
         select (tileX, tileY);
+        rs_Selected.setPosition(boardTileWidth*iSelectedTileX,
+                                 boardTileHeight*iSelectedTileY);
     }
     else
     {

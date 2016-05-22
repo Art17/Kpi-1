@@ -14,6 +14,9 @@ void ChessBoard::resetVariables()
     bWhiteCheck = false;
     bBlackCheck = false;
 
+    lastMoveFrom = -1;
+    lastMoveTo = -1;
+
     bAgainstComputer = false;
     bLocked = false;
 }
