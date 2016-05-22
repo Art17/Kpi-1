@@ -10,6 +10,9 @@ void ChessEngine::reload ()
 
     bTestMode = false;
 
+    lastMoveFrom = -1;
+    lastMoveTo = -1;
+
     while (lastMoves.size() != 0)
         lastMoves.pop ();
     whiteKingPos = cti (4, 7);

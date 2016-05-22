@@ -105,6 +105,8 @@ private :
     bool bWhiteCheck, bBlackCheck;
     bool bAgainstComputer, bAsWhite, bLocked;
 
+    int lastMoveFrom, lastMoveTo;
+
     QStack<FigureMovedInfo> journal;
 
     RectangleShape rs_Selected;

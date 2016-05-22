@@ -1,14 +1,18 @@
 #include "ChessEngine.h"
 #include <memory.h>
 #include <iostream>
+#include <cstdlib>
 
 dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // optimized
 {
     *res = 0;
+    int i = rand () % 64;
     if (bWhite)
     {
-        for (int i = 0; i < 64; i++)
+        for (int c = 0; c < 64; c++)
         {
+            i++;
+            i %= 64;
             int x = i % 8;
             int y = i / 8;
             if ( board[y][x] != 0 && isWhite (board[y][x]) )
@@ -24,8 +28,10 @@ dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // opti
     }
     else
     {
-        for (int i = 0; i < 64; i++)
+        for (int c = 0; c < 64; c++)
         {
+            i++;
+            i %= 64;
             int x = i % 8;
             int y = i / 8;
             if ( board[y][x] != 0 && !isWhite (board[y][x]) )

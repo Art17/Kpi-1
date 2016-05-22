@@ -20,7 +20,7 @@ int ChessEngine::makeMoveLow (const Move& move)
     return isEnd ();
 }
 
-void ChessEngine::makeMoveLL (const Move& move)
+/*void ChessEngine::fastMove (const Move& move, byte pBoard[8][8])
 {
     int from = move.from;
     int xFrom = from % 8;
@@ -32,6 +32,117 @@ void ChessEngine::makeMoveLL (const Move& move)
 
     int newFigure = 0;
 
+    if ( pBoard[yFrom][xFrom] & Rook )
+    {
+        if (yFrom == 7)
+        {
+            if (xFrom == 0)
+            {
+                if (canCastlingT & WHITE_LEFT_CASTLING)
+                    canCastlingT ^= WHITE_LEFT_CASTLING;
+            }
+            else if (xFrom == 7)
+            {
+                if (canCastlingT & WHITE_RIGHT_CASTLING)
+                    canCastlingT ^= WHITE_RIGHT_CASTLING;
+            }
+
+        }
+        else if (yFrom == 0)
+        {
+            if (xFrom == 0)
+            {
+                if (canCastlingT & BLACK_LEFT_CASTLING)
+                    canCastlingT ^= BLACK_LEFT_CASTLING;
+            }
+            else if (xFrom == 7)
+            {
+                if (canCastlingT & BLACK_RIGHT_CASTLING)
+                    canCastlingT ^= BLACK_RIGHT_CASTLING;
+            }
+        }
+    }
+    else if ( pBoard[yFrom][xFrom] & King )
+    {
+        if ( isWhite (pBoard[yFrom][xFrom]) )
+        {
+            if (canCastlingT & WHITE_LEFT_CASTLING)
+                canCastlingT ^= WHITE_LEFT_CASTLING;
+            if (canCastlingT & WHITE_RIGHT_CASTLING)
+                canCastlingT ^= WHITE_RIGHT_CASTLING;
+            whiteKingPos = to;
+
+            if (xTo == xFrom+2)
+            {
+                pBoard[7][5] = pBoard[7][7];
+                pBoard[7][7] = 0;
+            }
+            else if (xTo == xFrom-2)
+            {
+                pBoard[7][3] = pBoard[7][0];
+                pBoard[7][0] = 0;
+            }
+
+        }
+        else
+        {
+            if (canCastlingT & BLACK_LEFT_CASTLING)
+                canCastlingT ^= BLACK_LEFT_CASTLING;
+            if (canCastlingT & BLACK_RIGHT_CASTLING)
+                canCastlingT ^= BLACK_RIGHT_CASTLING;
+            blackKingPos = to;
+
+            if (xTo == xFrom+2)
+            {
+                pBoard[0][5] = pBoard[0][7];
+                pBoard[0][7] = 0;
+            }
+            else if (xTo == xFrom-2)
+            {
+                pBoard[0][3] = pBoard[0][0];
+                pBoard[0][0] = 0;
+            }
+        }
+    }
+    else if (pBoard[yFrom][xFrom] & Pawn)
+    {
+        if (yTo == 0)
+            newFigure = move.extra | colorWhite;
+        else if (yTo == 7)
+            newFigure = move.extra;
+        else if (pBoard[yTo][xTo] == 0)
+        {
+            if (xTo == xFrom+1)
+            {
+                pBoard[yFrom][xFrom+1] = 0;
+            }
+            else if (xTo == xFrom-1)
+            {
+                pBoard[yFrom][xFrom-1] = 0;
+            }
+        }
+    }
+
+    pBoard[yTo][xTo] = pBoard[yFrom][xFrom];
+    pBoard[yFrom][xFrom] = 0;
+
+    if (newFigure != 0)
+    {
+        pBoard[yTo][xTo] = newFigure;
+    }
+}*/
+
+void ChessEngine::makeMoveLL (const Move& move)
+{
+    int from = move.from;
+    int xFrom = from % 8;
+    int yFrom = from / 8;
+
+    int to = move.to;
+    int xTo = to % 8;
+    int yTo = to / 8;
+
+    int newFigure = 0;
 
     ExtraMove eMove;
     eMove.from = move.from;

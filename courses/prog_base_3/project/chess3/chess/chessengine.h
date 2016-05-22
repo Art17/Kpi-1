@@ -78,7 +78,9 @@ class ChessEngine
     private:
 
         int minmax (Move* pRes, int depth);
-
+        int getOptimalDepth ();
+        int EvaluatePlayerPosition (bool bWhite);
+        int AlphaBetaPruning (int alpha, int beta, int depth, bool curPlayer, Move* pRes, int, int);
         byte* getRookMoves (int , byte [], int* ) ;
         byte* getKnightMoves (int , byte [], int* ) ;
         byte* getBishopMoves (int , byte [], int* ) ;
@@ -101,11 +103,8 @@ class ChessEngine
         byte board[8][8];
         const byte colorWhite;
 
-        /*QList<byte> whitePositions;
-        QList<byte> blackPositions;*/
+        int canCastling, whiteKingPos, blackKingPos;
 
-        int canCastling;
-        int whiteKingPos, blackKingPos;
         bool whiteTurn;
 
         bool bTestMode;
@@ -127,13 +126,13 @@ class ChessEngine
         inline int getFigurePower (int figure)
         {
             if (figure & Pawn)
-                return 1;
+                return 1000;
             else if (figure & Knight || figure & Bishop)
-                return 3;
+                return 3000;
             else if (figure & Rook)
-                return 5;
+                return 5000;
             else if (figure & Queen)
-                return 9;
+                return 9000;
             else if (figure & King)
                 return 0;
 

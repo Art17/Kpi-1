@@ -105,6 +105,10 @@ void ChessBoard::select (int tileX, int tileY)
             {
                 rs_ValidMoveHighlight[y][x].setFillColor(Color (255,0,0,128));
             }
+            else if (y == 0 || y == 7)
+            {
+                rs_ValidMoveHighlight[y][x].setFillColor(Color (148,0,211,92));
+            }
             else
                 rs_ValidMoveHighlight[y][x].setFillColor (Color (0, 255, 0, 128));
 
@@ -113,11 +117,11 @@ void ChessBoard::select (int tileX, int tileY)
         {
             if (x+2 < 8 && iSelectedTileX == x+2)
             {
-                rs_ValidMoveHighlight[y][x].setFillColor(Color (255,255,0,144));
+                rs_ValidMoveHighlight[y][x].setFillColor(Color (148,0,211,92));
             }
             else if (x-2 >= 0 && iSelectedTileX == x-2)
             {
-                rs_ValidMoveHighlight[y][x].setFillColor(Color (255,255,0,144));
+                rs_ValidMoveHighlight[y][x].setFillColor(Color (148,0,211,92));
             }
             else
                 rs_ValidMoveHighlight[y][x].setFillColor (Color (0, 255, 0, 128));
