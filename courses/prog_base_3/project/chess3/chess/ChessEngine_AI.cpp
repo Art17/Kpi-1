@@ -46,18 +46,18 @@ int ChessEngine::minmax (Move* pRes, int depth)
     if (depth < 1)
         return 0;
 
-    dbyte allMoves[64];
+    dbyte allMoves[128];
     int len = 0;
-    getAllMoves(allMoves, &len, whiteTurn);
+    getAllMoves(allMoves, 128, &len, whiteTurn);
 
     if (len == 0)
     {
         if (whiteTurn)
         {
             if (isBeaten (whiteKingPos, false))
-                return -777;
+                return -10000;
             else
-                return -1;
+                return 0;
 
         }
         else
@@ -96,7 +96,7 @@ int ChessEngine::minmax (Move* pRes, int depth)
         }
         if ( (board[yFrom][xFrom] & Pawn) )
         {
-            maximized += rand () % 2;
+            maximized += rand () % 1000 + 1000;
         }
         if ((board[yFrom][xFrom] & King) && xTo == xFrom+2 || xTo == xFrom-2)
         {
@@ -142,7 +142,7 @@ int ChessEngine::AlphaBetaPruning (int alpha, int beta, int depth, bool curPlaye
 
     dbyte allMoves[64];
     int len = 0;
-    getAllMoves(allMoves, &len, curPlayer);
+    getAllMoves(allMoves, 64, &len, curPlayer);
 
     Move res;
 
@@ -293,7 +293,7 @@ void ChessEngine::getRandomBeatMove (Move* pRes)
     dbyte allMoves[128];
     int len = 0;
 
-    getAllMoves(allMoves, &len, whiteTurn);
+    getAllMoves(allMoves, 128, &len, whiteTurn);
 
     if (len == 0)
         return;
@@ -319,7 +319,7 @@ void ChessEngine::getRandomMove(Move* pRes)
     dbyte allMoves[128];
     int len = 0;
 
-    getAllMoves(allMoves, &len, whiteTurn);
+    getAllMoves(allMoves, 128, &len, whiteTurn);
 
     if (len == 0)
         return;

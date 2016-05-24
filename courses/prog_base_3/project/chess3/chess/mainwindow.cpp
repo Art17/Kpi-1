@@ -17,6 +17,7 @@ void MainWindow::showChessBoard()
 {
     int windowWidth = this->size().width();
     int windowHeight = this->size().height ();
+    //QPoint((windowWidth - windowHeight)/2, 20)
 
     pChessBoard = new ChessBoard(this, QPoint((windowWidth - windowHeight)/2, 20), QSize(windowHeight - 18, windowHeight - 18));
     pChessBoard->show ();

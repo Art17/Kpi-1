@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 
-dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // optimized
+dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int maxLen, int* res, bool bWhite) // optimized
 {
     *res = 0;
     int i = rand () % 64;
@@ -20,6 +20,8 @@ dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // opti
                 byte moves[32];
                 int l = 0;
                 getValidMovesLow(i, moves, &l);
+                if (*res + l >= maxLen)
+                    break;
                 for (int j = 0; j < l; j++)
                     allMoves[*res+j] = MAKEWORD (i, moves[j]);
                 *res += l;
@@ -39,6 +41,8 @@ dbyte* ChessEngine::getAllMoves (dbyte* allMoves, int* res, bool bWhite) // opti
                 byte moves[32];
                 int l = 0;
                 getValidMovesLow(i, moves, &l);
+                if (*res + l > maxLen)
+                    break;
                 for (int j = 0; j < l; j++)
                     allMoves[*res+j] = MAKEWORD (i, moves[j]);
                 *res += l;

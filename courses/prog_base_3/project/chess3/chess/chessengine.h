@@ -74,7 +74,7 @@ class ChessEngine
         bool isBeaten (int, bool) const;
         int isEnd ();
 
-        dbyte* getAllMoves (dbyte*, int*, bool);
+        dbyte* getAllMoves (dbyte*, int, int*, bool);
     private:
 
         int minmax (Move* pRes, int depth);
