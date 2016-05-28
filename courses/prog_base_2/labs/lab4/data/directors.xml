@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<directors>
+  <director>
+    <name>Vasia</name>
+    <surname>Pupkin</surname>
+    <birthdate>1998-07-04</birthdate>
+    <budget>22.0000</budget>
+    <years>2222</years>
+  </director>
+  
+  <director>
+    <name>Ivan</name>
+    <surname>Ivanov</surname>
+    <birthdate>1997-12-10</birthdate>
+    <budget>23.0000</budget>
+    <years>12</years>
+  </director>
+</directors>
