@@ -3,7 +3,7 @@
 struct progdata_s
 {
     char author [256];
-    char quote [256];
+    char book [256];
     char time [12];
 };
 
@@ -26,10 +26,10 @@ void progdata_fromXmlNode (progdata_t self, xmlDocPtr doc, xmlNodePtr progdataNo
             free(buffer);
         }
 
-        else if (xmlStrcmp( currentNode->name, "quote" ) == 0)
+        else if (xmlStrcmp( currentNode->name, "book" ) == 0)
         {
             xmlChar * buffer = xmlNodeListGetString(doc, currentNode->xmlChildrenNode, 1);
-            strcpy(self->quote, buffer);
+            strcpy(self->book, buffer);
             free(buffer);
         }
     }
@@ -56,8 +56,42 @@ void progdata_toXmlNode(progdata_t self, xmlDocPtr doc, xmlNodePtr parentNode)
     }
 
     xmlNewChild(progdataNode, NULL, "author", self->author);
-    xmlNewChild(progdataNode, NULL, "quote", self->quote);
+    xmlNewChild(progdataNode, NULL, "book", self->book);
     xmlNewChild(progdataNode, NULL, "time", self->time);
+}
+
+void progdata_fromMemory (progdata_t self, const char* memory, int size)
+{
+    xmlDocPtr doc = xmlReadMemory (memory, size, NULL, NULL, NULL);
+    xmlNodePtr rootElement = xmlDocGetRootElement(doc);
+
+    progdata_fromXmlNode (self, doc, rootElement);
+
+    xmlFreeDoc(doc);
+    xmlCleanupParser();
+}
+
+void progdata_getAsString (progdata_t self, char buffer[])
+{
+    xmlDoc* doc = NULL;
+    xmlNode* root_element = NULL;
+
+    doc = xmlNewDoc ("1.0");
+    root_element = xmlNewNode (NULL, "data");
+    xmlDocSetRootElement (doc, root_element);
+
+    progdata_toXmlNode (self, doc, root_element);
+
+    xmlChar* pMem = NULL;
+    int size = 0;
+    xmlDocDumpMemory(doc, &pMem, &size);
+
+    strcpy (buffer, pMem);
+
+    free(pMem);
+    xmlFreeDoc (doc);
+
+    return buffer;
 }
 
 void progdata_setValue (progdata_t self, const char* key, void* value)
@@ -66,9 +100,9 @@ void progdata_setValue (progdata_t self, const char* key, void* value)
     {
         strcpy (self->author, value);
     }
-    else if ( strcmp (key, "quote") == 0 )
+    else if ( strcmp (key, "book") == 0 )
     {
-        strcpy (self->quote, value);
+        strcpy (self->book, value);
     }
     else if ( strcmp ( key, "time" ) == 0 )
     {
@@ -97,7 +131,7 @@ void progdata_getValue (progdata_t self, const char* key, void* value)
     }
     else if ( strcmp (key, "surname") == 0 )
     {
-        strcpy (value, self->quote);
+        strcpy (value, self->book);
     }
     else if ( strcmp ( key, "time" ) == 0 )
     {
@@ -108,7 +142,7 @@ void progdata_getValue (progdata_t self, const char* key, void* value)
 char* progdata_getValues (progdata_t self, char buffer[])
 {
     sprintf (buffer, "%s %s %s", self->author,
-             self->quote,
+             self->book,
              self->time );
     return buffer;
 }

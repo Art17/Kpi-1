@@ -11,10 +11,16 @@ const char* answerFormat =
         "Content-Type: %s\r\n"
         "Content-Length: %d\r\n\r\n"
         "%s";
+const char* requestFormat =
+        "%s %s HTTP/1.1\r\n"
+        "Content-Type: %s\r\n"
+        "Content-Length: %d\r\n\r\n"
+        "%s";
 
 void serverReply (web_t self, socket_t*, http_request_t);
 void serverInfo (socket_t* clientSocket);
-void serverMessagePage (socket_t* clientSocket, int code, const char* reason, const char* text);
+void serverMessagePage (socket_t* clientSocket, int code, const char* reason, const char* format, const char* text);
+void serverExternal (socket_t*);
 
 char* getMyInfo (char []);
 
@@ -58,6 +64,36 @@ void serverInfo (socket_t* clientSocket)
     socket_close(clientSocket);
 }
 
+void serverExternal (socket_t* clientSocket)
+{
+    socket_t* thisClientSoc = socket_new ();
+    socket_connect(thisClientSoc, "216.58.209.49", 80);
+
+    char uri [256];
+
+    strcpy (uri, "http://pb-homework.appspot.com/test/var/32?format=xml");
+
+    char req [1024];
+
+    sprintf (req, requestFormat, "GET", uri, NULL, NULL, NULL);
+
+    socket_write(thisClientSoc, req, strlen (req));
+    char responce [1024];
+    socket_read (thisClientSoc, responce, 1024);
+
+    int contentLength = 0;
+    sscanf (strstr(responce, "Content-Length: ") + strlen ("Content-Length: "), "%d", &contentLength);
+    char* data = strstr (responce, "\r\n\r\n") + 4;
+    char buffer [1024];
+
+    memcpy (buffer, data, contentLength);
+    buffer[contentLength] = '\0';
+
+    serverMessagePage (clientSocket, 200, "OK", "text/xml", buffer);
+
+    socket_free(thisClientSoc);
+}
+
 void serverReply (web_t self, socket_t* clientSocket, http_request_t httpRequest)
 {
     char method[MAX_METHOD];
@@ -70,8 +106,12 @@ void serverReply (web_t self, socket_t* clientSocket, http_request_t httpRequest
     {
         if ( strcmp ( uri, "/info" ) == 0 )
             serverInfo (clientSocket);
+        else  if ( strcmp ( uri, "/external" ) == 0 )
+        {
+            serverExternal (clientSocket);
+        }
         else
-            serverMessagePage(clientSocket, 404, "NOT FOUND", "Wrong url");
+            serverMessagePage(clientSocket, 404, "NOT FOUND", "text", "Wrong url");
     }
 }
 
@@ -89,15 +129,15 @@ void serverOptions (socket_t* clientSocket)
 
 
 
-void serverMessagePage (socket_t* clientSocket, int code, const char* reason, const char* text)
+void serverMessagePage (socket_t* clientSocket, int code, const char* reason, const char* format, const char* text)
 {
-    const char* temp = "<font size=\"5\">%s</font>";
+    const char* temp = "%s";
     char message [2056];
     sprintf (message, temp, text);
 
     char szAnswerBuffer [1024];
 
-    sprintf (szAnswerBuffer, answerFormat, code, reason, strlen (message), message);
+    sprintf (szAnswerBuffer, answerFormat, code, reason, format, strlen (message), message);
 
     socket_write (clientSocket, szAnswerBuffer, strlen (szAnswerBuffer));
     socket_close(clientSocket);

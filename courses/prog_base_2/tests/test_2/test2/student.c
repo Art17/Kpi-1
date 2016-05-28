@@ -40,6 +40,7 @@ void student_fromXmlNode (student_t self, xmlDocPtr doc, xmlNodePtr studentNode)
             free(buffer);
         }
     }
+
 }
 
 void student_toXmlNode(student_t self, xmlDocPtr doc, xmlNodePtr parentNode)

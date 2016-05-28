@@ -12,7 +12,7 @@ int main()
     int port = 5000;
     web_createServer(myServer, port);
 
-    printf ("server started with port %d", port);
+    printf ("server started with port %d\n", port);
 
     web_listen (myServer);
 
