@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/test2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/test2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="libxml2-2.7.8.win32/include" />
+			<Add directory="iconv-1.9.2.win32/include" />
+		</Compiler>
+		<Linker>
+			<Add library="libxml2-2.7.8.win32/lib/libxml2.lib" />
+			<Add library="libxml2-2.7.8.win32/lib/libxml2_a.lib" />
+			<Add library="libxml2-2.7.8.win32/lib/libxml2_a_dll.lib" />
+		</Linker>
+		<Unit filename="http_request.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="http_request.h" />
+		<Unit filename="libsocket/socket.h" />
+		<Unit filename="libsocket/socket_win.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="list/list.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="list/list.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="progdata.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="progdata.h" />
+		<Unit filename="student.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="student.h" />
+		<Unit filename="web.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="web.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
