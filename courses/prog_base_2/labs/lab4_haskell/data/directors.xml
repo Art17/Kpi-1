@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<directors>
+
+<director>
+  <name>Ivan</name>
+  <surname>Ivanov</surname>
+  <birthdate>1997-12-10</birthdate>
+  <budget>23.0</budget>
+  <years>12</years>
+</director>
+
+<director>
+  <name>John</name>
+  <surname>Konor</surname>
+  <birthdate>1872-05-12</birthdate>
+  <budget>23.23</budget>
+  <years>5</years>
+</director>
+
+</directors>
