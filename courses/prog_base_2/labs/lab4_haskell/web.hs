@@ -19,6 +19,7 @@ import Control.Monad
 import HttpRequest
 import Director
 import Validator
+import Utility
 
 import Text.Read
 
@@ -50,7 +51,7 @@ serverReply handle = do
                     ["directors", numBuf]        -> do
                                                       let id = (readMaybe numBuf) :: (Maybe Int)
                                                       case id of
-                                                        Just n -> if (n < length directors)
+                                                        Just n -> if (n >= 0 && n < length directors)
                                                                     then serverDirectorInfo handle (directors !! n) n
                                                                     else serverMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
                                                         Nothing -> serverMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
@@ -59,8 +60,10 @@ serverReply handle = do
                     ["api", "directors", numBuf] -> do
                                                       let id = (readMaybe numBuf) :: (Maybe Int)
                                                       case id of
-                                                        Just n -> if (n < length directors)
-                                                                    then serverPlainMessagePage handle 200 "OK" "text/xml" (showAsXml $ directors !! n)
+                                                        Just n -> if (n >= 0 && n < length directors)
+                                                                    then do
+                                                                        strXml <- runX (root [] [createDirectorXmlNode $ directors !! n] >>> writeDocumentToString [withIndent yes])
+                                                                        serverPlainMessagePage handle 200 "OK" "text/xml" (unlines strXml)
                                                                     else serverMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
                                                         Nothing -> serverMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
                     _                            -> serverMessagePage handle 404 "NOT FOUND" "text" "Invalid uri"
@@ -68,49 +71,45 @@ serverReply handle = do
         DELETE  -> case (uri httpRequest) of
                         ["directors", numBuf]    -> do
                                                       let id = read numBuf :: Int
-                                                      let xml = deleteItem' directors id 0
-                                                      let allXml = getAllXml xml
-                                                      hFile <- openFile "data/directors.xml" WriteMode
-                                                      hPutStr hFile allXml
-                                                      hClose hFile
+                                                      let newDirs = removeByIndex directors id
+                                                      runX (root [] [createDirectorXmlNodes newDirs] >>> writeDocument [withIndent yes] "data/directors.xml")
                                                       return ()
+                                                      
                         ["api", "directors", numBuf] -> do
                                                           let id = (readMaybe numBuf) :: (Maybe Int)
                                                           case id of
-                                                            Just n -> if (n < length directors)
+                                                            Just n -> if (n >= 0 && n < length directors)
                                                                         then do
-                                                                          let xml = deleteItem' directors n 0
-                                                                          let allXml = getAllXml xml
-                                                                          hFile <- openFile "data/directors.xml" WriteMode
-                                                                          hPutStr hFile allXml
-                                                                          hClose hFile
+                                                                          let newDirs = removeByIndex directors n
+                                                                          runX (root [] [createDirectorXmlNodes newDirs] >>> writeDocument [withIndent yes] "data/directors.xml")
                                                                           serverPlainMessagePage handle 200 "OK" "text" "Director deleted successfully"
                                                                         else
                                                                             serverPlainMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
                                                             Nothing -> serverPlainMessagePage handle 404 "NOT FOUND" "text" "Invalid index"
                         _                        -> serverMessagePage handle 404 "NOT FOUND" "text" "Invalid uri"
-        POST -> do
+        POST ->
+              if ( (uri httpRequest) == ["api", "directors"] || (uri httpRequest) == ["directors"] )
+                then do
                   let name = (getFormValue (form httpRequest) "name")
                   let surname = (getFormValue (form httpRequest) "surname")
                   let birthdate = (getFormValue (form httpRequest) "birthdate")
                   let budget=(readMaybe (getFormValue (form httpRequest) "budget") :: Maybe Double)
                   let years=(readMaybe (getFormValue (form httpRequest) "years") :: Maybe Int)
                   
-                  if ( isJust years && isJust budget && isValidName name && isValidName surname && isValidDate birthdate )
+                  if ( isJust years && isJust budget && isValidName name && isValidName surname && isValidDate birthdate &&
+                        fromJust years > 0 && fromJust budget > 0)
                     then do
                       let newDir = Director { name=name,
                           surname=surname,
                           birthdate=birthdate,
                           budget= fromJust budget,
                           years= fromJust years}
-                      let xml = deleteItem' directors (-1) 0 -- get all directors
-                      let allXml = getAllXml (xml ++ showAsXml newDir)
-                      hFile <- openFile "data/directors.xml" WriteMode
-                      hPutStr hFile allXml
-                      hClose hFile
+                      runX (root [] [createDirectorXmlNodes $ [newDir] ++ directors] >>> writeDocument [withIndent yes] "data/directors.xml")
                       serverMessagePage handle 200 "OK" "text" "Director added successfully"
                     else
                       serverMessagePage handle 200 "OK" "text" "Invalid data passed"
+                else
+                    serverMessagePage handle 404 "NOT FOUND" "text" "Not found"
         UNKNOWN -> return ()
         _ ->  serverMessagePage handle 404 "NOT FOUND" "text" "Not found"
 
@@ -122,9 +121,8 @@ getFormValue (x:r) key   | ((head kvList)==key) = last kvList
 
 serverApiAllDirectors :: Handle -> Directors -> IO ()
 serverApiAllDirectors handle dirs = do
-    let xml = deleteItem' dirs (-1) 0 -- get all directors
-    let allXml = getAllXml xml
-    serverPlainMessagePage handle 200 "OK" "text/xml" allXml
+    strXml <- runX (root [] [createDirectorXmlNodes dirs] >>> writeDocumentToString [withIndent yes])
+    serverPlainMessagePage handle 200 "OK" "text/xml" (unlines strXml)
         
 serverOptions :: Handle -> IO ()
 serverOptions handle = do
@@ -132,12 +130,12 @@ serverOptions handle = do
                  "Access-Control-Allow-Origin: *\n" ++ 
                  "Access-Control-Allow-Methods: DELETE\n" ++ 
                  "\n"
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length buffer),
                                  buffer = buffer}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
         
@@ -156,12 +154,12 @@ serverDirectorInfo handle dir ind = do
                  "</script>" ++
                  "</body>"
                  
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length buffer),
                                  buffer = buffer}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
         
@@ -178,12 +176,12 @@ serverDirectorsMenu handle directors = do
                             "Create new director" ++
                             "</a>" ++
                             "</font>"
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length directorsMenuPage),
                                  buffer = directorsMenuPage}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
 serverNewDirector :: Handle -> IO ()
@@ -205,12 +203,12 @@ serverNewDirector handle = do
                           "<input type=\"submit\" value=\"Submit\">" ++
                           "</fieldset>" ++
                           "</form>"
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length newDirectorPage),
                                  buffer = newDirectorPage}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
     
@@ -226,46 +224,46 @@ serverHomepage handle = do
                    "<br>" ++
                    "<br>" ++
                    "<font size=\"4\">Created on HASKELL</font>"
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length homepage),
                                  buffer = homepage}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
     
 serverAboutAuthor :: Handle -> IO ()
 serverAboutAuthor handle = do
     let aboutAuthorData = "<font size=\"5\">This server was created by Saprykin Artem on Haskell!</font>"
-    let responce = HttpResponce {code = 200,
+    let response = HttpResponse {code = 200,
                                  reason = "OK",
                                  contentType = "text",
                                  contentLength = (length aboutAuthorData),
                                  buffer = aboutAuthorData}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
     
 serverMessagePage :: Handle -> Int -> String -> String -> String -> IO ()
 serverMessagePage handle code reason contentType message = do
     let buffer = "<font size = \"5\">" ++ message ++ "</font>"
-    let responce = HttpResponce {code = code,
+    let response = HttpResponse {code = code,
                                  reason = reason,
                                  contentType = contentType,
                                  contentLength = (length buffer),
                                  buffer = buffer}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
  
 serverPlainMessagePage :: Handle -> Int -> String -> String -> String -> IO ()
 serverPlainMessagePage handle code reason contentType message = do
-    let responce = HttpResponce {code = code,
+    let response = HttpResponse {code = code,
                                  reason = reason,
                                  contentType = contentType,
                                  contentLength = (length message),
                                  buffer = message}
-    hPutStr handle (show responce)
+    hPutStr handle (show response)
     hClose handle
 
 createDirectorsRefs :: Directors -> String
@@ -277,20 +275,7 @@ createDirectorsRefs' dirs ind
                               | otherwise            = "<a href = \"/directors/" ++ (show ind) ++ "\">" ++ show (ind+1) ++ ". " ++
                                                        (name $ dirs !! ind) ++ " " ++ (surname $ dirs !! ind) ++
                                                        "</a><br>" ++ (createDirectorsRefs' dirs (ind+1))
-
-deleteItem' :: Directors -> Int -> Int -> String
-deleteItem' dirs ind i
-                        | i >= length dirs = ""
-                        | i == ind = (deleteItem' dirs ind (i+1))
-                        | otherwise = (showAsXml $ dirs !! i) ++ "\n" ++ (deleteItem' dirs ind (i+1))
                                                       
-
-getAllXml :: String -> String
-getAllXml xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ++
-                "<directors>\n\n"
-                ++ xml ++
-                "</directors>"
-                
 takedrop :: Int -> Int -> [a] -> [a]
 takedrop _ _ [] = []
 takedrop n m l  = take n l ++ takedrop n m (drop (n + m) l)

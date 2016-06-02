@@ -15,9 +15,9 @@ type Text = [Char]
 
 data Method = GET | POST | DELETE | OPTIONS | HEAD | PUT | CONNECT | TRACE | UNKNOWN deriving (Show, Eq)
 data HttpRequest = HttpRequest { method :: Method, uri :: [String], form :: [String] };
-data HttpResponce = HttpResponce { code :: Int, reason :: String, contentType :: String, contentLength :: Int, buffer :: String }
+data HttpResponse = HttpResponse { code :: Int, reason :: String, contentType :: String, contentLength :: Int, buffer :: String }
 
-instance Show HttpResponce where
+instance Show HttpResponse where
     show r = "HTTP/1.1 " ++ (show $ code r) ++ " " ++ (reason r) ++ "\r\n" ++
              "Content-Type: " ++ (contentType r) ++ "\r\n" ++
              "Content-Length: " ++ (show $ contentLength r) ++ "\r\n\r\n" ++

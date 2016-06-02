@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <directors>
-
-<director>
-  <name>Ivan</name>
-  <surname>Ivanov</surname>
-  <birthdate>1997-12-10</birthdate>
-  <budget>23.0</budget>
-  <years>12</years>
-</director>
-
-<director>
-  <name>John</name>
-  <surname>Konor</surname>
-  <birthdate>1872-05-12</birthdate>
-  <budget>23.23</budget>
-  <years>5</years>
-</director>
-
+  <director>
+    <name>Test</name>
+    <surname>Testorovich</surname>
+    <birthdate>1971-02-02</birthdate>
+    <budget>12.0</budget>
+    <years>333</years>
+  </director>
+  <director>
+    <name>John</name>
+    <surname>Cena</surname>
+    <birthdate>2002-02-02</birthdate>
+    <budget>12.0</budget>
+    <years>2</years>
+  </director>
+  <director>
+    <name>Adam</name>
+    <surname>Johnson</surname>
+    <birthdate>1972-04-04</birthdate>
+    <budget>50000.0</budget>
+    <years>10</years>
+  </director>
+  <director>
+    <name>Ivan</name>
+    <surname>Ivanov</surname>
+    <birthdate>1997-12-10</birthdate>
+    <budget>23.0</budget>
+    <years>12</years>
+  </director>
+  <director>
+    <name>John</name>
+    <surname>Konor</surname>
+    <birthdate>1872-05-12</birthdate>
+    <budget>23.23</budget>
+    <years>5</years>
+  </director>
 </directors>
+
