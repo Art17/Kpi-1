@@ -20,7 +20,8 @@ void ChessBoard::undo ()
         }
         else
         {
-            undoLow ();
+            if (! undoLow () )
+                return;
             if (!undoLow ())
             {
                 cbct->start();
@@ -101,6 +102,15 @@ bool ChessBoard::undoLow()
     chessEng->undo();
     bWhiteCheck = chessEng->isCheck (true);
     bBlackCheck = chessEng->isCheck (false);
+
+    if (bWhiteCheck)
+    {
+        rs_Check.setPosition(Vector2f ( chessEng->getKingPos(true)%8*boardTileWidth, chessEng->getKingPos(true)/8*boardTileHeight ));
+    }
+    else if (bBlackCheck)
+    {
+        rs_Check.setPosition(Vector2f (chessEng->getKingPos(false)%8*boardTileWidth, chessEng->getKingPos(false)/8*boardTileHeight));
+    }
 
     return true;
 }
