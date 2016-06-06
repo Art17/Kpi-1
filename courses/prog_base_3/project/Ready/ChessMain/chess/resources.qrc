@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>resources/images/background.jpg</file>
+        <file>resources/images/splash.png</file>
+    </qresource>
+    <qresource prefix="/Icons">
+        <file>resources/icon/chess.ico</file>
+    </qresource>
+</RCC>
